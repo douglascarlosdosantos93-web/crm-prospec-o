@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CRM Prospecção — Crespos & Cachos</title>
+<title>CRM Prospecção V.7 — Crespos & Cachos</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f3;color:#1a1a1a;min-height:100vh}
@@ -14,11 +14,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .config-card h1{font-size:19px;font-weight:600;margin-bottom:.25rem}
 .config-card p{font-size:13px;color:#666;margin-bottom:1.25rem;line-height:1.5}
 .config-card label{font-size:12px;font-weight:500;color:#444;display:block;margin-bottom:5px}
-.config-card input{width:100%;padding:9px 11px;border:0.5px solid #d0d0cc;border-radius:8px;font-size:13px;font-family:monospace;background:#fafaf8;color:#1a1a1a;outline:none}
+.config-card input{width:100%;padding:9px 11px;border:0.5px solid #d0d0cc;border-radius:8px;font-size:13px;font-family:monospace;background:#fafaf8;color:#1a1a1a;outline:none;margin-bottom:4px}
 .config-card input:focus{border-color:#0066cc}
-.help-text{font-size:11px;color:#888;margin-top:5px;margin-bottom:1.25rem;line-height:1.5}
+.help-text{font-size:11px;color:#888;margin-top:2px;margin-bottom:1rem;line-height:1.5}
 .help-text a{color:#0066cc;text-decoration:none}
-.btn-primary{width:100%;padding:10px;background:#1a1a1a;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer}
+.btn-primary{width:100%;padding:10px;background:#1a1a1a;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;margin-top:.5rem}
 .btn-primary:hover{background:#333}
 .step{display:flex;gap:8px;margin-bottom:.75rem;align-items:flex-start}
 .step-num{background:#f0f0ee;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;flex-shrink:0;margin-top:1px;color:#555}
@@ -36,77 +36,100 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 
 /* HEADER */
 .app-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:8px}
-.app-title{font-size:16px;font-weight:600;display:flex;align-items:center;gap:7px}
+.app-title{font-size:15px;font-weight:600;display:flex;align-items:center;gap:7px}
 .app-title .dot{width:7px;height:7px;border-radius:50%;background:#25D366;flex-shrink:0}
-.header-actions{display:flex;gap:6px;flex-wrap:wrap}
-.btn-sm{font-size:11px;padding:5px 10px;border-radius:7px;border:0.5px solid #d0d0cc;background:#fff;color:#555;cursor:pointer;display:flex;align-items:center;gap:4px;transition:all .15s;white-space:nowrap;text-decoration:none}
+.header-actions{display:flex;gap:5px;flex-wrap:wrap}
+.btn-sm{font-size:11px;padding:5px 10px;border-radius:7px;border:0.5px solid #d0d0cc;background:#fff;color:#555;cursor:pointer;display:flex;align-items:center;gap:4px;transition:all .15s;white-space:nowrap}
 .btn-sm:hover{background:#f5f5f3;border-color:#aaa}
+.btn-sm.wa-report{background:#25D366;color:#fff;border-color:#25D366}
+.btn-sm.wa-report:hover{opacity:.85}
+
+/* SEARCH */
+.search-bar{display:flex;align-items:center;gap:8px;margin-bottom:.85rem}
+.search-input{flex:1;padding:8px 12px 8px 34px;border:0.5px solid #d0d0cc;border-radius:9px;font-size:13px;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23aaa' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E") no-repeat 10px center;outline:none;color:#1a1a1a}
+.search-input:focus{border-color:#0066cc}
+.search-clear{font-size:11px;padding:5px 10px;border-radius:7px;border:0.5px solid #d0d0cc;background:#fff;color:#888;cursor:pointer}
 
 /* STATS */
 .stats-row{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-bottom:.9rem}
-.stat{background:#fff;border:0.5px solid #e8e8e4;border-radius:9px;padding:.6rem .75rem;cursor:default}
+.stat{background:#fff;border:0.5px solid #e8e8e4;border-radius:9px;padding:.6rem .75rem}
 .stat .num{font-size:20px;font-weight:600;line-height:1}
 .stat .lbl{font-size:10px;color:#888;margin-top:2px}
 .stat.s-green .num{color:#2d7a2d}
 .stat.s-orange .num{color:#b86a00}
 .stat.s-red .num{color:#991b1b}
 
+/* METAS */
+.metas-row{display:flex;align-items:center;gap:10px;margin-bottom:.75rem;flex-wrap:wrap;background:#fff;border:0.5px solid #e8e8e4;border-radius:9px;padding:.6rem 1rem}
+.metas-row span{font-size:11px;color:#888}
+.meta-input-group{display:flex;align-items:center;gap:5px;font-size:11px;color:#555}
+.meta-input{width:52px;padding:3px 6px;border:0.5px solid #d0d0cc;border-radius:6px;font-size:12px;font-weight:600;text-align:center;color:#1a1a1a;background:#fff;outline:none}
+.meta-input:focus{border-color:#0066cc}
+
 /* BANNERS */
 .banners-row{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:.9rem}
-.day-banner{background:#fff;border:0.5px solid #e8e8e4;border-radius:9px;padding:.65rem 1rem;font-size:12px;color:#555}
-.day-banner strong{color:#1a1a1a;font-size:15px}
+.day-banner,.week-banner{background:#fff;border:0.5px solid #e8e8e4;border-radius:9px;padding:.65rem 1rem;font-size:12px;color:#555}
 .progress-bar{height:5px;background:#f0f0ee;border-radius:3px;overflow:hidden;margin-top:6px}
 .progress-fill{height:100%;border-radius:3px;transition:width .3s}
-.progress-fill.green{background:#25D366}
-.progress-fill.orange{background:#f59e0b}
-.week-banner{background:#fff;border:0.5px solid #e8e8e4;border-radius:9px;padding:.65rem 1rem;font-size:12px;color:#555}
+.pf-green{background:#25D366}
+.pf-orange{background:#f59e0b}
 
-/* ALERTAS FOLLOW-UP */
-.followup-banner{background:#fff8f0;border:0.5px solid #f59e0b;border-radius:9px;padding:.65rem 1rem;margin-bottom:.85rem;font-size:12px;color:#92400e;display:none}
-.followup-banner.visible{display:block}
-.followup-banner strong{display:block;margin-bottom:4px;font-size:13px}
-.followup-item{display:flex;align-items:center;justify-content:space-between;padding:4px 0;border-bottom:0.5px solid #fde68a}
-.followup-item:last-child{border:none}
-.followup-item a{font-size:11px;color:#0066cc;text-decoration:none}
+/* HEATMAP */
+.heatmap-card{background:#fff;border:0.5px solid #e8e8e4;border-radius:9px;padding:.75rem 1rem;margin-bottom:.85rem}
+.heatmap-card h4{font-size:11px;color:#888;margin-bottom:.6rem;font-weight:500}
+.heatmap-row{display:flex;gap:5px;align-items:flex-end;height:60px}
+.heatmap-bar-wrap{display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;height:100%;justify-content:flex-end}
+.heatmap-bar{width:100%;border-radius:3px 3px 0 0;min-height:4px}
+.heatmap-label{font-size:9px;color:#aaa;white-space:nowrap}
+.heatmap-val{font-size:9px;color:#555;font-weight:500;min-height:12px}
+
+/* ALERTAS */
+.alert-banner{border-radius:9px;padding:.65rem 1rem;margin-bottom:.75rem;font-size:12px;display:none}
+.alert-banner.visible{display:block}
+.alert-banner strong{display:block;margin-bottom:4px;font-size:13px}
+.alert-item{display:flex;align-items:center;justify-content:space-between;padding:4px 0;border-bottom:0.5px solid rgba(0,0,0,.06)}
+.alert-item:last-child{border:none}
+.alert-item a{font-size:11px;color:#0066cc;text-decoration:none}
+.ab-followup{background:#fff8f0;border:0.5px solid #f59e0b;color:#92400e}
+.ab-reagendado{background:#faf5ff;border:0.5px solid #c4b5fd;color:#5b21b6}
 
 /* TOOLBAR */
 .toolbar{display:flex;gap:6px;margin-bottom:.75rem;flex-wrap:wrap;align-items:center}
 .f-btn{font-size:11px;padding:4px 11px;border-radius:20px;border:0.5px solid #d0d0cc;background:#fff;color:#666;cursor:pointer;transition:all .15s;white-space:nowrap}
-.f-btn:hover{border-color:#aaa}
 .f-btn.active{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
 .f-btn.f-t1.active{background:#166534;border-color:#166534}
 .f-btn.f-t2.active{background:#92400e;border-color:#92400e}
 .f-btn.f-t3.active{background:#1e40af;border-color:#1e40af}
 .f-btn.f-hoje.active{background:#0066cc;border-color:#0066cc}
 .f-btn.f-followup.active{background:#b45309;border-color:#b45309}
+.f-btn.f-reagendado.active{background:#7c3aed;border-color:#7c3aed}
 .sort-select{font-size:11px;padding:4px 8px;border-radius:7px;border:0.5px solid #d0d0cc;background:#fff;color:#555;cursor:pointer;outline:none;margin-left:auto}
 .date-filter{display:flex;align-items:center;gap:6px;font-size:11px;color:#666;flex-wrap:wrap}
 .date-filter input[type=date]{font-size:11px;padding:3px 7px;border-radius:7px;border:0.5px solid #d0d0cc;background:#fff;color:#555;outline:none}
 .btn-clear-date{font-size:10px;padding:2px 7px;border-radius:5px;border:0.5px solid #d0d0cc;background:#fff;color:#888;cursor:pointer}
 
 /* MARCADOR */
-.marker-divider{display:flex;align-items:center;gap:10px;margin:1.25rem 0;position:relative}
+.marker-divider{display:flex;align-items:center;gap:10px;margin:1.25rem 0}
 .marker-divider::before,.marker-divider::after{content:'';flex:1;height:2px;background:linear-gradient(90deg,#f59e0b,#fbbf24);border-radius:2px}
 .marker-divider::after{background:linear-gradient(90deg,#fbbf24,#f59e0b)}
 .marker-label{display:flex;align-items:center;gap:6px;background:#fffbeb;border:1px solid #f59e0b;border-radius:20px;padding:4px 12px;font-size:11px;font-weight:600;color:#92400e;white-space:nowrap;flex-shrink:0}
-
-/* ANTERIORES */
-.anteriores-toggle{display:flex;align-items:center;gap:8px;background:#fff;border:0.5px solid #e8e8e4;border-radius:9px;padding:.7rem 1rem;margin-bottom:.75rem;cursor:pointer;font-size:12px;color:#666;transition:border-color .15s;user-select:none}
+.anteriores-toggle{display:flex;align-items:center;gap:8px;background:#fff;border:0.5px solid #e8e8e4;border-radius:9px;padding:.7rem 1rem;margin-bottom:.75rem;cursor:pointer;font-size:12px;color:#666;user-select:none}
 .anteriores-toggle:hover{border-color:#bbb}
-.anteriores-toggle .ant-count{background:#f0f0ee;color:#888;font-size:10px;padding:1px 7px;border-radius:10px;font-weight:500}
-.anteriores-toggle .chevron{margin-left:auto;font-size:14px;transition:transform .2s;color:#aaa}
+.ant-count{background:#f0f0ee;color:#888;font-size:10px;padding:1px 7px;border-radius:10px;font-weight:500}
+.chevron{margin-left:auto;font-size:14px;transition:transform .2s;color:#aaa}
 .anteriores-toggle.open .chevron{transform:rotate(180deg)}
 .anteriores-section{display:none;margin-bottom:.75rem}
 .anteriores-section.open{display:block}
-.anteriores-section .lead-list{opacity:.55}
+.anteriores-section .lead-list{opacity:.5}
 
 /* LEAD CARDS */
 .lead-list{display:flex;flex-direction:column;gap:9px}
-.lead-card{background:#fff;border:0.5px solid #e8e8e4;border-radius:11px;padding:.9rem 1.1rem;transition:border-color .15s;position:relative}
+.lead-card{background:#fff;border:0.5px solid #e8e8e4;border-radius:11px;padding:.9rem 1.1rem;position:relative;transition:border-color .15s}
 .lead-card:hover{border-color:#bbb}
 .lead-card.done{opacity:.4}
 .lead-card.card-hoje{border-color:#bbdefb}
 .lead-card.card-followup{border-color:#f59e0b;background:#fffdf7}
+.lead-card.card-reagendado{border-color:#a78bfa;background:#faf5ff}
 .lead-card.saving::after{content:'Salvando…';position:absolute;top:8px;right:10px;font-size:10px;color:#888;background:#f5f5f3;padding:2px 7px;border-radius:4px}
 
 .lead-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:5px}
@@ -124,39 +147,45 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .sp-nao-resp{background:#fee2e2;color:#991b1b}
 .sp-sem-int{background:#fee2e2;color:#991b1b}
 .sp-sem-whats{background:#f0f0ee;color:#aaa}
+.badge-mini{font-size:9px;padding:1px 6px;border-radius:10px;font-weight:500;vertical-align:middle}
+.bm-hoje{background:#e3f2fd;color:#1565c0}
+.bm-followup{background:#fff3cd;color:#856404}
+.bm-reag{background:#ede9fe;color:#5b21b6}
 
 .lead-bio{font-size:11px;color:#666;margin:5px 0;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.lead-meta{display:flex;align-items:center;gap:8px;font-size:10px;color:#aaa;margin-bottom:8px;flex-wrap:wrap}
-.followup-alert{font-size:10px;background:#fff3cd;color:#856404;padding:2px 8px;border-radius:10px;font-weight:500}
+.lead-meta{display:flex;align-items:center;gap:8px;font-size:10px;color:#aaa;margin-bottom:6px;flex-wrap:wrap}
+.status-history{font-size:10px;color:#aaa;margin-bottom:6px;line-height:1.7}
 
 /* TIMER */
 .timer-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
-.timer-display{font-size:12px;font-weight:600;color:#1a1a1a;font-family:monospace;min-width:48px}
+.timer-display{font-size:12px;font-weight:600;font-family:monospace;min-width:46px;color:#1a1a1a}
 .btn-timer{font-size:10px;padding:3px 9px;border-radius:6px;border:0.5px solid #d0d0cc;background:#fff;color:#555;cursor:pointer;transition:all .15s}
 .btn-timer.running{background:#fee2e2;color:#991b1b;border-color:#fca5a5}
-.btn-timer:hover{border-color:#aaa}
-.timer-avg{font-size:10px;color:#aaa}
+.timer-info{font-size:10px;color:#aaa}
+
+/* REAGENDAR */
+.reagendar-row{display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.reagendar-label{font-size:10px;color:#7c3aed;font-weight:500;white-space:nowrap}
+.reagendar-select{font-size:11px;padding:3px 7px;border-radius:6px;border:0.5px solid #c4b5fd;background:#faf5ff;color:#1a1a1a;outline:none;cursor:pointer}
+.reagendar-select:focus{border-color:#7c3aed}
+.reagendar-data{font-size:10px;color:#7c3aed}
+.btn-reag-clear{font-size:10px;padding:2px 7px;border-radius:5px;background:#fff;color:#7c3aed;border:0.5px solid #c4b5fd;cursor:pointer}
 
 .lead-actions{display:flex;gap:5px;align-items:center;flex-wrap:wrap}
-.btn-wa{display:flex;align-items:center;gap:4px;font-size:11px;padding:5px 12px;border-radius:7px;background:#25D366;color:#fff;border:none;cursor:pointer;font-weight:500;text-decoration:none;transition:opacity .15s;white-space:nowrap}
+.btn-wa{display:flex;align-items:center;gap:4px;font-size:11px;padding:5px 12px;border-radius:7px;background:#25D366;color:#fff;border:none;cursor:pointer;font-weight:500;text-decoration:none;white-space:nowrap}
 .btn-wa:hover{opacity:.85}
 .btn-wa .num-hint{opacity:.75;font-size:9px}
-.btn-ig{display:flex;align-items:center;gap:4px;font-size:11px;padding:5px 12px;border-radius:7px;color:#fff;border:none;cursor:pointer;font-weight:500;text-decoration:none;transition:opacity .15s;background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);white-space:nowrap}
+.btn-ig{display:flex;align-items:center;gap:4px;font-size:11px;padding:5px 12px;border-radius:7px;color:#fff;border:none;cursor:pointer;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);white-space:nowrap}
 .btn-ig:hover{opacity:.85}
 .no-wa{font-size:10px;color:#bbb;padding:4px 9px;border:0.5px dashed #d0d0cc;border-radius:7px}
 .status-select{font-size:10px;padding:4px 7px;border-radius:7px;border:0.5px solid #d0d0cc;background:#fafaf8;color:#555;cursor:pointer;outline:none}
-.btn-marker{display:flex;align-items:center;gap:4px;font-size:10px;padding:4px 9px;border-radius:7px;border:0.5px solid #f59e0b;background:#fffbeb;color:#92400e;cursor:pointer;white-space:nowrap;transition:all .15s;margin-left:auto}
-.btn-marker:hover{background:#fef3c7}
+.btn-marker{display:flex;align-items:center;gap:4px;font-size:10px;padding:4px 9px;border-radius:7px;border:0.5px solid #f59e0b;background:#fffbeb;color:#92400e;cursor:pointer;white-space:nowrap;margin-left:auto}
 .btn-marker.is-marked{background:#f59e0b;color:#fff;border-color:#f59e0b}
-
-/* HISTÓRICO STATUS */
-.status-history{font-size:10px;color:#aaa;margin-top:6px;line-height:1.6}
-.status-history span{margin-right:6px}
 
 /* OBS */
 .obs-section{margin-top:8px;padding-top:8px;border-top:0.5px solid #f0f0ee}
 .obs-label{font-size:10px;color:#aaa;margin-bottom:4px}
-.obs-textarea{width:100%;font-size:11px;color:#555;background:#fafaf8;border:0.5px solid #e8e8e4;border-radius:6px;padding:6px 8px;resize:none;outline:none;font-family:inherit;line-height:1.45;min-height:40px;transition:border-color .15s}
+.obs-textarea{width:100%;font-size:11px;color:#555;background:#fafaf8;border:0.5px solid #e8e8e4;border-radius:6px;padding:6px 8px;resize:none;outline:none;font-family:inherit;line-height:1.45;min-height:40px}
 .obs-textarea:focus{border-color:#0066cc;background:#fff}
 .obs-actions{display:flex;justify-content:flex-end;margin-top:4px}
 .btn-obs-save{font-size:10px;padding:3px 9px;border-radius:5px;background:#1a1a1a;color:#fff;border:none;cursor:pointer;display:none}
@@ -167,14 +196,16 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 #tab-dashboard{display:none}
 .dash-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:1rem}
 .dash-card{background:#fff;border:0.5px solid #e8e8e4;border-radius:11px;padding:1rem 1.25rem}
-.dash-card h3{font-size:12px;font-weight:600;color:#888;margin-bottom:.75rem;text-transform:uppercase;letter-spacing:.5px}
+.dash-card h3{font-size:11px;font-weight:600;color:#888;margin-bottom:.75rem;text-transform:uppercase;letter-spacing:.5px}
 .dash-big{font-size:32px;font-weight:700;color:#1a1a1a;line-height:1}
 .dash-sub{font-size:11px;color:#aaa;margin-top:4px}
-.bar-row{display:flex;align-items:center;gap:8px;margin-bottom:6px;font-size:11px}
-.bar-row .bar-label{width:80px;color:#555;flex-shrink:0;font-size:10px}
-.bar-row .bar-track{flex:1;height:8px;background:#f0f0ee;border-radius:4px;overflow:hidden}
-.bar-row .bar-fill{height:100%;border-radius:4px;transition:width .5s}
-.bar-row .bar-val{width:28px;text-align:right;color:#888;font-size:10px;flex-shrink:0}
+.bar-row{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.bar-label{width:95px;color:#555;flex-shrink:0;font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar-track{flex:1;height:8px;background:#f0f0ee;border-radius:4px;overflow:hidden}
+.bar-fill{height:100%;border-radius:4px;transition:width .5s}
+.bar-val{width:28px;text-align:right;color:#888;font-size:10px;flex-shrink:0}
+.region-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:4px}
+.region-tag{font-size:10px;padding:2px 9px;border-radius:20px;background:#f0f0ee;color:#555}
 .export-btn{display:flex;align-items:center;gap:6px;font-size:12px;padding:8px 16px;border-radius:8px;background:#1a1a1a;color:#fff;border:none;cursor:pointer;margin-top:.5rem}
 .export-btn:hover{background:#333}
 
@@ -195,6 +226,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   .lead-top{flex-direction:column;gap:6px}
   .badges{flex-direction:row}
   .sort-select{margin-left:0;width:100%}
+  .metas-row{gap:6px}
 }
 </style>
 </head>
@@ -203,17 +235,20 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 <!-- CONFIG -->
 <div id="config-screen">
   <div class="config-card">
-    <h1>🎯 CRM Prospecção</h1>
-    <p>Cole o token da integração Notion para carregar os leads de <strong>Crespos & Cachos</strong>.</p>
+    <h1>🎯 CRM Prospecção V.7</h1>
+    <p>Cole o token da integração Notion para carregar seus leads de <strong>Crespos & Cachos</strong>.</p>
     <hr class="divider">
     <p style="font-size:12px;font-weight:600;margin-bottom:.75rem">Como gerar o token (só 1x):</p>
     <div class="step"><div class="step-num">1</div><p>Acesse <a href="https://www.notion.so/my-integrations" target="_blank">notion.so/my-integrations</a> → <strong>"New integration"</strong> → salve</p></div>
     <div class="step"><div class="step-num">2</div><p>Copie o <strong>Internal Integration Token</strong> (começa com <code>ntn_</code>)</p></div>
     <div class="step"><div class="step-num">3</div><p>No Notion, abra <strong>📋 Lista de Prospecção</strong> → <strong>⋯ → Connections</strong> → conecte</p></div>
     <hr class="divider">
-    <label for="token-input">Token da integração</label>
+    <label for="token-input">Token da integração Notion</label>
     <input type="password" id="token-input" placeholder="ntn_xxxxxxxxxxxxxxxxxxxx" autocomplete="off">
-    <p class="help-text">Fica salvo só no seu navegador. Nunca enviado a terceiros.</p>
+    <p class="help-text">Salvo só no seu navegador. Nunca enviado a terceiros.</p>
+    <label for="wa-input" style="margin-top:.25rem">Seu número WhatsApp (para relatório)</label>
+    <input type="tel" id="wa-input" placeholder="5511999999999">
+    <p class="help-text">Com código do país (55) + DDD. Sem espaços.</p>
     <button class="btn-primary" onclick="salvarEEntrar()">Conectar e carregar leads</button>
   </div>
 </div>
@@ -221,15 +256,15 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 <!-- APP -->
 <div id="app-screen">
   <div class="app-header">
-    <div class="app-title"><span class="dot"></span>Prospecção — Crespos & Cachos</div>
+    <div class="app-title"><span class="dot"></span>Prospecção — Crespos & Cachos <span style="font-size:10px;color:#aaa;font-weight:400;margin-left:4px">V.7</span></div>
     <div class="header-actions">
       <button class="btn-sm" onclick="loadLeads()">↻ Atualizar</button>
+      <button class="btn-sm wa-report" onclick="enviarRelatorio()">📊 Relatório WA</button>
       <button class="btn-sm" onclick="exportCSV()">⬇ CSV</button>
       <button class="btn-sm" onclick="trocarToken()">⚙ Config</button>
     </div>
   </div>
 
-  <!-- TABS -->
   <div class="tabs">
     <button class="tab-btn active" onclick="setTab('leads',this)">📋 Leads</button>
     <button class="tab-btn" onclick="setTab('dashboard',this)">📊 Dashboard</button>
@@ -237,6 +272,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 
   <!-- TAB LEADS -->
   <div id="tab-leads">
+    <div class="search-bar">
+      <input class="search-input" id="search-input" type="text" placeholder="Buscar por nome ou @instagram…" oninput="renderLeads()">
+      <button class="search-clear" onclick="clearSearch()">✕</button>
+    </div>
+
     <div class="stats-row">
       <div class="stat"><div class="num" id="s-total">—</div><div class="lbl">total</div></div>
       <div class="stat"><div class="num" id="s-contatar">—</div><div class="lbl">a contatar</div></div>
@@ -245,28 +285,39 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <div class="stat s-red"><div class="num" id="s-nao-resp">—</div><div class="lbl">não respondeu</div></div>
     </div>
 
+    <div class="metas-row">
+      <span>⚙ Metas:</span>
+      <div class="meta-input-group">Diária <input class="meta-input" id="meta-dia" type="number" min="1" max="100" value="10" onchange="saveMetas()"></div>
+      <div class="meta-input-group">Semanal <input class="meta-input" id="meta-sem" type="number" min="1" max="500" value="50" onchange="saveMetas()"></div>
+      <div class="meta-input-group">Follow-up após <input class="meta-input" id="meta-fu" type="number" min="1" max="30" value="3" onchange="saveMetas()"> dias</div>
+    </div>
+
     <div class="banners-row">
       <div class="day-banner">
-        <div style="display:flex;justify-content:space-between;align-items:baseline">
-          <span>Abordagens hoje</span>
-          <strong id="day-count">0</strong>
-        </div>
-        <div style="font-size:10px;color:#aaa;margin-top:2px">meta diária: 10</div>
-        <div class="progress-bar"><div class="progress-fill green" id="day-fill" style="width:0%"></div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline"><span>Abordagens hoje</span><strong id="day-count">0</strong></div>
+        <div style="font-size:10px;color:#aaa;margin-top:2px">meta: <span id="lbl-dia">10</span>/dia</div>
+        <div class="progress-bar"><div class="progress-fill pf-green" id="day-fill" style="width:0%"></div></div>
       </div>
       <div class="week-banner">
-        <div style="display:flex;justify-content:space-between;align-items:baseline">
-          <span>Esta semana</span>
-          <strong id="week-count">0</strong>
-        </div>
-        <div style="font-size:10px;color:#aaa;margin-top:2px">meta semanal: 50 | <span id="week-conv">0%</span> de resposta</div>
-        <div class="progress-bar"><div class="progress-fill orange" id="week-fill" style="width:0%"></div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline"><span>Esta semana</span><strong id="week-count">0</strong></div>
+        <div style="font-size:10px;color:#aaa;margin-top:2px">meta: <span id="lbl-sem">50</span> | resposta: <span id="week-conv">0%</span></div>
+        <div class="progress-bar"><div class="progress-fill pf-orange" id="week-fill" style="width:0%"></div></div>
       </div>
     </div>
 
-    <div class="followup-banner" id="followup-banner">
+    <div class="heatmap-card">
+      <h4>📈 Abordagens — últimos 7 dias</h4>
+      <div class="heatmap-row" id="heatmap-row"></div>
+    </div>
+
+    <div class="alert-banner ab-followup" id="fu-banner">
       <strong>⏰ Follow-up pendente</strong>
-      <div id="followup-list"></div>
+      <div id="fu-list"></div>
+    </div>
+
+    <div class="alert-banner ab-reagendado" id="reag-banner">
+      <strong>📅 Reagendados para hoje</strong>
+      <div id="reag-list"></div>
     </div>
 
     <div class="toolbar">
@@ -280,6 +331,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <button class="f-btn f-t3" onclick="setFilter('tier:T3',this)">T3</button>
       <button class="f-btn f-hoje" onclick="setFilter('hoje',this)">📅 Hoje</button>
       <button class="f-btn f-followup" onclick="setFilter('followup',this)">⏰ Follow-up</button>
+      <button class="f-btn f-reagendado" onclick="setFilter('reagendado',this)">📅 Reagendados</button>
       <select class="sort-select" onchange="setSort(this.value)">
         <option value="data">↑ Data</option>
         <option value="tier">Tier (T1 primeiro)</option>
@@ -307,20 +359,24 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <div class="dash-card">
         <h3>Taxa de conversão</h3>
         <div class="dash-big" id="d-conv">—</div>
-        <div class="dash-sub" id="d-conv-sub">leads prospectados / total abordado</div>
+        <div class="dash-sub" id="d-conv-sub"></div>
       </div>
       <div class="dash-card">
         <h3>Tempo médio por lead</h3>
-        <div class="dash-big" id="d-timer-avg">—</div>
+        <div class="dash-big" id="d-avg">—</div>
         <div class="dash-sub">minutos por abordagem</div>
       </div>
       <div class="dash-card" style="grid-column:1/-1">
         <h3>Conversão por Tier</h3>
-        <div id="d-tier-bars"></div>
+        <div id="d-tier"></div>
       </div>
       <div class="dash-card" style="grid-column:1/-1">
         <h3>Status geral</h3>
-        <div id="d-status-bars"></div>
+        <div id="d-status"></div>
+      </div>
+      <div class="dash-card" style="grid-column:1/-1">
+        <h3>Leads por região (detectado na bio)</h3>
+        <div class="region-tags" id="d-region"></div>
       </div>
     </div>
     <button class="export-btn" onclick="exportCSV()">⬇ Exportar todos os leads (CSV)</button>
@@ -329,76 +385,100 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 
 <script>
 const DB_ID='f0ba744e-e86f-4402-9ed8-0e6afc18b11d';
-const TOKEN_KEY='notion_crm_token';
-const MARKER_KEY='crm_marker_id';
-const HISTORY_KEY='crm_status_history';
-const TIMERS_KEY='crm_timers';
-const META_DIA=10, META_SEMANA=50, FOLLOWUP_DIAS=3;
+const K={token:'notion_crm_token',marker:'crm_marker_id',hist:'crm_history',timers:'crm_timers',reag:'crm_reagendar',metas:'crm_metas',wa:'crm_wa'};
 
-let allLeads=[],currentFilter='todos',currentSort='data';
-let markedId=localStorage.getItem(MARKER_KEY)||null;
+let allLeads=[],currentFilter='todos',currentSort='data',anterioresOpen=false,markedId=null;
 let pendingObs={};
-let anterioresOpen=false;
-let statusHistory=JSON.parse(localStorage.getItem(HISTORY_KEY)||'{}');
-let timers=JSON.parse(localStorage.getItem(TIMERS_KEY)||'{}');
+let hist=JSON.parse(localStorage.getItem(K.hist)||'{}');
+let timers=JSON.parse(localStorage.getItem(K.timers)||'{}');
+let reagendar=JSON.parse(localStorage.getItem(K.reag)||'{}');
 let activeTimers={};
 
-function getToken(){return localStorage.getItem(TOKEN_KEY)||'';}
-function saveHistory(){localStorage.setItem(HISTORY_KEY,JSON.stringify(statusHistory));}
-function saveTimers(){localStorage.setItem(TIMERS_KEY,JSON.stringify(timers));}
+// HELPERS
+const $=id=>document.getElementById(id);
+const tok=()=>localStorage.getItem(K.token)||'';
+const waNum=()=>localStorage.getItem(K.wa)||'';
+const today=()=>new Date().toISOString().slice(0,10);
+const weekStart=()=>{const d=new Date();d.setDate(d.getDate()-d.getDay()+1);return d.toISOString().slice(0,10);}
+const daysBetween=(a,b)=>Math.floor((new Date(b)-new Date(a))/(864e5));
+const addDays=(d,n)=>{const dt=new Date(d+'T12:00');dt.setDate(dt.getDate()+n);return dt.toISOString().slice(0,10);}
+const fmtDate=d=>d?d.slice(5).split('-').reverse().join('/'):''
+const fmtSecs=s=>`${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`;
+const fmtWa=n=>{let x=n.replace(/\D/g,'');if(!x)return '';if(!x.startsWith('55'))x='55'+x;return x;}
+const fmtSeg=n=>n>=1000?(n/1000).toFixed(1).replace('.',',')+'k':n;
+const statusLbl=s=>s.replace(/📋|🔄|✅|❌|🚫/g,'').trim();
+const tierOrder=t=>t.includes('T1')?0:t.includes('T2')?1:t.includes('T3')?2:3;
+const tierClass=t=>t.includes('T1')?'t1':t.includes('T2')?'t2':t.includes('T3')?'t3':'';
+const statusPillClass=s=>{
+  if(s.includes('A Contatar')||s==='PAREI AQUI')return 'sp-contatar';
+  if(s.includes('Em Andamento'))return 'sp-andamento';
+  if(s.includes('Prospectado'))return 'sp-prospectado';
+  if(s.includes('Não Respondeu'))return 'sp-nao-resp';
+  if(s.includes('Sem Interesse')||s.includes('NÃO FAZ'))return 'sp-sem-int';
+  return s==='SEM WHATS'?'sp-sem-whats':'sp-contatar';
+};
+const dayLabel=d=>{const days=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];return days[new Date(d+'T12:00').getDay()];};
+const save=()=>{localStorage.setItem(K.hist,JSON.stringify(hist));localStorage.setItem(K.timers,JSON.stringify(timers));localStorage.setItem(K.reag,JSON.stringify(reagendar));}
 
+// METAS
+function getMetas(){const m=JSON.parse(localStorage.getItem(K.metas)||'{}');return{dia:m.dia||10,sem:m.sem||50,fu:m.fu||3};}
+function saveMetas(){
+  const m={dia:+$('meta-dia').value||10,sem:+$('meta-sem').value||50,fu:+$('meta-fu').value||3};
+  localStorage.setItem(K.metas,JSON.stringify(m));
+  $('lbl-dia').textContent=m.dia;$('lbl-sem').textContent=m.sem;
+  atualizarStats();
+}
+function loadMetas(){
+  const m=getMetas();
+  $('meta-dia').value=m.dia;$('meta-sem').value=m.sem;$('meta-fu').value=m.fu;
+  $('lbl-dia').textContent=m.dia;$('lbl-sem').textContent=m.sem;
+}
+
+// SETUP
 function salvarEEntrar(){
-  const t=document.getElementById('token-input').value.trim();
-  if(!t){alert('Cole o token antes de continuar.');return;}
-  localStorage.setItem(TOKEN_KEY,t);mostrarApp();
+  const t=$('token-input').value.trim();
+  if(!t){alert('Cole o token.');return;}
+  localStorage.setItem(K.token,t);
+  const w=$('wa-input').value.trim();
+  if(w)localStorage.setItem(K.wa,w);
+  mostrarApp();
 }
 function trocarToken(){
-  document.getElementById('app-screen').style.display='none';
-  document.getElementById('config-screen').style.display='flex';
-  document.getElementById('token-input').value=getToken();
+  $('app-screen').style.display='none';$('config-screen').style.display='flex';
+  $('token-input').value=tok();$('wa-input').value=waNum();
 }
 function mostrarApp(){
-  document.getElementById('config-screen').style.display='none';
-  document.getElementById('app-screen').style.display='block';
-  loadLeads();
+  $('config-screen').style.display='none';$('app-screen').style.display='block';
+  markedId=localStorage.getItem(K.marker)||null;
+  loadMetas();loadLeads();
 }
-window.addEventListener('DOMContentLoaded',()=>{
-  const t=getToken();
-  if(t){document.getElementById('token-input').value=t;mostrarApp();}
-});
-
-function todayStr(){return new Date().toISOString().slice(0,10);}
-function weekStart(){
-  const d=new Date();d.setDate(d.getDate()-d.getDay()+1);return d.toISOString().slice(0,10);
-}
-function daysBetween(a,b){return Math.floor((new Date(b)-new Date(a))/(1000*60*60*24));}
+window.addEventListener('DOMContentLoaded',()=>{if(tok()){$('token-input').value=tok();$('wa-input').value=waNum();mostrarApp();}});
 
 function setTab(tab,btn){
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('tab-leads').style.display=tab==='leads'?'block':'none';
-  document.getElementById('tab-dashboard').style.display=tab==='dashboard'?'block':'none';
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+  $('tab-leads').style.display=tab==='leads'?'block':'none';
+  $('tab-dashboard').style.display=tab==='dashboard'?'block':'none';
   if(tab==='dashboard')renderDashboard();
 }
 
+// LOAD
 async function loadLeads(){
-  const token=getToken();
-  if(!token){trocarToken();return;}
-  document.getElementById('list-area').innerHTML='<div class="load-box"><div class="spinner"></div><span>Carregando leads do Notion…</span></div>';
-  document.getElementById('count-info').textContent='';
+  if(!tok()){trocarToken();return;}
+  $('list-area').innerHTML='<div class="load-box"><div class="spinner"></div><span>Carregando leads do Notion…</span></div>';
+  $('count-info').textContent='';
   try{
-    let results=[],cursor=undefined,pages=0;
+    let results=[],cursor,pages=0;
     do{
       const body={page_size:100,sorts:[{property:'Data de Prospecção',direction:'ascending'}]};
       if(cursor)body.start_cursor=cursor;
       const res=await fetch('/api/notion',{method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({token,action:'query',dbId:DB_ID,body})});
+        body:JSON.stringify({token:tok(),action:'query',dbId:DB_ID,body})});
       if(res.status===401){mostrarErro('Token inválido. <button onclick="trocarToken()" style="color:#991b1b;background:none;border:none;cursor:pointer;text-decoration:underline">Reconfigurar</button>');return;}
       if(res.status===403){mostrarErro('Permissão negada. Conecte a integração ao banco no Notion (⋯ → Connections).');return;}
       const data=await res.json();
-      if(!data.results){mostrarErro('Erro do Notion: '+(data.message||JSON.stringify(data)));return;}
+      if(!data.results){mostrarErro('Erro: '+(data.message||JSON.stringify(data)));return;}
       results=results.concat(data.results);
-      cursor=data.has_more?data.next_cursor:undefined;pages++;
+      cursor=data.has_more?data.next_cursor:null;pages++;
     }while(cursor&&pages<15);
 
     allLeads=results.map(p=>{
@@ -416,203 +496,184 @@ async function loadLeads(){
         data:pr['Data de Prospecção']?.date?.start||''
       };
     });
-    atualizarStats();
-    renderFollowupBanner();
-    renderLeads();
-    document.getElementById('count-info').textContent=allLeads.length+' leads carregados';
-    if(markedId){setTimeout(()=>{const el=document.getElementById('fila-inicio');if(el)el.scrollIntoView({behavior:'smooth',block:'start'});},400);}
+    atualizarStats();renderHeatmap();renderAlertBanners();renderLeads();
+    $('count-info').textContent=allLeads.length+' leads carregados';
+    if(markedId)setTimeout(()=>$('fila-inicio')?.scrollIntoView({behavior:'smooth',block:'start'}),400);
   }catch(e){mostrarErro('Erro: '+e.message);}
 }
+function mostrarErro(msg){$('list-area').innerHTML=`<div class="error-box"><strong>Ops, algo deu errado</strong>${msg}</div>`;}
 
-function mostrarErro(msg){
-  document.getElementById('list-area').innerHTML=`<div class="error-box"><strong>Ops, algo deu errado</strong>${msg}</div>`;
-}
-
+// STATS
 function atualizarStats(){
-  const hoje=todayStr();
-  const ws=weekStart();
-  document.getElementById('s-total').textContent=allLeads.length;
-  document.getElementById('s-contatar').textContent=allLeads.filter(l=>l.status.includes('A Contatar')||l.status==='PAREI AQUI').length;
-  document.getElementById('s-andamento').textContent=allLeads.filter(l=>l.status.includes('Em Andamento')).length;
-  document.getElementById('s-prospectado').textContent=allLeads.filter(l=>l.status.includes('Prospectado')).length;
-  document.getElementById('s-nao-resp').textContent=allLeads.filter(l=>l.status.includes('Não Respondeu')).length;
+  const hoje=today(),ws=weekStart(),m=getMetas();
+  $('s-total').textContent=allLeads.length;
+  $('s-contatar').textContent=allLeads.filter(l=>l.status.includes('A Contatar')||l.status==='PAREI AQUI').length;
+  $('s-andamento').textContent=allLeads.filter(l=>l.status.includes('Em Andamento')).length;
+  $('s-prospectado').textContent=allLeads.filter(l=>l.status.includes('Prospectado')).length;
+  $('s-nao-resp').textContent=allLeads.filter(l=>l.status.includes('Não Respondeu')).length;
 
-  // dia
-  const abordadosHoje=allLeads.filter(l=>{
-    const h=statusHistory[l.id];
-    return h&&h.some(e=>e.date===hoje&&!e.status.includes('A Contatar'));
-  }).length;
-  document.getElementById('day-count').textContent=abordadosHoje;
-  const pctDia=Math.min(100,Math.round(abordadosHoje/META_DIA*100));
-  document.getElementById('day-fill').style.width=pctDia+'%';
+  const hj=allLeads.filter(l=>hist[l.id]?.some(e=>e.date===hoje&&!e.status.includes('A Contatar'))).length;
+  $('day-count').textContent=hj;
+  $('day-fill').style.width=Math.min(100,Math.round(hj/m.dia*100))+'%';
 
-  // semana
-  const abordadosSemana=allLeads.filter(l=>{
-    const h=statusHistory[l.id];
-    return h&&h.some(e=>e.date>=ws&&!e.status.includes('A Contatar'));
-  }).length;
-  const prospSemana=allLeads.filter(l=>{
-    const h=statusHistory[l.id];
-    return h&&h.some(e=>e.date>=ws&&e.status.includes('Prospectado'));
-  }).length;
-  document.getElementById('week-count').textContent=abordadosSemana;
-  const convRate=abordadosSemana>0?Math.round(prospSemana/abordadosSemana*100):0;
-  document.getElementById('week-conv').textContent=convRate+'%';
-  const pctSem=Math.min(100,Math.round(abordadosSemana/META_SEMANA*100));
-  document.getElementById('week-fill').style.width=pctSem+'%';
+  const sem=allLeads.filter(l=>hist[l.id]?.some(e=>e.date>=ws&&!e.status.includes('A Contatar'))).length;
+  const ps=allLeads.filter(l=>hist[l.id]?.some(e=>e.date>=ws&&e.status.includes('Prospectado'))).length;
+  $('week-count').textContent=sem;
+  $('week-conv').textContent=(sem>0?Math.round(ps/sem*100):0)+'%';
+  $('week-fill').style.width=Math.min(100,Math.round(sem/m.sem*100))+'%';
 }
 
-function renderFollowupBanner(){
-  const hoje=todayStr();
-  const pendentes=allLeads.filter(l=>{
-    if(!l.status.includes('Em Andamento'))return false;
-    const h=statusHistory[l.id];
-    if(!h||!h.length)return false;
-    const last=h[h.length-1];
-    return daysBetween(last.date,hoje)>=FOLLOWUP_DIAS;
-  }).slice(0,5);
-
-  const banner=document.getElementById('followup-banner');
-  const list=document.getElementById('followup-list');
-  if(!pendentes.length){banner.classList.remove('visible');return;}
-  banner.classList.add('visible');
-  list.innerHTML=pendentes.map(l=>{
-    const h=statusHistory[l.id];
-    const last=h[h.length-1];
-    const dias=daysBetween(last.date,hoje);
-    const igHandle=l.instagram.replace(/^@/,'').replace(/\s/g,'');
-    return`<div class="followup-item">
-      <span><strong>${l.nome}</strong> — ${dias} dias sem resposta</span>
-      ${igHandle?`<a href="https://instagram.com/${igHandle}" target="_blank">Ver Instagram</a>`:''}
+// HEATMAP
+function renderHeatmap(){
+  const hoje=new Date();
+  const dias=Array.from({length:7},(_,i)=>{const d=new Date(hoje);d.setDate(d.getDate()-6+i);return d.toISOString().slice(0,10);});
+  const counts=dias.map(d=>allLeads.filter(l=>hist[l.id]?.some(e=>e.date===d&&!e.status.includes('A Contatar'))).length);
+  const max=Math.max(...counts,1);
+  $('heatmap-row').innerHTML=dias.map((d,i)=>{
+    const pct=Math.round(counts[i]/max*100);
+    const h=Math.max(8,Math.round(pct*0.44));
+    const c=counts[i]===0?'#f0f0ee':counts[i]<3?'#bbf7d0':counts[i]<7?'#4ade80':'#16a34a';
+    return`<div class="heatmap-bar-wrap">
+      <span class="heatmap-val">${counts[i]||''}</span>
+      <div class="heatmap-bar" style="height:${h}px;background:${c}"></div>
+      <span class="heatmap-label">${dayLabel(d)}</span>
     </div>`;
   }).join('');
 }
 
-function isFollowupPendente(l){
+// ALERTAS
+function getFuDias(){return +$('meta-fu').value||3;}
+function isFollowup(l){
   if(!l.status.includes('Em Andamento'))return false;
-  const h=statusHistory[l.id];
-  if(!h||!h.length)return false;
-  const last=h[h.length-1];
-  return daysBetween(last.date,todayStr())>=FOLLOWUP_DIAS;
+  const h=hist[l.id];if(!h?.length)return false;
+  return daysBetween(h[h.length-1].date,today())>=getFuDias();
+}
+function isReagHoje(id){const d=reagendar[id];return d&&d<=today();}
+
+function renderAlertBanners(){
+  const hoje=today();
+  const fus=allLeads.filter(l=>isFollowup(l)).slice(0,5);
+  const fuB=$('fu-banner'),fuL=$('fu-list');
+  if(fus.length){
+    fuB.classList.add('visible');
+    fuL.innerHTML=fus.map(l=>{
+      const h=hist[l.id];const dias=daysBetween(h[h.length-1].date,hoje);
+      const ig=l.instagram.replace(/^@/,'').replace(/\s/g,'');
+      return`<div class="alert-item"><span><strong>${l.nome}</strong> — ${dias} dias sem retorno</span>${ig?`<a href="https://instagram.com/${ig}" target="_blank">Ver IG</a>`:''}</div>`;
+    }).join('');
+  } else fuB.classList.remove('visible');
+
+  const reags=allLeads.filter(l=>isReagHoje(l.id));
+  const rB=$('reag-banner'),rL=$('reag-list');
+  if(reags.length){
+    rB.classList.add('visible');
+    rL.innerHTML=reags.map(l=>`<div class="alert-item"><span><strong>${l.nome}</strong></span><span style="font-size:11px;color:#7c3aed">📅 hoje</span></div>`).join('');
+  } else rB.classList.remove('visible');
 }
 
-function setFilter(f,btn){
-  currentFilter=f;
-  document.querySelectorAll('.f-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  renderLeads();
-}
+// FILTERS
+function clearSearch(){$('search-input').value='';renderLeads();}
+function setFilter(f,btn){currentFilter=f;document.querySelectorAll('.f-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderLeads();}
 function setSort(v){currentSort=v;renderLeads();}
-function clearDates(){
-  document.getElementById('date-from').value='';
-  document.getElementById('date-to').value='';
-  renderLeads();
-}
-function setMarker(id){
-  markedId=markedId===id?null:id;
-  markedId?localStorage.setItem(MARKER_KEY,id):localStorage.removeItem(MARKER_KEY);
-  renderLeads();
-}
+function clearDates(){$('date-from').value='';$('date-to').value='';renderLeads();}
+function setMarker(id){markedId=markedId===id?null:id;markedId?localStorage.setItem(K.marker,id):localStorage.removeItem(K.marker);renderLeads();}
 function toggleAnteriores(){
   anterioresOpen=!anterioresOpen;
-  document.getElementById('anteriores-section')?.classList.toggle('open',anterioresOpen);
-  document.getElementById('anteriores-toggle')?.classList.toggle('open',anterioresOpen);
+  $('anteriores-section')?.classList.toggle('open',anterioresOpen);
+  $('anteriores-toggle')?.classList.toggle('open',anterioresOpen);
 }
 
-function tierOrder(t){return t.includes('T1')?0:t.includes('T2')?1:t.includes('T3')?2:3;}
-function tierClass(t){return t.includes('T1')?'t1':t.includes('T2')?'t2':t.includes('T3')?'t3':'';}
-function statusPillClass(s){
-  if(s.includes('A Contatar')||s==='PAREI AQUI')return 'sp-contatar';
-  if(s.includes('Em Andamento'))return 'sp-andamento';
-  if(s.includes('Prospectado'))return 'sp-prospectado';
-  if(s.includes('Não Respondeu'))return 'sp-nao-resp';
-  if(s.includes('Sem Interesse')||s.includes('NÃO FAZ'))return 'sp-sem-int';
-  if(s==='SEM WHATS')return 'sp-sem-whats';
-  return 'sp-contatar';
+// REAGENDAR
+function setReagendar(id,dias){
+  if(!dias){delete reagendar[id];}else{reagendar[id]=addDays(today(),+dias);}
+  save();renderAlertBanners();renderLeads();
 }
-function formatWa(num){let n=num.replace(/\D/g,'');if(!n)return '';if(!n.startsWith('55'))n='55'+n;return n;}
-function formatSeg(n){return n>=1000?(n/1000).toFixed(1).replace('.',',')+'k':n;}
-function formatData(d){return d?d.slice(5).split('-').reverse().join('/'):''}
-function statusLabel(s){return s.replace(/📋|🔄|✅|❌|🚫/g,'').trim();}
-function fmtSecs(s){const m=Math.floor(s/60);const sc=s%60;return m+':'+(sc<10?'0':'')+sc;}
 
 // TIMER
+function toggleTimer(id){activeTimers[id]?stopTimer(id):startTimer(id);}
 function startTimer(id){
   if(activeTimers[id])return;
-  const startAt=Date.now()-(timers[id]||0)*1000;
+  const t0=Date.now()-(timers[id]||0)*1000;
   activeTimers[id]=setInterval(()=>{
-    const elapsed=Math.floor((Date.now()-startAt)/1000);
-    timers[id]=elapsed;
-    const el=document.getElementById('timer-'+id);
-    if(el)el.textContent=fmtSecs(elapsed);
-    else{clearInterval(activeTimers[id]);delete activeTimers[id];}
+    const el=$('timer-'+id);if(!el){clearInterval(activeTimers[id]);delete activeTimers[id];return;}
+    timers[id]=Math.floor((Date.now()-t0)/1000);
+    el.textContent=fmtSecs(timers[id]);
   },1000);
-  const btn=document.getElementById('tbtn-'+id);
-  if(btn){btn.textContent='⏹ Parar';btn.classList.add('running');}
+  const btn=$('tbtn-'+id);if(btn){btn.textContent='⏹ Parar';btn.classList.add('running');}
 }
 function stopTimer(id){
-  if(activeTimers[id]){clearInterval(activeTimers[id]);delete activeTimers[id];saveTimers();}
-  const btn=document.getElementById('tbtn-'+id);
-  if(btn){btn.textContent='▶ Iniciar';btn.classList.remove('running');}
+  if(activeTimers[id]){clearInterval(activeTimers[id]);delete activeTimers[id];save();}
+  const btn=$('tbtn-'+id);if(btn){btn.textContent='▶ Iniciar';btn.classList.remove('running');}
 }
-function toggleTimer(id){
-  if(activeTimers[id])stopTimer(id);else startTimer(id);
-}
+function avgTimer(){const v=Object.values(timers).filter(x=>x>0);return v.length?Math.round(v.reduce((a,b)=>a+b,0)/v.length/60):null;}
 
-function avgTimer(){
-  const vals=Object.values(timers).filter(v=>v>0);
-  if(!vals.length)return null;
-  return Math.round(vals.reduce((a,b)=>a+b,0)/vals.length/60);
-}
-
+// BUILD CARD
 function buildCard(l){
-  const hoje=todayStr();
-  const waNum=formatWa(l.whatsapp);
-  const waLink=waNum?`https://wa.me/${waNum}`:'';
+  const hoje=today();
+  const waLink=fmtWa(l.whatsapp)?`https://wa.me/${fmtWa(l.whatsapp)}`:'';
   const igHandle=l.instagram.replace(/^@/,'').replace(/\s/g,'');
   const igLink=igHandle?`https://instagram.com/${igHandle}`:'';
   const done=l.status.includes('Prospectado')||l.status.includes('Sem Interesse')||l.status==='NÃO FAZ O PERFIL DA EMPRESSA';
   const tierLbl=l.tier.replace(/🟢|🟡|🔵/g,'').trim();
   const isHoje=l.data===hoje;
+  const isFu=isFollowup(l);
+  const isReag=isReagHoje(l.id);
   const isMarked=markedId===l.id;
-  const isFollowup=isFollowupPendente(l);
-  const obsVal=(pendingObs[l.id]!==undefined)?pendingObs[l.id]:l.obs;
-  const timerVal=timers[l.id]||0;
-  const isRunning=!!activeTimers[l.id];
-  const hist=statusHistory[l.id]||[];
+  const obsVal=pendingObs[l.id]!==undefined?pendingObs[l.id]:l.obs;
+  const tv=timers[l.id]||0;
+  const running=!!activeTimers[l.id];
+  const lhist=(hist[l.id]||[]).slice(-3);
+  const reagVal=reagendar[l.id]||'';
 
-  let cardClass='lead-card';
-  if(done)cardClass+=' done';
-  if(isHoje)cardClass+=' card-hoje';
-  if(isFollowup)cardClass+=' card-followup';
+  let cc='lead-card';
+  if(done)cc+=' done';
+  if(isHoje)cc+=' card-hoje';
+  if(isFu)cc+=' card-followup';
+  if(isReag)cc+=' card-reagendado';
 
-  const histHtml=hist.length?`<div class="status-history">${hist.slice(-3).map(e=>`<span>📌 ${e.status.replace(/📋|🔄|✅|❌|🚫/g,'').trim()} em ${e.date.slice(5).split('-').reverse().join('/')}</span>`).join('')}</div>`:'';
+  const histHtml=lhist.length?`<div class="status-history">${lhist.map(e=>`<span>📌 ${statusLbl(e.status)} em ${fmtDate(e.date)}</span>`).join('')}</div>`:'';
 
-  return`<div class="${cardClass}" id="card-${l.id}">
+  const reagOpts=[
+    {v:'',l:'Sem reagendamento'},
+    {v:'1',l:'Amanhã'},{v:'2',l:'Em 2 dias'},{v:'3',l:'Em 3 dias'},
+    {v:'5',l:'Em 5 dias'},{v:'7',l:'Em 1 semana'},{v:'14',l:'Em 2 semanas'}
+  ];
+  const reagHtml=`<div class="reagendar-row">
+    <span class="reagendar-label">📅 Reagendar:</span>
+    <select class="reagendar-select" onchange="setReagendar('${l.id}',this.value)">
+      ${reagOpts.map(o=>`<option value="${o.v}"${reagVal===addDays(hoje,+o.v)&&o.v?' selected':''}>${o.l}</option>`).join('')}
+    </select>
+    ${reagVal?`<span class="reagendar-data">→ ${fmtDate(reagVal)}</span><button class="btn-reag-clear" onclick="setReagendar('${l.id}','')">✕</button>`:''}
+    ${isReag?`<span class="badge-mini bm-reag">📅 hoje!</span>`:''}
+  </div>`;
+
+  return`<div class="${cc}" id="card-${l.id}">
   <div class="lead-top">
     <div style="flex:1;min-width:0">
       <div class="lead-name">${l.nome}
-        ${isHoje?` <span style="font-size:9px;background:#e3f2fd;color:#1565c0;padding:1px 6px;border-radius:10px;font-weight:500;vertical-align:middle">hoje</span>`:''}
-        ${isFollowup?` <span class="followup-alert">⏰ follow-up</span>`:''}
+        ${isHoje?` <span class="badge-mini bm-hoje">hoje</span>`:''}
+        ${isFu?` <span class="badge-mini bm-followup">⏰ follow-up</span>`:''}
+        ${isReag?` <span class="badge-mini bm-reag">📅 hoje</span>`:''}
       </div>
       ${igHandle?`<div class="lead-handle">@${igHandle}</div>`:''}
     </div>
     <div class="badges">
       ${l.tier?`<span class="tier-badge ${tierClass(l.tier)}">${tierLbl}</span>`:''}
-      <span class="status-pill ${statusPillClass(l.status)}">${statusLabel(l.status)}</span>
+      <span class="status-pill ${statusPillClass(l.status)}">${statusLbl(l.status)}</span>
     </div>
   </div>
   ${l.bio?`<div class="lead-bio">${l.bio}</div>`:''}
   <div class="lead-meta">
-    ${l.seguidores?`<span>👥 ${formatSeg(l.seguidores)}</span>`:''}
-    ${l.data?`<span>📅 ${formatData(l.data)}</span>`:''}
+    ${l.seguidores?`<span>👥 ${fmtSeg(l.seguidores)}</span>`:''}
+    ${l.data?`<span>📅 ${fmtDate(l.data)}</span>`:''}
   </div>
   ${histHtml}
   <div class="timer-row">
-    <span class="timer-display" id="timer-${l.id}">${fmtSecs(timerVal)}</span>
-    <button class="btn-timer${isRunning?' running':''}" id="tbtn-${l.id}" onclick="toggleTimer('${l.id}')">${isRunning?'⏹ Parar':'▶ Iniciar'}</button>
-    <span class="timer-avg">${timerVal>0?'gasto neste lead':''}</span>
+    <span class="timer-display" id="timer-${l.id}">${fmtSecs(tv)}</span>
+    <button class="btn-timer${running?' running':''}" id="tbtn-${l.id}" onclick="toggleTimer('${l.id}')">${running?'⏹ Parar':'▶ Iniciar'}</button>
+    ${tv>0?`<span class="timer-info">${Math.floor(tv/60)}min gasto</span>`:''}
   </div>
+  ${reagHtml}
   <div class="lead-actions">
     ${waLink?`<a class="btn-wa" href="${waLink}" target="_blank" rel="noopener">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/></svg>
@@ -631,34 +692,34 @@ function buildCard(l){
       <option value="🚫 Sem Interesse"${l.status==='🚫 Sem Interesse'?' selected':''}>🚫 Sem Interesse</option>
       <option value="SEM WHATS"${l.status==='SEM WHATS'?' selected':''}>Sem WhatsApp</option>
     </select>
-    <button class="btn-marker${isMarked?' is-marked':''}" onclick="setMarker('${l.id}')">
-      📍 ${isMarked?'Marcado':'Parei aqui'}
-    </button>
+    <button class="btn-marker${isMarked?' is-marked':''}" onclick="setMarker('${l.id}')">📍 ${isMarked?'Marcado':'Parei aqui'}</button>
   </div>
   <div class="obs-section">
     <div class="obs-label">📝 Observações</div>
-    <textarea class="obs-textarea" id="obs-${l.id}" rows="2" placeholder="Anotação rápida…" onInput="obsChanged('${l.id}',this)">${obsVal}</textarea>
+    <textarea class="obs-textarea" id="obs-${l.id}" rows="2" placeholder="Anotação rápida…" oninput="obsChanged('${l.id}',this)">${obsVal}</textarea>
     <div class="obs-actions"><button class="btn-obs-save" id="obs-save-${l.id}" onclick="saveObs('${l.id}')">Salvar nota</button></div>
     <div class="obs-saved" id="obs-saved-${l.id}">✓ Salvo no Notion</div>
   </div>
 </div>`;
 }
 
+// RENDER LEADS
 function renderLeads(){
-  const hoje=todayStr();
-  const dateFrom=document.getElementById('date-from').value;
-  const dateTo=document.getElementById('date-to').value;
+  const hoje=today();
+  const df=$('date-from').value,dt=$('date-to').value;
+  const search=$('search-input').value.trim().toLowerCase();
   let leads=[...allLeads];
 
+  if(search)leads=leads.filter(l=>l.nome.toLowerCase().includes(search)||l.instagram.toLowerCase().includes(search));
   if(currentFilter==='tier:T1')leads=leads.filter(l=>l.tier.includes('T1'));
   else if(currentFilter==='tier:T2')leads=leads.filter(l=>l.tier.includes('T2'));
   else if(currentFilter==='tier:T3')leads=leads.filter(l=>l.tier.includes('T3'));
   else if(currentFilter==='hoje')leads=leads.filter(l=>l.data===hoje);
-  else if(currentFilter==='followup')leads=leads.filter(l=>isFollowupPendente(l));
+  else if(currentFilter==='followup')leads=leads.filter(l=>isFollowup(l));
+  else if(currentFilter==='reagendado')leads=leads.filter(l=>isReagHoje(l.id));
   else if(currentFilter!=='todos')leads=leads.filter(l=>l.status===currentFilter);
-
-  if(dateFrom)leads=leads.filter(l=>l.data>=dateFrom);
-  if(dateTo)leads=leads.filter(l=>l.data<=dateTo);
+  if(df)leads=leads.filter(l=>l.data>=df);
+  if(dt)leads=leads.filter(l=>l.data<=dt);
 
   leads.sort((a,b)=>{
     if(currentSort==='tier')return tierOrder(a.tier)-tierOrder(b.tier);
@@ -668,183 +729,139 @@ function renderLeads(){
     return (a.data||'').localeCompare(b.data||'');
   });
 
-  if(!leads.length){
-    document.getElementById('list-area').innerHTML='<div class="empty-state">Nenhum lead neste filtro.</div>';
-    return;
-  }
+  if(!leads.length){$('list-area').innerHTML='<div class="empty-state">Nenhum lead neste filtro.</div>';return;}
 
-  const markerIdx=markedId?leads.findIndex(l=>l.id===markedId):-1;
+  const midx=markedId?leads.findIndex(l=>l.id===markedId):-1;
   let html='';
 
-  if(markerIdx>0){
-    const anteriores=leads.slice(0,markerIdx);
-    const fila=leads.slice(markerIdx);
+  if(midx>0){
+    const ant=leads.slice(0,midx),fila=leads.slice(midx);
     html+=`<div class="anteriores-toggle${anterioresOpen?' open':''}" id="anteriores-toggle" onclick="toggleAnteriores()">
-      <span>📁 Leads já trabalhados</span>
-      <span class="ant-count">${anteriores.length}</span>
-      <span class="chevron">▾</span>
+      <span>📁 Leads já trabalhados</span><span class="ant-count">${ant.length}</span><span class="chevron">▾</span>
     </div>
     <div class="anteriores-section${anterioresOpen?' open':''}" id="anteriores-section">
-      <div class="lead-list">${anteriores.map(l=>buildCard(l)).join('')}</div>
-    </div>`;
-    html+=`<div class="marker-divider" id="fila-inicio">
-      <div class="marker-label">📍 Parei aqui — ${fila.length} leads na fila</div>
-    </div>`;
-    html+=`<div class="lead-list">${fila.map(l=>buildCard(l)).join('')}</div>`;
-  } else if(markerIdx===0){
-    html+=`<div class="marker-divider" id="fila-inicio">
-      <div class="marker-label">📍 Início — ${leads.length} leads na fila</div>
-    </div>`;
-    html+=`<div class="lead-list">${leads.map(l=>buildCard(l)).join('')}</div>`;
+      <div class="lead-list">${ant.map(l=>buildCard(l)).join('')}</div>
+    </div>
+    <div class="marker-divider" id="fila-inicio"><div class="marker-label">📍 Parei aqui — ${fila.length} leads na fila</div></div>
+    <div class="lead-list">${fila.map(l=>buildCard(l)).join('')}</div>`;
+  } else if(midx===0){
+    html+=`<div class="marker-divider" id="fila-inicio"><div class="marker-label">📍 Início — ${leads.length} leads na fila</div></div>
+    <div class="lead-list">${leads.map(l=>buildCard(l)).join('')}</div>`;
   } else {
     html+=`<div class="lead-list">${leads.map(l=>buildCard(l)).join('')}</div>`;
   }
-
-  document.getElementById('list-area').innerHTML=html;
-
-  // retomar timers ativos
-  Object.keys(activeTimers).forEach(id=>{
-    if(!document.getElementById('timer-'+id)){
-      clearInterval(activeTimers[id]);delete activeTimers[id];
-    }
-  });
+  $('list-area').innerHTML=html;
 }
 
+// DASHBOARD
 function renderDashboard(){
   const total=allLeads.length;
-  const abordados=allLeads.filter(l=>!l.status.includes('A Contatar')&&l.status!=='PAREI AQUI').length;
+  const abord=allLeads.filter(l=>!l.status.includes('A Contatar')&&l.status!=='PAREI AQUI').length;
   const prosp=allLeads.filter(l=>l.status.includes('Prospectado')).length;
-  const conv=abordados>0?Math.round(prosp/abordados*100):0;
-  document.getElementById('d-conv').textContent=conv+'%';
-  document.getElementById('d-conv-sub').textContent=`${prosp} prospectados de ${abordados} abordados`;
-
+  const conv=abord>0?Math.round(prosp/abord*100):0;
+  $('d-conv').textContent=conv+'%';
+  $('d-conv-sub').textContent=`${prosp} prospectados de ${abord} abordados`;
   const avg=avgTimer();
-  document.getElementById('d-timer-avg').textContent=avg!=null?avg+'min':'—';
+  $('d-avg').textContent=avg!=null?avg+'min':'—';
 
-  // tier bars
-  const tiers=['T1','T2','T3'];
-  const tierBars=tiers.map(t=>{
+  const tiers=['T1','T2','T3'],tc={'T1':'#25D366','T2':'#f59e0b','T3':'#3b82f6'};
+  $('d-tier').innerHTML=tiers.map(t=>{
     const tot=allLeads.filter(l=>l.tier.includes(t)).length;
     const pros=allLeads.filter(l=>l.tier.includes(t)&&l.status.includes('Prospectado')).length;
     const pct=tot>0?Math.round(pros/tot*100):0;
-    const colors={'T1':'#25D366','T2':'#f59e0b','T3':'#3b82f6'};
-    return`<div class="bar-row">
-      <span class="bar-label">${t} (${tot})</span>
-      <div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${colors[t]}"></div></div>
-      <span class="bar-val">${pct}%</span>
-    </div>`;
+    return`<div class="bar-row"><span class="bar-label">${t} (${tot})</span><div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${tc[t]}"></div></div><span class="bar-val">${pct}%</span></div>`;
   }).join('');
-  document.getElementById('d-tier-bars').innerHTML=tierBars||'<span style="font-size:12px;color:#aaa">Sem dados</span>';
 
-  // status bars
   const statuses=[
-    {k:'📋 A Contatar',l:'A Contatar',c:'#aaa'},
-    {k:'🔄 Em Andamento',l:'Em Andamento',c:'#f59e0b'},
-    {k:'✅ Prospectado',l:'Prospectado',c:'#25D366'},
-    {k:'❌ Não Respondeu',l:'Não Respondeu',c:'#ef4444'},
-    {k:'🚫 Sem Interesse',l:'Sem Interesse',c:'#f97316'},
+    {k:'📋 A Contatar',l:'A Contatar',c:'#aaa'},{k:'🔄 Em Andamento',l:'Em Andamento',c:'#f59e0b'},
+    {k:'✅ Prospectado',l:'Prospectado',c:'#25D366'},{k:'❌ Não Respondeu',l:'Não Respondeu',c:'#ef4444'},
+    {k:'🚫 Sem Interesse',l:'Sem Interesse',c:'#f97316'}
   ];
-  const statusBars=statuses.map(s=>{
+  $('d-status').innerHTML=statuses.map(s=>{
     const n=allLeads.filter(l=>l.status===s.k).length;
     const pct=total>0?Math.round(n/total*100):0;
-    return`<div class="bar-row">
-      <span class="bar-label">${s.l}</span>
-      <div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${s.c}"></div></div>
-      <span class="bar-val">${n}</span>
-    </div>`;
+    return`<div class="bar-row"><span class="bar-label">${s.l}</span><div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${s.c}"></div></div><span class="bar-val">${n}</span></div>`;
   }).join('');
-  document.getElementById('d-status-bars').innerHTML=statusBars;
+
+  const ufs=['AC','AL','AP','AM','BA','CE','DF','ES','GO','MA','MT','MS','MG','PA','PB','PR','PE','PI','RJ','RN','RS','RO','RR','SC','SP','SE','TO'];
+  const rc={};
+  allLeads.forEach(l=>{ufs.forEach(uf=>{if((l.bio+' '+l.instagram).toUpperCase().includes(uf))rc[uf]=(rc[uf]||0)+1;});});
+  const sorted=Object.entries(rc).sort((a,b)=>b[1]-a[1]).slice(0,15);
+  $('d-region').innerHTML=sorted.length?sorted.map(([uf,n])=>`<span class="region-tag">${uf} <strong>${n}</strong></span>`).join(''):'<span style="font-size:12px;color:#aaa">Sem dados de região detectados nas bios</span>';
 }
 
+// RELATÓRIO WA
+function enviarRelatorio(){
+  const hoje=today(),m=getMetas();
+  const abord=allLeads.filter(l=>hist[l.id]?.some(e=>e.date===hoje&&!e.status.includes('A Contatar'))).length;
+  const prosp=allLeads.filter(l=>hist[l.id]?.some(e=>e.date===hoje&&e.status.includes('Prospectado'))).length;
+  const naoResp=allLeads.filter(l=>hist[l.id]?.some(e=>e.date===hoje&&e.status.includes('Não Respondeu'))).length;
+  const fila=allLeads.filter(l=>l.status.includes('A Contatar')||l.status==='PAREI AQUI').length;
+  const fus=allLeads.filter(l=>isFollowup(l)).length;
+  const avg=avgTimer();
+  const msg=`📊 *Relatório do Dia — ${fmtDate(hoje)}*\n\n✅ Abordagens: ${abord}/${m.dia}\n🎯 Prospectados: ${prosp}\n❌ Não responderam: ${naoResp}\n📋 Na fila: ${fila}\n⏰ Follow-ups: ${fus}\n⏱ Tempo médio: ${avg!=null?avg+'min':'—'}\n\n_CRM Prospecção — Crespos & Cachos_`;
+  const num=waNum();
+  window.open(`https://wa.me/${num?num:''}?text=${encodeURIComponent(msg)}`,'_blank');
+}
+
+// EXPORT CSV
 function exportCSV(){
   if(!allLeads.length){alert('Carregue os leads primeiro.');return;}
-  const cols=['Nome','Instagram','WhatsApp','Bio','Tier','Status','Seguidores','Observações','Data'];
+  const cols=['Nome','Instagram','WhatsApp','Bio','Tier','Status','Seguidores','Observações','Data','Reagendado'];
   const rows=allLeads.map(l=>[
-    `"${l.nome.replace(/"/g,'""')}"`,
-    `"${l.instagram}"`,
-    `"${l.whatsapp}"`,
-    `"${l.bio.replace(/"/g,'""')}"`,
-    `"${l.tier}"`,
-    `"${l.status}"`,
-    l.seguidores,
-    `"${l.obs.replace(/"/g,'""')}"`,
-    `"${l.data}"`
+    `"${l.nome.replace(/"/g,'""')}"`,`"${l.instagram}"`,`"${l.whatsapp}"`,
+    `"${l.bio.replace(/"/g,'""')}"`,`"${l.tier}"`,`"${l.status}"`,
+    l.seguidores,`"${l.obs.replace(/"/g,'""')}"`,`"${l.data}"`,`"${reagendar[l.id]||''}"`
   ].join(','));
-  const csv=[cols.join(','),...rows].join('\n');
   const a=document.createElement('a');
-  a.href='data:text/csv;charset=utf-8,\uFEFF'+encodeURIComponent(csv);
-  a.download=`leads-${todayStr()}.csv`;
-  a.click();
+  a.href='data:text/csv;charset=utf-8,\uFEFF'+encodeURIComponent([cols.join(','),...rows].join('\n'));
+  a.download=`leads-${today()}.csv`;a.click();
 }
 
+// OBS
 function obsChanged(id,el){
   pendingObs[id]=el.value;
-  const btn=document.getElementById('obs-save-'+id);
-  if(btn)btn.classList.add('visible');
-  const saved=document.getElementById('obs-saved-'+id);
-  if(saved)saved.style.display='none';
+  $('obs-save-'+id)?.classList.add('visible');
+  const s=$('obs-saved-'+id);if(s)s.style.display='none';
 }
-
 async function saveObs(id){
-  const token=getToken();
-  const textarea=document.getElementById('obs-'+id);
-  const btn=document.getElementById('obs-save-'+id);
-  const savedEl=document.getElementById('obs-saved-'+id);
-  if(!textarea)return;
-  const newObs=textarea.value;
+  const btn=$('obs-save-'+id),savedEl=$('obs-saved-'+id),ta=$('obs-'+id);
+  if(!ta)return;
+  const newObs=ta.value;
   if(btn){btn.textContent='Salvando…';btn.disabled=true;}
   try{
     const res=await fetch('/api/notion',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({token,action:'updateObs',pageId:id,obs:newObs})});
+      body:JSON.stringify({token:tok(),action:'updateObs',pageId:id,obs:newObs})});
     if(res.ok){
-      const lead=allLeads.find(l=>l.id===id);
-      if(lead)lead.obs=newObs;
+      const l=allLeads.find(x=>x.id===id);if(l)l.obs=newObs;
       delete pendingObs[id];
       if(btn){btn.classList.remove('visible');btn.textContent='Salvar nota';btn.disabled=false;}
       if(savedEl){savedEl.style.display='block';setTimeout(()=>savedEl.style.display='none',2500);}
-    }else{
-      if(btn){btn.textContent='Salvar nota';btn.disabled=false;}
-      alert('Erro ao salvar observação.');
-    }
-  }catch(e){
-    if(btn){btn.textContent='Salvar nota';btn.disabled=false;}
-    alert('Erro: '+e.message);
-  }
+    }else{if(btn){btn.textContent='Salvar nota';btn.disabled=false;}alert('Erro ao salvar.');}
+  }catch(e){if(btn){btn.textContent='Salvar nota';btn.disabled=false;}alert('Erro: '+e.message);}
 }
 
+// UPDATE STATUS
 async function updateStatus(pageId,sel){
-  const newStatus=sel.value;
-  if(!newStatus)return;
-  const token=getToken();
-  const card=document.getElementById('card-'+pageId);
-  if(card)card.classList.add('saving');
-  sel.disabled=true;
+  const newStatus=sel.value;if(!newStatus)return;
+  const card=$('card-'+pageId);
+  if(card)card.classList.add('saving');sel.disabled=true;
   try{
     const res=await fetch('/api/notion',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({token,action:'update',pageId,status:newStatus})});
+      body:JSON.stringify({token:tok(),action:'update',pageId,status:newStatus})});
     if(res.ok){
-      const lead=allLeads.find(l=>l.id===pageId);
-      if(lead){
-        lead.status=newStatus;
-        // salvar histórico
-        if(!statusHistory[pageId])statusHistory[pageId]=[];
-        statusHistory[pageId].push({status:newStatus,date:todayStr()});
-        saveHistory();
-        atualizarStats();
-        renderFollowupBanner();
-        renderLeads();
+      const l=allLeads.find(x=>x.id===pageId);
+      if(l){
+        l.status=newStatus;
+        if(!hist[pageId])hist[pageId]=[];
+        hist[pageId].push({status:newStatus,date:today()});
+        save();atualizarStats();renderHeatmap();renderAlertBanners();renderLeads();
       }
     }else{
-      const err=await res.json();
-      alert('Erro ao salvar: '+(err.message||res.status));
-      if(card)card.classList.remove('saving');
-      sel.disabled=false;
+      const err=await res.json();alert('Erro: '+(err.message||res.status));
+      if(card)card.classList.remove('saving');sel.disabled=false;
     }
-  }catch(e){
-    alert('Erro: '+e.message);
-    if(card)card.classList.remove('saving');
-    sel.disabled=false;
-  }
+  }catch(e){alert('Erro: '+e.message);if(card)card.classList.remove('saving');sel.disabled=false;}
 }
 </script>
 </body>
