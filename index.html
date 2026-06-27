@@ -3,85 +3,105 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CRM Prospecção V.7 — Crespos & Cachos</title>
+<title>CRM Prospecção V.8 — Crespos & Cachos</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f3;color:#1a1a1a;min-height:100vh}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;transition:background .2s,color .2s}
+
+/* TEMA */
+:root{
+  --bg:#f5f5f3;--surface:#fff;--surface2:#fafaf8;--border:#e8e8e4;--border2:#d0d0cc;
+  --text:#1a1a1a;--text2:#555;--text3:#888;--text4:#aaa;
+  --accent:#0066cc;--green:#25D366;--orange:#f59e0b;--red:#ef4444;--purple:#7c3aed;
+  --card-shadow:0 1px 4px rgba(0,0,0,.06);
+}
+body.dark{
+  --bg:#111;--surface:#1c1c1e;--surface2:#2c2c2e;--border:#3a3a3c;--border2:#48484a;
+  --text:#f2f2f7;--text2:#ebebf5cc;--text3:#ebebf599;--text4:#ebebf560;
+  --card-shadow:0 1px 4px rgba(0,0,0,.3);
+}
 
 /* CONFIG */
 #config-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:1.5rem}
-.config-card{background:#fff;border-radius:16px;border:0.5px solid #e0e0da;padding:2rem;max-width:460px;width:100%;box-shadow:0 4px 24px rgba(0,0,0,0.06)}
+.config-card{background:var(--surface);border-radius:16px;border:0.5px solid var(--border);padding:2rem;max-width:460px;width:100%;box-shadow:var(--card-shadow)}
 .config-card h1{font-size:19px;font-weight:600;margin-bottom:.25rem}
-.config-card p{font-size:13px;color:#666;margin-bottom:1.25rem;line-height:1.5}
-.config-card label{font-size:12px;font-weight:500;color:#444;display:block;margin-bottom:5px}
-.config-card input{width:100%;padding:9px 11px;border:0.5px solid #d0d0cc;border-radius:8px;font-size:13px;font-family:monospace;background:#fafaf8;color:#1a1a1a;outline:none;margin-bottom:4px}
-.config-card input:focus{border-color:#0066cc}
-.help-text{font-size:11px;color:#888;margin-top:2px;margin-bottom:1rem;line-height:1.5}
-.help-text a{color:#0066cc;text-decoration:none}
-.btn-primary{width:100%;padding:10px;background:#1a1a1a;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;margin-top:.5rem}
-.btn-primary:hover{background:#333}
+.config-card p{font-size:13px;color:var(--text3);margin-bottom:1.25rem;line-height:1.5}
+.config-card label{font-size:12px;font-weight:500;color:var(--text2);display:block;margin-bottom:5px}
+.config-card input{width:100%;padding:9px 11px;border:0.5px solid var(--border2);border-radius:8px;font-size:13px;font-family:monospace;background:var(--surface2);color:var(--text);outline:none;margin-bottom:4px}
+.config-card input:focus{border-color:var(--accent)}
+.help-text{font-size:11px;color:var(--text4);margin-top:2px;margin-bottom:1rem;line-height:1.5}
+.help-text a{color:var(--accent);text-decoration:none}
+.btn-primary{width:100%;padding:10px;background:var(--text);color:var(--surface);border:none;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;margin-top:.5rem}
 .step{display:flex;gap:8px;margin-bottom:.75rem;align-items:flex-start}
-.step-num{background:#f0f0ee;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;flex-shrink:0;margin-top:1px;color:#555}
-.step p{font-size:12px;color:#555;line-height:1.5}
-.step code{background:#f0f0ee;padding:1px 4px;border-radius:3px;font-size:11px}
-.divider{border:none;border-top:0.5px solid #e8e8e4;margin:1.25rem 0}
+.step-num{background:var(--surface2);border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;flex-shrink:0;margin-top:1px;color:var(--text3)}
+.step p{font-size:12px;color:var(--text3);line-height:1.5}
+.step code{background:var(--surface2);padding:1px 4px;border-radius:3px;font-size:11px}
+.divider{border:none;border-top:0.5px solid var(--border);margin:1.25rem 0}
 
 /* APP */
-#app-screen{display:none;max-width:980px;margin:0 auto;padding:1rem}
+#app-screen{display:none;max-width:1000px;margin:0 auto;padding:1rem}
 
 /* TABS */
-.tabs{display:flex;gap:4px;margin-bottom:1rem;background:#efefed;border-radius:10px;padding:3px}
-.tab-btn{flex:1;padding:7px;border:none;background:none;border-radius:8px;font-size:12px;font-weight:500;color:#666;cursor:pointer;transition:all .15s}
-.tab-btn.active{background:#fff;color:#1a1a1a;box-shadow:0 1px 4px rgba(0,0,0,0.08)}
+.tabs{display:flex;gap:4px;margin-bottom:1rem;background:var(--surface2);border-radius:10px;padding:3px}
+.tab-btn{flex:1;padding:7px;border:none;background:none;border-radius:8px;font-size:12px;font-weight:500;color:var(--text3);cursor:pointer;transition:all .15s;white-space:nowrap}
+.tab-btn.active{background:var(--surface);color:var(--text);box-shadow:0 1px 4px rgba(0,0,0,.08)}
 
 /* HEADER */
 .app-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:8px}
 .app-title{font-size:15px;font-weight:600;display:flex;align-items:center;gap:7px}
-.app-title .dot{width:7px;height:7px;border-radius:50%;background:#25D366;flex-shrink:0}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--green);flex-shrink:0}
 .header-actions{display:flex;gap:5px;flex-wrap:wrap}
-.btn-sm{font-size:11px;padding:5px 10px;border-radius:7px;border:0.5px solid #d0d0cc;background:#fff;color:#555;cursor:pointer;display:flex;align-items:center;gap:4px;transition:all .15s;white-space:nowrap}
-.btn-sm:hover{background:#f5f5f3;border-color:#aaa}
-.btn-sm.wa-report{background:#25D366;color:#fff;border-color:#25D366}
-.btn-sm.wa-report:hover{opacity:.85}
+.btn-sm{font-size:11px;padding:5px 10px;border-radius:7px;border:0.5px solid var(--border2);background:var(--surface);color:var(--text2);cursor:pointer;display:flex;align-items:center;gap:4px;transition:all .15s;white-space:nowrap;text-decoration:none}
+.btn-sm:hover{background:var(--surface2)}
+.btn-green{background:var(--green)!important;color:#fff!important;border-color:var(--green)!important}
+
+/* KEYBOARD HINTS */
+.kbd-hint{font-size:9px;background:var(--surface2);border:0.5px solid var(--border2);border-radius:3px;padding:1px 4px;color:var(--text4);font-family:monospace}
 
 /* SEARCH */
 .search-bar{display:flex;align-items:center;gap:8px;margin-bottom:.85rem}
-.search-input{flex:1;padding:8px 12px 8px 34px;border:0.5px solid #d0d0cc;border-radius:9px;font-size:13px;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23aaa' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E") no-repeat 10px center;outline:none;color:#1a1a1a}
-.search-input:focus{border-color:#0066cc}
-.search-clear{font-size:11px;padding:5px 10px;border-radius:7px;border:0.5px solid #d0d0cc;background:#fff;color:#888;cursor:pointer}
+.search-input{flex:1;padding:8px 12px 8px 34px;border:0.5px solid var(--border2);border-radius:9px;font-size:13px;background:var(--surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23aaa' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E") no-repeat 10px center;outline:none;color:var(--text)}
+.search-input:focus{border-color:var(--accent)}
 
 /* STATS */
 .stats-row{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-bottom:.9rem}
-.stat{background:#fff;border:0.5px solid #e8e8e4;border-radius:9px;padding:.6rem .75rem}
+.stat{background:var(--surface);border:0.5px solid var(--border);border-radius:9px;padding:.6rem .75rem}
 .stat .num{font-size:20px;font-weight:600;line-height:1}
-.stat .lbl{font-size:10px;color:#888;margin-top:2px}
+.stat .lbl{font-size:10px;color:var(--text4);margin-top:2px}
 .stat.s-green .num{color:#2d7a2d}
 .stat.s-orange .num{color:#b86a00}
 .stat.s-red .num{color:#991b1b}
 
 /* METAS */
-.metas-row{display:flex;align-items:center;gap:10px;margin-bottom:.75rem;flex-wrap:wrap;background:#fff;border:0.5px solid #e8e8e4;border-radius:9px;padding:.6rem 1rem}
-.metas-row span{font-size:11px;color:#888}
-.meta-input-group{display:flex;align-items:center;gap:5px;font-size:11px;color:#555}
-.meta-input{width:52px;padding:3px 6px;border:0.5px solid #d0d0cc;border-radius:6px;font-size:12px;font-weight:600;text-align:center;color:#1a1a1a;background:#fff;outline:none}
-.meta-input:focus{border-color:#0066cc}
+.metas-row{display:flex;align-items:center;gap:10px;margin-bottom:.75rem;flex-wrap:wrap;background:var(--surface);border:0.5px solid var(--border);border-radius:9px;padding:.6rem 1rem}
+.metas-row span{font-size:11px;color:var(--text3)}
+.meta-group{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text2)}
+.meta-input{width:52px;padding:3px 6px;border:0.5px solid var(--border2);border-radius:6px;font-size:12px;font-weight:600;text-align:center;color:var(--text);background:var(--surface2);outline:none}
+
+/* RECEITA */
+.receita-row{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:.9rem}
+.receita-card{background:var(--surface);border:0.5px solid var(--border);border-radius:9px;padding:.65rem .9rem}
+.receita-card .num{font-size:18px;font-weight:700;color:var(--text);line-height:1}
+.receita-card .lbl{font-size:10px;color:var(--text4);margin-top:2px}
+.receita-card.destaque{border-color:var(--green)}
+.receita-card.destaque .num{color:#2d7a2d}
 
 /* BANNERS */
 .banners-row{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:.9rem}
-.day-banner,.week-banner{background:#fff;border:0.5px solid #e8e8e4;border-radius:9px;padding:.65rem 1rem;font-size:12px;color:#555}
-.progress-bar{height:5px;background:#f0f0ee;border-radius:3px;overflow:hidden;margin-top:6px}
+.day-banner,.week-banner{background:var(--surface);border:0.5px solid var(--border);border-radius:9px;padding:.65rem 1rem;font-size:12px;color:var(--text2)}
+.progress-bar{height:5px;background:var(--surface2);border-radius:3px;overflow:hidden;margin-top:6px}
 .progress-fill{height:100%;border-radius:3px;transition:width .3s}
-.pf-green{background:#25D366}
-.pf-orange{background:#f59e0b}
+.pf-green{background:var(--green)}
+.pf-orange{background:var(--orange)}
 
 /* HEATMAP */
-.heatmap-card{background:#fff;border:0.5px solid #e8e8e4;border-radius:9px;padding:.75rem 1rem;margin-bottom:.85rem}
-.heatmap-card h4{font-size:11px;color:#888;margin-bottom:.6rem;font-weight:500}
+.heatmap-card{background:var(--surface);border:0.5px solid var(--border);border-radius:9px;padding:.75rem 1rem;margin-bottom:.85rem}
+.heatmap-card h4{font-size:11px;color:var(--text3);margin-bottom:.6rem;font-weight:500}
 .heatmap-row{display:flex;gap:5px;align-items:flex-end;height:60px}
 .heatmap-bar-wrap{display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;height:100%;justify-content:flex-end}
 .heatmap-bar{width:100%;border-radius:3px 3px 0 0;min-height:4px}
-.heatmap-label{font-size:9px;color:#aaa;white-space:nowrap}
-.heatmap-val{font-size:9px;color:#555;font-weight:500;min-height:12px}
+.heatmap-label{font-size:9px;color:var(--text4);white-space:nowrap}
+.heatmap-val{font-size:9px;color:var(--text2);font-weight:500;min-height:12px}
 
 /* ALERTAS */
 .alert-banner{border-radius:9px;padding:.65rem 1rem;margin-bottom:.75rem;font-size:12px;display:none}
@@ -89,144 +109,230 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .alert-banner strong{display:block;margin-bottom:4px;font-size:13px}
 .alert-item{display:flex;align-items:center;justify-content:space-between;padding:4px 0;border-bottom:0.5px solid rgba(0,0,0,.06)}
 .alert-item:last-child{border:none}
-.alert-item a{font-size:11px;color:#0066cc;text-decoration:none}
-.ab-followup{background:#fff8f0;border:0.5px solid #f59e0b;color:#92400e}
-.ab-reagendado{background:#faf5ff;border:0.5px solid #c4b5fd;color:#5b21b6}
+.alert-item a{font-size:11px;color:var(--accent);text-decoration:none}
+.ab-fu{background:#fff8f0;border:0.5px solid var(--orange);color:#92400e}
+.ab-reag{background:#faf5ff;border:0.5px solid #c4b5fd;color:#5b21b6}
+body.dark .ab-fu{background:#2d1f00;color:#fbbf24}
+body.dark .ab-reag{background:#1e1040;color:#c4b5fd}
 
 /* TOOLBAR */
 .toolbar{display:flex;gap:6px;margin-bottom:.75rem;flex-wrap:wrap;align-items:center}
-.f-btn{font-size:11px;padding:4px 11px;border-radius:20px;border:0.5px solid #d0d0cc;background:#fff;color:#666;cursor:pointer;transition:all .15s;white-space:nowrap}
-.f-btn.active{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
-.f-btn.f-t1.active{background:#166534;border-color:#166534}
-.f-btn.f-t2.active{background:#92400e;border-color:#92400e}
-.f-btn.f-t3.active{background:#1e40af;border-color:#1e40af}
-.f-btn.f-hoje.active{background:#0066cc;border-color:#0066cc}
-.f-btn.f-followup.active{background:#b45309;border-color:#b45309}
-.f-btn.f-reagendado.active{background:#7c3aed;border-color:#7c3aed}
-.sort-select{font-size:11px;padding:4px 8px;border-radius:7px;border:0.5px solid #d0d0cc;background:#fff;color:#555;cursor:pointer;outline:none;margin-left:auto}
-.date-filter{display:flex;align-items:center;gap:6px;font-size:11px;color:#666;flex-wrap:wrap}
-.date-filter input[type=date]{font-size:11px;padding:3px 7px;border-radius:7px;border:0.5px solid #d0d0cc;background:#fff;color:#555;outline:none}
-.btn-clear-date{font-size:10px;padding:2px 7px;border-radius:5px;border:0.5px solid #d0d0cc;background:#fff;color:#888;cursor:pointer}
+.f-btn{font-size:11px;padding:4px 11px;border-radius:20px;border:0.5px solid var(--border2);background:var(--surface);color:var(--text3);cursor:pointer;transition:all .15s;white-space:nowrap}
+.f-btn.active{background:var(--text);color:var(--surface);border-color:var(--text)}
+.f-btn.f-t1.active{background:#166534;border-color:#166534;color:#fff}
+.f-btn.f-t2.active{background:#92400e;border-color:#92400e;color:#fff}
+.f-btn.f-t3.active{background:#1e40af;border-color:#1e40af;color:#fff}
+.f-btn.f-hoje.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.f-btn.f-fu.active{background:#b45309;border-color:#b45309;color:#fff}
+.f-btn.f-reag.active{background:var(--purple);border-color:var(--purple);color:#fff}
+.f-btn.f-arquivo.active{background:#6b7280;border-color:#6b7280;color:#fff}
+.sort-select,.view-select{font-size:11px;padding:4px 8px;border-radius:7px;border:0.5px solid var(--border2);background:var(--surface);color:var(--text2);cursor:pointer;outline:none}
+.date-filter{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text3);flex-wrap:wrap}
+.date-filter input[type=date]{font-size:11px;padding:3px 7px;border-radius:7px;border:0.5px solid var(--border2);background:var(--surface);color:var(--text2);outline:none}
+.btn-clear-date{font-size:10px;padding:2px 7px;border-radius:5px;border:0.5px solid var(--border2);background:var(--surface);color:var(--text4);cursor:pointer}
+
+/* SLIDER FILTRO */
+.slider-filter{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--text3);margin-bottom:.75rem;flex-wrap:wrap}
+.slider-filter input[type=range]{width:120px;accent-color:var(--orange)}
 
 /* MARCADOR */
 .marker-divider{display:flex;align-items:center;gap:10px;margin:1.25rem 0}
-.marker-divider::before,.marker-divider::after{content:'';flex:1;height:2px;background:linear-gradient(90deg,#f59e0b,#fbbf24);border-radius:2px}
-.marker-divider::after{background:linear-gradient(90deg,#fbbf24,#f59e0b)}
-.marker-label{display:flex;align-items:center;gap:6px;background:#fffbeb;border:1px solid #f59e0b;border-radius:20px;padding:4px 12px;font-size:11px;font-weight:600;color:#92400e;white-space:nowrap;flex-shrink:0}
-.anteriores-toggle{display:flex;align-items:center;gap:8px;background:#fff;border:0.5px solid #e8e8e4;border-radius:9px;padding:.7rem 1rem;margin-bottom:.75rem;cursor:pointer;font-size:12px;color:#666;user-select:none}
-.anteriores-toggle:hover{border-color:#bbb}
-.ant-count{background:#f0f0ee;color:#888;font-size:10px;padding:1px 7px;border-radius:10px;font-weight:500}
-.chevron{margin-left:auto;font-size:14px;transition:transform .2s;color:#aaa}
+.marker-divider::before,.marker-divider::after{content:'';flex:1;height:2px;background:linear-gradient(90deg,var(--orange),#fbbf24);border-radius:2px}
+.marker-divider::after{background:linear-gradient(90deg,#fbbf24,var(--orange))}
+.marker-label{display:flex;align-items:center;gap:6px;background:#fffbeb;border:1px solid var(--orange);border-radius:20px;padding:4px 12px;font-size:11px;font-weight:600;color:#92400e;white-space:nowrap;flex-shrink:0}
+body.dark .marker-label{background:#2d1f00;color:#fbbf24}
+.anteriores-toggle{display:flex;align-items:center;gap:8px;background:var(--surface);border:0.5px solid var(--border);border-radius:9px;padding:.7rem 1rem;margin-bottom:.75rem;cursor:pointer;font-size:12px;color:var(--text3);user-select:none}
+.ant-count{background:var(--surface2);color:var(--text4);font-size:10px;padding:1px 7px;border-radius:10px;font-weight:500}
+.chevron{margin-left:auto;font-size:14px;transition:transform .2s;color:var(--text4)}
 .anteriores-toggle.open .chevron{transform:rotate(180deg)}
 .anteriores-section{display:none;margin-bottom:.75rem}
 .anteriores-section.open{display:block}
 .anteriores-section .lead-list{opacity:.5}
 
+/* KANBAN */
+.kanban-board{display:flex;gap:10px;overflow-x:auto;padding-bottom:1rem}
+.kanban-col{min-width:220px;flex-shrink:0}
+.kanban-col h4{font-size:11px;font-weight:600;color:var(--text3);margin-bottom:8px;padding:4px 8px;background:var(--surface2);border-radius:6px;text-align:center}
+.kanban-cards{display:flex;flex-direction:column;gap:6px;min-height:60px}
+.kanban-card{background:var(--surface);border:0.5px solid var(--border);border-radius:8px;padding:.6rem .75rem;font-size:12px;cursor:pointer}
+.kanban-card:hover{border-color:var(--accent)}
+.kanban-card .kc-name{font-weight:600;font-size:12px;margin-bottom:3px}
+.kanban-card .kc-ig{font-size:10px;color:var(--accent)}
+.kanban-card .kc-tier{font-size:9px;padding:1px 6px;border-radius:10px;display:inline-block;margin-top:3px}
+
+/* MODO FOCO */
+#foco-screen{display:none;position:fixed;inset:0;background:var(--bg);z-index:1000;flex-direction:column;align-items:center;justify-content:center;padding:2rem}
+#foco-screen.active{display:flex}
+.foco-card{background:var(--surface);border:0.5px solid var(--border);border-radius:16px;padding:2rem;max-width:500px;width:100%;box-shadow:0 8px 32px rgba(0,0,0,.12)}
+.foco-nome{font-size:22px;font-weight:700;margin-bottom:4px}
+.foco-ig{font-size:14px;color:var(--accent);margin-bottom:8px}
+.foco-bio{font-size:13px;color:var(--text3);margin-bottom:1.25rem;line-height:1.5}
+.foco-meta{font-size:12px;color:var(--text4);margin-bottom:1rem;display:flex;gap:12px}
+.foco-actions{display:flex;gap:8px;margin-bottom:1.25rem;flex-wrap:wrap}
+.foco-status{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:1.25rem}
+.foco-status-btn{padding:8px;border-radius:8px;border:0.5px solid var(--border2);background:var(--surface2);color:var(--text2);cursor:pointer;font-size:12px;transition:all .15s;display:flex;align-items:center;gap:5px}
+.foco-status-btn:hover{border-color:var(--accent);color:var(--accent)}
+.foco-nav{display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--text4)}
+.foco-progress{font-size:13px;font-weight:600;color:var(--text)}
+.btn-foco-close{position:absolute;top:1rem;right:1rem;font-size:11px;padding:5px 10px;border-radius:7px;border:0.5px solid var(--border2);background:var(--surface);color:var(--text3);cursor:pointer}
+
 /* LEAD CARDS */
 .lead-list{display:flex;flex-direction:column;gap:9px}
-.lead-card{background:#fff;border:0.5px solid #e8e8e4;border-radius:11px;padding:.9rem 1.1rem;position:relative;transition:border-color .15s}
-.lead-card:hover{border-color:#bbb}
+.lead-card{background:var(--surface);border:0.5px solid var(--border);border-radius:11px;padding:.9rem 1.1rem;position:relative;transition:border-color .15s}
+.lead-card:hover{border-color:var(--border2)}
 .lead-card.done{opacity:.4}
 .lead-card.card-hoje{border-color:#bbdefb}
-.lead-card.card-followup{border-color:#f59e0b;background:#fffdf7}
-.lead-card.card-reagendado{border-color:#a78bfa;background:#faf5ff}
-.lead-card.saving::after{content:'Salvando…';position:absolute;top:8px;right:10px;font-size:10px;color:#888;background:#f5f5f3;padding:2px 7px;border-radius:4px}
+.lead-card.card-fu{border-color:var(--orange);background:#fffdf7}
+.lead-card.card-reag{border-color:#a78bfa;background:#faf5ff}
+.lead-card.card-alta{border-left:3px solid var(--red)}
+.lead-card.card-media{border-left:3px solid var(--orange)}
+.lead-card.card-baixa{border-left:3px solid var(--green)}
+.lead-card.card-compacto{padding:.5rem .75rem}
+.lead-card.saving::after{content:'Salvando…';position:absolute;top:8px;right:10px;font-size:10px;color:var(--text4);background:var(--surface2);padding:2px 7px;border-radius:4px}
 
 .lead-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:5px}
-.lead-name{font-size:14px;font-weight:600;line-height:1.2}
-.lead-handle{font-size:11px;color:#0066cc;margin-top:2px}
+.lead-name{font-size:14px;font-weight:600;line-height:1.2;color:var(--text)}
+.lead-handle{font-size:11px;color:var(--accent);margin-top:2px}
 .badges{display:flex;flex-direction:column;align-items:flex-end;gap:3px;flex-shrink:0}
 .tier-badge{font-size:9px;padding:2px 7px;border-radius:20px;font-weight:600;white-space:nowrap}
 .t1{background:#dcfce7;color:#166534}
 .t2{background:#fef3c7;color:#92400e}
 .t3{background:#dbeafe;color:#1e40af}
 .status-pill{font-size:9px;padding:2px 7px;border-radius:20px;white-space:nowrap;font-weight:500}
-.sp-contatar{background:#f0f0ee;color:#555}
+.sp-contatar{background:var(--surface2);color:var(--text3)}
 .sp-andamento{background:#fef3c7;color:#92400e}
 .sp-prospectado{background:#dcfce7;color:#166534}
 .sp-nao-resp{background:#fee2e2;color:#991b1b}
 .sp-sem-int{background:#fee2e2;color:#991b1b}
-.sp-sem-whats{background:#f0f0ee;color:#aaa}
+.sp-sem-whats{background:var(--surface2);color:var(--text4)}
 .badge-mini{font-size:9px;padding:1px 6px;border-radius:10px;font-weight:500;vertical-align:middle}
 .bm-hoje{background:#e3f2fd;color:#1565c0}
-.bm-followup{background:#fff3cd;color:#856404}
+.bm-fu{background:#fff3cd;color:#856404}
 .bm-reag{background:#ede9fe;color:#5b21b6}
+.bm-audio-sim{background:#dcfce7;color:#166534}
+.bm-audio-nao{background:#fee2e2;color:#991b1b}
 
-.lead-bio{font-size:11px;color:#666;margin:5px 0;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.lead-meta{display:flex;align-items:center;gap:8px;font-size:10px;color:#aaa;margin-bottom:6px;flex-wrap:wrap}
-.status-history{font-size:10px;color:#aaa;margin-bottom:6px;line-height:1.7}
+.lead-bio{font-size:11px;color:var(--text3);margin:5px 0;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.lead-meta{display:flex;align-items:center;gap:8px;font-size:10px;color:var(--text4);margin-bottom:6px;flex-wrap:wrap}
+.status-history{font-size:10px;color:var(--text4);margin-bottom:6px;line-height:1.7}
+
+/* PRIORIDADE */
+.prioridade-row{display:flex;align-items:center;gap:6px;margin-bottom:6px}
+.prioridade-row label{font-size:10px;color:var(--text4)}
+.prior-btn{font-size:9px;padding:2px 8px;border-radius:10px;border:0.5px solid var(--border2);background:var(--surface2);cursor:pointer;transition:all .15s}
+.prior-btn.alta.sel{background:#fee2e2;color:#991b1b;border-color:#fca5a5}
+.prior-btn.media.sel{background:#fef3c7;color:#92400e;border-color:#fcd34d}
+.prior-btn.baixa.sel{background:#dcfce7;color:#166534;border-color:#86efac}
+
+/* ETIQUETAS */
+.tags-row{display:flex;align-items:center;gap:5px;margin-bottom:6px;flex-wrap:wrap}
+.tag-chip{font-size:9px;padding:2px 8px;border-radius:10px;cursor:pointer;font-weight:500;border:0.5px solid transparent}
+.tag-add{font-size:9px;padding:2px 8px;border-radius:10px;border:0.5px dashed var(--border2);color:var(--text4);cursor:pointer;background:none}
+
+/* PRÓXIMO PASSO */
+.proximo-row{margin-bottom:6px}
+.proximo-input{width:100%;font-size:11px;padding:4px 8px;border:0.5px solid var(--border);border-radius:6px;background:var(--surface2);color:var(--text);outline:none;font-family:inherit}
+.proximo-input:focus{border-color:var(--accent)}
+
+/* ORIGEM */
+.origem-row{display:flex;align-items:center;gap:6px;margin-bottom:6px}
+.origem-row label{font-size:10px;color:var(--text4)}
+.origem-select{font-size:10px;padding:3px 7px;border-radius:6px;border:0.5px solid var(--border2);background:var(--surface2);color:var(--text2);outline:none;cursor:pointer}
+
+/* AUDIO */
+.audio-row{display:flex;align-items:center;gap:8px;margin-bottom:6px;font-size:10px;color:var(--text4)}
+.audio-btn{font-size:9px;padding:2px 9px;border-radius:10px;border:0.5px solid var(--border2);background:var(--surface2);cursor:pointer;transition:all .15s}
+.audio-btn.sim{background:#dcfce7;color:#166534;border-color:#86efac}
+.audio-btn.nao{background:#fee2e2;color:#991b1b;border-color:#fca5a5}
 
 /* TIMER */
-.timer-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
-.timer-display{font-size:12px;font-weight:600;font-family:monospace;min-width:46px;color:#1a1a1a}
-.btn-timer{font-size:10px;padding:3px 9px;border-radius:6px;border:0.5px solid #d0d0cc;background:#fff;color:#555;cursor:pointer;transition:all .15s}
+.timer-row{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.timer-display{font-size:12px;font-weight:600;font-family:monospace;min-width:46px;color:var(--text)}
+.btn-timer{font-size:10px;padding:3px 9px;border-radius:6px;border:0.5px solid var(--border2);background:var(--surface);color:var(--text2);cursor:pointer}
 .btn-timer.running{background:#fee2e2;color:#991b1b;border-color:#fca5a5}
-.timer-info{font-size:10px;color:#aaa}
 
 /* REAGENDAR */
-.reagendar-row{display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap}
-.reagendar-label{font-size:10px;color:#7c3aed;font-weight:500;white-space:nowrap}
-.reagendar-select{font-size:11px;padding:3px 7px;border-radius:6px;border:0.5px solid #c4b5fd;background:#faf5ff;color:#1a1a1a;outline:none;cursor:pointer}
-.reagendar-select:focus{border-color:#7c3aed}
-.reagendar-data{font-size:10px;color:#7c3aed}
-.btn-reag-clear{font-size:10px;padding:2px 7px;border-radius:5px;background:#fff;color:#7c3aed;border:0.5px solid #c4b5fd;cursor:pointer}
+.reagendar-row{display:flex;align-items:center;gap:6px;margin-bottom:6px;flex-wrap:wrap}
+.reagendar-label{font-size:10px;color:var(--purple);font-weight:500;white-space:nowrap}
+.reagendar-select{font-size:11px;padding:3px 7px;border-radius:6px;border:0.5px solid #c4b5fd;background:var(--surface2);color:var(--text);outline:none;cursor:pointer}
+.reag-data{font-size:10px;color:var(--purple)}
+.btn-reag-clear{font-size:10px;padding:2px 7px;border-radius:5px;background:var(--surface);color:var(--purple);border:0.5px solid #c4b5fd;cursor:pointer}
 
 .lead-actions{display:flex;gap:5px;align-items:center;flex-wrap:wrap}
-.btn-wa{display:flex;align-items:center;gap:4px;font-size:11px;padding:5px 12px;border-radius:7px;background:#25D366;color:#fff;border:none;cursor:pointer;font-weight:500;text-decoration:none;white-space:nowrap}
+.btn-wa{display:flex;align-items:center;gap:4px;font-size:11px;padding:5px 12px;border-radius:7px;background:var(--green);color:#fff;border:none;cursor:pointer;font-weight:500;text-decoration:none;white-space:nowrap}
 .btn-wa:hover{opacity:.85}
-.btn-wa .num-hint{opacity:.75;font-size:9px}
+.num-hint{opacity:.75;font-size:9px}
 .btn-ig{display:flex;align-items:center;gap:4px;font-size:11px;padding:5px 12px;border-radius:7px;color:#fff;border:none;cursor:pointer;font-weight:500;text-decoration:none;background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);white-space:nowrap}
 .btn-ig:hover{opacity:.85}
-.no-wa{font-size:10px;color:#bbb;padding:4px 9px;border:0.5px dashed #d0d0cc;border-radius:7px}
-.status-select{font-size:10px;padding:4px 7px;border-radius:7px;border:0.5px solid #d0d0cc;background:#fafaf8;color:#555;cursor:pointer;outline:none}
-.btn-marker{display:flex;align-items:center;gap:4px;font-size:10px;padding:4px 9px;border-radius:7px;border:0.5px solid #f59e0b;background:#fffbeb;color:#92400e;cursor:pointer;white-space:nowrap;margin-left:auto}
-.btn-marker.is-marked{background:#f59e0b;color:#fff;border-color:#f59e0b}
+.no-wa{font-size:10px;color:var(--text4);padding:4px 9px;border:0.5px dashed var(--border2);border-radius:7px}
+.status-select{font-size:10px;padding:4px 7px;border-radius:7px;border:0.5px solid var(--border2);background:var(--surface2);color:var(--text2);cursor:pointer;outline:none}
+.btn-marker{display:flex;align-items:center;gap:4px;font-size:10px;padding:4px 9px;border-radius:7px;border:0.5px solid var(--orange);background:#fffbeb;color:#92400e;cursor:pointer;white-space:nowrap}
+.btn-marker.is-marked{background:var(--orange);color:#fff;border-color:var(--orange)}
+.btn-arquivo{font-size:10px;padding:4px 9px;border-radius:7px;border:0.5px solid var(--border2);background:var(--surface2);color:var(--text4);cursor:pointer}
+.btn-foco-lead{font-size:10px;padding:4px 9px;border-radius:7px;border:0.5px solid var(--accent);background:var(--surface);color:var(--accent);cursor:pointer}
 
 /* OBS */
-.obs-section{margin-top:8px;padding-top:8px;border-top:0.5px solid #f0f0ee}
-.obs-label{font-size:10px;color:#aaa;margin-bottom:4px}
-.obs-textarea{width:100%;font-size:11px;color:#555;background:#fafaf8;border:0.5px solid #e8e8e4;border-radius:6px;padding:6px 8px;resize:none;outline:none;font-family:inherit;line-height:1.45;min-height:40px}
-.obs-textarea:focus{border-color:#0066cc;background:#fff}
-.obs-actions{display:flex;justify-content:flex-end;margin-top:4px}
-.btn-obs-save{font-size:10px;padding:3px 9px;border-radius:5px;background:#1a1a1a;color:#fff;border:none;cursor:pointer;display:none}
+.obs-section{margin-top:8px;padding-top:8px;border-top:0.5px solid var(--border)}
+.obs-label{font-size:10px;color:var(--text4);margin-bottom:4px}
+.obs-textarea{width:100%;font-size:11px;color:var(--text);background:var(--surface2);border:0.5px solid var(--border);border-radius:6px;padding:6px 8px;resize:none;outline:none;font-family:inherit;line-height:1.45;min-height:36px}
+.obs-textarea:focus{border-color:var(--accent)}
+.obs-priv{background:var(--surface2);border-color:var(--border2)}
+.obs-actions{display:flex;justify-content:flex-end;gap:5px;margin-top:4px}
+.btn-obs-save{font-size:10px;padding:3px 9px;border-radius:5px;background:var(--text);color:var(--surface);border:none;cursor:pointer;display:none}
 .btn-obs-save.visible{display:block}
 .obs-saved{font-size:10px;color:#2d7a2d;margin-top:3px;display:none;text-align:right}
 
 /* DASHBOARD */
 #tab-dashboard{display:none}
 .dash-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:1rem}
-.dash-card{background:#fff;border:0.5px solid #e8e8e4;border-radius:11px;padding:1rem 1.25rem}
-.dash-card h3{font-size:11px;font-weight:600;color:#888;margin-bottom:.75rem;text-transform:uppercase;letter-spacing:.5px}
-.dash-big{font-size:32px;font-weight:700;color:#1a1a1a;line-height:1}
-.dash-sub{font-size:11px;color:#aaa;margin-top:4px}
+.dash-card{background:var(--surface);border:0.5px solid var(--border);border-radius:11px;padding:1rem 1.25rem}
+.dash-card h3{font-size:11px;font-weight:600;color:var(--text3);margin-bottom:.75rem;text-transform:uppercase;letter-spacing:.5px}
+.dash-big{font-size:32px;font-weight:700;color:var(--text);line-height:1}
+.dash-sub{font-size:11px;color:var(--text4);margin-top:4px}
 .bar-row{display:flex;align-items:center;gap:8px;margin-bottom:6px}
-.bar-label{width:95px;color:#555;flex-shrink:0;font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.bar-track{flex:1;height:8px;background:#f0f0ee;border-radius:4px;overflow:hidden}
+.bar-label{width:100px;color:var(--text2);flex-shrink:0;font-size:10px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bar-track{flex:1;height:8px;background:var(--surface2);border-radius:4px;overflow:hidden}
 .bar-fill{height:100%;border-radius:4px;transition:width .5s}
-.bar-val{width:28px;text-align:right;color:#888;font-size:10px;flex-shrink:0}
+.bar-val{width:28px;text-align:right;color:var(--text4);font-size:10px;flex-shrink:0}
+.funnel-row{display:flex;flex-direction:column;gap:4px}
+.funnel-step{display:flex;align-items:center;gap:8px;font-size:11px}
+.funnel-bar{height:24px;border-radius:4px;display:flex;align-items:center;padding:0 8px;color:#fff;font-size:10px;font-weight:600;min-width:40px;transition:width .5s}
 .region-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:4px}
-.region-tag{font-size:10px;padding:2px 9px;border-radius:20px;background:#f0f0ee;color:#555}
-.export-btn{display:flex;align-items:center;gap:6px;font-size:12px;padding:8px 16px;border-radius:8px;background:#1a1a1a;color:#fff;border:none;cursor:pointer;margin-top:.5rem}
-.export-btn:hover{background:#333}
+.region-tag{font-size:10px;padding:2px 9px;border-radius:20px;background:var(--surface2);color:var(--text2)}
+.melhor-dia{font-size:12px;color:var(--text2);margin-top:4px}
+.export-btn{display:flex;align-items:center;gap:6px;font-size:12px;padding:8px 16px;border-radius:8px;background:var(--text);color:var(--surface);border:none;cursor:pointer;margin-top:.5rem}
 
 /* MISC */
-.load-box{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3.5rem 1rem;gap:12px;color:#888;font-size:13px;background:#fff;border-radius:11px;border:0.5px solid #e8e8e4}
-.spinner{width:26px;height:26px;border:2px solid #e0e0da;border-top-color:#0066cc;border-radius:50%;animation:spin .8s linear infinite}
+.load-box{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3.5rem 1rem;gap:12px;color:var(--text3);font-size:13px;background:var(--surface);border-radius:11px;border:0.5px solid var(--border)}
+.spinner{width:26px;height:26px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .error-box{background:#fff1f1;border:0.5px solid #fca5a5;border-radius:9px;padding:.9rem 1.1rem;font-size:12px;color:#991b1b;line-height:1.5}
 .error-box strong{display:block;margin-bottom:3px}
-.count-info{font-size:10px;color:#bbb;text-align:right;margin-top:.6rem}
-.empty-state{text-align:center;padding:2.5rem 1rem;color:#bbb;font-size:13px;background:#fff;border-radius:11px;border:0.5px solid #e8e8e4}
+.count-info{font-size:10px;color:var(--text4);text-align:right;margin-top:.6rem}
+.empty-state{text-align:center;padding:2.5rem 1rem;color:var(--text4);font-size:13px;background:var(--surface);border-radius:11px;border:0.5px solid var(--border)}
+
+/* IMPORTAR CSV */
+.import-area{background:var(--surface);border:0.5px dashed var(--border2);border-radius:9px;padding:1rem;margin-bottom:.85rem;font-size:12px;color:var(--text3);text-align:center;cursor:pointer}
+.import-area:hover{border-color:var(--accent);color:var(--accent)}
+
+/* FONT SIZE */
+body.font-sm .lead-name{font-size:12px}
+body.font-sm .lead-bio{font-size:10px}
+body.font-sm .lead-card{padding:.65rem .85rem}
+body.font-lg .lead-name{font-size:16px}
+body.font-lg .lead-bio{font-size:13px}
+body.font-lg .lead-card{padding:1.1rem 1.3rem}
 
 @media(max-width:640px){
   .stats-row{grid-template-columns:repeat(3,1fr)}
   .stats-row .stat:nth-child(4),.stats-row .stat:nth-child(5){display:none}
-  .banners-row{grid-template-columns:1fr}
+  .banners-row,.receita-row{grid-template-columns:1fr}
   .dash-grid{grid-template-columns:1fr}
   .lead-top{flex-direction:column;gap:6px}
   .badges{flex-direction:row}
-  .sort-select{margin-left:0;width:100%}
+  .sort-select,.view-select{margin-left:0;width:100%}
   .metas-row{gap:6px}
+  .foco-status{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -235,7 +341,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 <!-- CONFIG -->
 <div id="config-screen">
   <div class="config-card">
-    <h1>🎯 CRM Prospecção V.7</h1>
+    <h1>🎯 CRM Prospecção V.8</h1>
     <p>Cole o token da integração Notion para carregar seus leads de <strong>Crespos & Cachos</strong>.</p>
     <hr class="divider">
     <p style="font-size:12px;font-weight:600;margin-bottom:.75rem">Como gerar o token (só 1x):</p>
@@ -243,25 +349,36 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <div class="step"><div class="step-num">2</div><p>Copie o <strong>Internal Integration Token</strong> (começa com <code>ntn_</code>)</p></div>
     <div class="step"><div class="step-num">3</div><p>No Notion, abra <strong>📋 Lista de Prospecção</strong> → <strong>⋯ → Connections</strong> → conecte</p></div>
     <hr class="divider">
-    <label for="token-input">Token da integração Notion</label>
+    <label>Token da integração Notion</label>
     <input type="password" id="token-input" placeholder="ntn_xxxxxxxxxxxxxxxxxxxx" autocomplete="off">
-    <p class="help-text">Salvo só no seu navegador. Nunca enviado a terceiros.</p>
-    <label for="wa-input" style="margin-top:.25rem">Seu número WhatsApp (para relatório)</label>
+    <p class="help-text">Salvo só no seu navegador.</p>
+    <label>Seu WhatsApp (para relatório) <span style="font-weight:400;color:#aaa">opcional</span></label>
     <input type="tel" id="wa-input" placeholder="5511999999999">
-    <p class="help-text">Com código do país (55) + DDD. Sem espaços.</p>
+    <p class="help-text">Com código do país (55) + DDD.</p>
+    <label>Valor da mentoria (R$) <span style="font-weight:400;color:#aaa">para meta de receita</span></label>
+    <input type="number" id="valor-input" placeholder="3000" min="0">
+    <p class="help-text">Usado para calcular receita potencial da fila.</p>
     <button class="btn-primary" onclick="salvarEEntrar()">Conectar e carregar leads</button>
   </div>
+</div>
+
+<!-- MODO FOCO -->
+<div id="foco-screen">
+  <button class="btn-foco-close" onclick="fecharFoco()">✕ Sair do modo foco</button>
+  <div class="foco-card" id="foco-card"></div>
 </div>
 
 <!-- APP -->
 <div id="app-screen">
   <div class="app-header">
-    <div class="app-title"><span class="dot"></span>Prospecção — Crespos & Cachos <span style="font-size:10px;color:#aaa;font-weight:400;margin-left:4px">V.7</span></div>
+    <div class="app-title"><span class="dot"></span>Prospecção — Crespos & Cachos <span style="font-size:10px;color:var(--text4);font-weight:400;margin-left:4px">V.8</span></div>
     <div class="header-actions">
-      <button class="btn-sm" onclick="loadLeads()">↻ Atualizar</button>
-      <button class="btn-sm wa-report" onclick="enviarRelatorio()">📊 Relatório WA</button>
+      <button class="btn-sm" onclick="loadLeads()">↻</button>
+      <button class="btn-sm" onclick="abrirFoco()">🎯 Foco</button>
+      <button class="btn-sm btn-green" onclick="enviarRelatorio()">📊 WA</button>
       <button class="btn-sm" onclick="exportCSV()">⬇ CSV</button>
-      <button class="btn-sm" onclick="trocarToken()">⚙ Config</button>
+      <button class="btn-sm" onclick="toggleDark()" id="dark-btn">🌙</button>
+      <button class="btn-sm" onclick="trocarToken()">⚙</button>
     </div>
   </div>
 
@@ -273,8 +390,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   <!-- TAB LEADS -->
   <div id="tab-leads">
     <div class="search-bar">
-      <input class="search-input" id="search-input" type="text" placeholder="Buscar por nome ou @instagram…" oninput="renderLeads()">
-      <button class="search-clear" onclick="clearSearch()">✕</button>
+      <input class="search-input" id="search-input" type="text" placeholder="Buscar por nome ou @… (atalho: /)" oninput="renderLeads()">
+      <button class="btn-sm" onclick="clearSearch()">✕</button>
     </div>
 
     <div class="stats-row">
@@ -285,22 +402,29 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <div class="stat s-red"><div class="num" id="s-nao-resp">—</div><div class="lbl">não respondeu</div></div>
     </div>
 
+    <div class="receita-row">
+      <div class="receita-card"><div class="num" id="r-potencial">R$ —</div><div class="lbl">receita potencial (fila)</div></div>
+      <div class="receita-card destaque"><div class="num" id="r-gerada">R$ —</div><div class="lbl">receita já gerada</div></div>
+      <div class="receita-card"><div class="num" id="r-conv">—%</div><div class="lbl">taxa de conversão</div></div>
+    </div>
+
     <div class="metas-row">
       <span>⚙ Metas:</span>
-      <div class="meta-input-group">Diária <input class="meta-input" id="meta-dia" type="number" min="1" max="100" value="10" onchange="saveMetas()"></div>
-      <div class="meta-input-group">Semanal <input class="meta-input" id="meta-sem" type="number" min="1" max="500" value="50" onchange="saveMetas()"></div>
-      <div class="meta-input-group">Follow-up após <input class="meta-input" id="meta-fu" type="number" min="1" max="30" value="3" onchange="saveMetas()"> dias</div>
+      <div class="meta-group">Diária <input class="meta-input" id="meta-dia" type="number" min="1" max="100" value="10" onchange="saveMetas()"></div>
+      <div class="meta-group">Semanal <input class="meta-input" id="meta-sem" type="number" min="1" max="500" value="50" onchange="saveMetas()"></div>
+      <div class="meta-group">Follow-up após <input class="meta-input" id="meta-fu" type="number" min="1" max="30" value="3" onchange="saveMetas()"> dias</div>
+      <div class="meta-group">Fonte <span class="kbd-hint">⌨ atalhos: W I 1-5</span></div>
     </div>
 
     <div class="banners-row">
       <div class="day-banner">
         <div style="display:flex;justify-content:space-between;align-items:baseline"><span>Abordagens hoje</span><strong id="day-count">0</strong></div>
-        <div style="font-size:10px;color:#aaa;margin-top:2px">meta: <span id="lbl-dia">10</span>/dia</div>
+        <div style="font-size:10px;color:var(--text4);margin-top:2px">meta: <span id="lbl-dia">10</span>/dia</div>
         <div class="progress-bar"><div class="progress-fill pf-green" id="day-fill" style="width:0%"></div></div>
       </div>
       <div class="week-banner">
         <div style="display:flex;justify-content:space-between;align-items:baseline"><span>Esta semana</span><strong id="week-count">0</strong></div>
-        <div style="font-size:10px;color:#aaa;margin-top:2px">meta: <span id="lbl-sem">50</span> | resposta: <span id="week-conv">0%</span></div>
+        <div style="font-size:10px;color:var(--text4);margin-top:2px">meta: <span id="lbl-sem">50</span> | resposta: <span id="week-conv">0%</span></div>
         <div class="progress-bar"><div class="progress-fill pf-orange" id="week-fill" style="width:0%"></div></div>
       </div>
     </div>
@@ -310,15 +434,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <div class="heatmap-row" id="heatmap-row"></div>
     </div>
 
-    <div class="alert-banner ab-followup" id="fu-banner">
-      <strong>⏰ Follow-up pendente</strong>
-      <div id="fu-list"></div>
-    </div>
-
-    <div class="alert-banner ab-reagendado" id="reag-banner">
-      <strong>📅 Reagendados para hoje</strong>
-      <div id="reag-list"></div>
-    </div>
+    <div class="alert-banner ab-fu" id="fu-banner"><strong>⏰ Follow-up pendente</strong><div id="fu-list"></div></div>
+    <div class="alert-banner ab-reag" id="reag-banner"><strong>📅 Reagendados para hoje</strong><div id="reag-list"></div></div>
 
     <div class="toolbar">
       <button class="f-btn active" onclick="setFilter('todos',this)">Todos</button>
@@ -330,23 +447,36 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <button class="f-btn f-t2" onclick="setFilter('tier:T2',this)">T2</button>
       <button class="f-btn f-t3" onclick="setFilter('tier:T3',this)">T3</button>
       <button class="f-btn f-hoje" onclick="setFilter('hoje',this)">📅 Hoje</button>
-      <button class="f-btn f-followup" onclick="setFilter('followup',this)">⏰ Follow-up</button>
-      <button class="f-btn f-reagendado" onclick="setFilter('reagendado',this)">📅 Reagendados</button>
+      <button class="f-btn f-fu" onclick="setFilter('followup',this)">⏰ FU</button>
+      <button class="f-btn f-reag" onclick="setFilter('reagendado',this)">📅 Reag.</button>
+      <button class="f-btn f-arquivo" onclick="setFilter('arquivo',this)">📁 Arquivo</button>
       <select class="sort-select" onchange="setSort(this.value)">
         <option value="data">↑ Data</option>
-        <option value="tier">Tier (T1 primeiro)</option>
+        <option value="tier">Tier</option>
         <option value="seg">Seguidores</option>
         <option value="nome">Nome A–Z</option>
         <option value="timer">Tempo gasto</option>
+        <option value="prior">Prioridade</option>
+        <option value="contato">Último contato</option>
+      </select>
+      <select class="view-select" onchange="setView(this.value)">
+        <option value="lista">📋 Lista</option>
+        <option value="compacto">📄 Compacto</option>
+        <option value="kanban">🗂 Kanban</option>
       </select>
     </div>
 
-    <div class="toolbar" style="margin-top:-.3rem;margin-bottom:.85rem">
+    <div class="toolbar" style="margin-top:-.3rem;margin-bottom:.5rem">
       <div class="date-filter">
         <span>De</span><input type="date" id="date-from" onchange="renderLeads()">
         <span>até</span><input type="date" id="date-to" onchange="renderLeads()">
-        <button class="btn-clear-date" onclick="clearDates()">✕ limpar</button>
+        <button class="btn-clear-date" onclick="clearDates()">✕</button>
       </div>
+    </div>
+    <div class="slider-filter">
+      <span>Sem contato há mais de</span>
+      <input type="range" id="slider-fu" min="0" max="30" value="0" oninput="sliderFuChange(this.value)">
+      <span id="slider-fu-val">qualquer período</span>
     </div>
 
     <div id="list-area"></div>
@@ -357,7 +487,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   <div id="tab-dashboard">
     <div class="dash-grid">
       <div class="dash-card">
-        <h3>Taxa de conversão</h3>
+        <h3>Conversão geral</h3>
         <div class="dash-big" id="d-conv">—</div>
         <div class="dash-sub" id="d-conv-sub"></div>
       </div>
@@ -366,38 +496,59 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
         <div class="dash-big" id="d-avg">—</div>
         <div class="dash-sub">minutos por abordagem</div>
       </div>
+      <div class="dash-card">
+        <h3>Taxa de abertura de áudio</h3>
+        <div class="dash-big" id="d-audio">—</div>
+        <div class="dash-sub" id="d-audio-sub"></div>
+      </div>
+      <div class="dash-card">
+        <h3>Melhor dia para prospectar</h3>
+        <div class="dash-big" id="d-melhor-dia">—</div>
+        <div class="dash-sub melhor-dia" id="d-melhor-sub"></div>
+      </div>
+      <div class="dash-card" style="grid-column:1/-1">
+        <h3>Funil de conversão</h3>
+        <div class="funnel-row" id="d-funnel"></div>
+      </div>
       <div class="dash-card" style="grid-column:1/-1">
         <h3>Conversão por Tier</h3>
         <div id="d-tier"></div>
+      </div>
+      <div class="dash-card" style="grid-column:1/-1">
+        <h3>Conversão por origem</h3>
+        <div id="d-origem"></div>
       </div>
       <div class="dash-card" style="grid-column:1/-1">
         <h3>Status geral</h3>
         <div id="d-status"></div>
       </div>
       <div class="dash-card" style="grid-column:1/-1">
-        <h3>Leads por região (detectado na bio)</h3>
+        <h3>Leads por região</h3>
         <div class="region-tags" id="d-region"></div>
       </div>
     </div>
-    <button class="export-btn" onclick="exportCSV()">⬇ Exportar todos os leads (CSV)</button>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="export-btn" onclick="exportCSV()">⬇ Exportar CSV</button>
+      <button class="export-btn" style="background:var(--accent)" onclick="backupLocal()">💾 Backup local</button>
+    </div>
   </div>
 </div>
 
 <script>
 const DB_ID='f0ba744e-e86f-4402-9ed8-0e6afc18b11d';
-const K={token:'notion_crm_token',marker:'crm_marker_id',hist:'crm_history',timers:'crm_timers',reag:'crm_reagendar',metas:'crm_metas',wa:'crm_wa'};
+const K={tok:'notion_crm_token',marker:'crm_marker',hist:'crm_hist',timers:'crm_timers',reag:'crm_reag',metas:'crm_metas',wa:'crm_wa',valor:'crm_valor',prior:'crm_prior',tags:'crm_tags',proximo:'crm_proximo',origem:'crm_origem',audio:'crm_audio',arquivo:'crm_arquivo',priv:'crm_priv',dark:'crm_dark',font:'crm_font',etiquetas:'crm_etiquetas'};
 
-let allLeads=[],currentFilter='todos',currentSort='data',anterioresOpen=false,markedId=null;
+let allLeads=[],currentFilter='todos',currentSort='data',currentView='lista',anterioresOpen=false,markedId=null,focoIdx=0,focoLeads=[];
 let pendingObs={};
-let hist=JSON.parse(localStorage.getItem(K.hist)||'{}');
-let timers=JSON.parse(localStorage.getItem(K.timers)||'{}');
-let reagendar=JSON.parse(localStorage.getItem(K.reag)||'{}');
+let hist=load(K.hist),timers=load(K.timers),reagendar=load(K.reag),prioridade=load(K.prior),tags=load(K.tags),proximo=load(K.proximo),origem=load(K.origem),audio=load(K.audio),arquivo=load(K.arquivo),obsPriv=load(K.priv),etiquetas=load(K.etiquetas);
 let activeTimers={};
+let sliderFuMin=0;
 
-// HELPERS
+function load(k){try{return JSON.parse(localStorage.getItem(k)||'{}')}catch{return {}}}
 const $=id=>document.getElementById(id);
-const tok=()=>localStorage.getItem(K.token)||'';
+const tok=()=>localStorage.getItem(K.tok)||'';
 const waNum=()=>localStorage.getItem(K.wa)||'';
+const valorMentoria=()=>parseFloat(localStorage.getItem(K.valor)||'0');
 const today=()=>new Date().toISOString().slice(0,10);
 const weekStart=()=>{const d=new Date();d.setDate(d.getDate()-d.getDay()+1);return d.toISOString().slice(0,10);}
 const daysBetween=(a,b)=>Math.floor((new Date(b)-new Date(a))/(864e5));
@@ -406,9 +557,12 @@ const fmtDate=d=>d?d.slice(5).split('-').reverse().join('/'):''
 const fmtSecs=s=>`${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`;
 const fmtWa=n=>{let x=n.replace(/\D/g,'');if(!x)return '';if(!x.startsWith('55'))x='55'+x;return x;}
 const fmtSeg=n=>n>=1000?(n/1000).toFixed(1).replace('.',',')+'k':n;
+const fmtMoney=v=>v>0?'R$ '+v.toLocaleString('pt-BR'):'R$ 0';
 const statusLbl=s=>s.replace(/📋|🔄|✅|❌|🚫/g,'').trim();
 const tierOrder=t=>t.includes('T1')?0:t.includes('T2')?1:t.includes('T3')?2:3;
 const tierClass=t=>t.includes('T1')?'t1':t.includes('T2')?'t2':t.includes('T3')?'t3':'';
+const priorOrder=p=>p==='alta'?0:p==='media'?1:p==='baixa'?2:3;
+const dayLabel=d=>{const days=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];return days[new Date(d+'T12:00').getDay()];};
 const statusPillClass=s=>{
   if(s.includes('A Contatar')||s==='PAREI AQUI')return 'sp-contatar';
   if(s.includes('Em Andamento'))return 'sp-andamento';
@@ -417,11 +571,23 @@ const statusPillClass=s=>{
   if(s.includes('Sem Interesse')||s.includes('NÃO FAZ'))return 'sp-sem-int';
   return s==='SEM WHATS'?'sp-sem-whats':'sp-contatar';
 };
-const dayLabel=d=>{const days=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];return days[new Date(d+'T12:00').getDay()];};
-const save=()=>{localStorage.setItem(K.hist,JSON.stringify(hist));localStorage.setItem(K.timers,JSON.stringify(timers));localStorage.setItem(K.reag,JSON.stringify(reagendar));}
+
+function saveAll(){
+  localStorage.setItem(K.hist,JSON.stringify(hist));
+  localStorage.setItem(K.timers,JSON.stringify(timers));
+  localStorage.setItem(K.reag,JSON.stringify(reagendar));
+  localStorage.setItem(K.prior,JSON.stringify(prioridade));
+  localStorage.setItem(K.tags,JSON.stringify(tags));
+  localStorage.setItem(K.proximo,JSON.stringify(proximo));
+  localStorage.setItem(K.origem,JSON.stringify(origem));
+  localStorage.setItem(K.audio,JSON.stringify(audio));
+  localStorage.setItem(K.arquivo,JSON.stringify(arquivo));
+  localStorage.setItem(K.priv,JSON.stringify(obsPriv));
+  localStorage.setItem(K.etiquetas,JSON.stringify(etiquetas));
+}
 
 // METAS
-function getMetas(){const m=JSON.parse(localStorage.getItem(K.metas)||'{}');return{dia:m.dia||10,sem:m.sem||50,fu:m.fu||3};}
+function getMetas(){const m=load(K.metas);return{dia:m.dia||10,sem:m.sem||50,fu:m.fu||3};}
 function saveMetas(){
   const m={dia:+$('meta-dia').value||10,sem:+$('meta-sem').value||50,fu:+$('meta-fu').value||3};
   localStorage.setItem(K.metas,JSON.stringify(m));
@@ -436,30 +602,43 @@ function loadMetas(){
 
 // SETUP
 function salvarEEntrar(){
-  const t=$('token-input').value.trim();
-  if(!t){alert('Cole o token.');return;}
-  localStorage.setItem(K.token,t);
-  const w=$('wa-input').value.trim();
-  if(w)localStorage.setItem(K.wa,w);
+  const t=$('token-input').value.trim();if(!t){alert('Cole o token.');return;}
+  localStorage.setItem(K.tok,t);
+  const w=$('wa-input').value.trim();if(w)localStorage.setItem(K.wa,w);
+  const v=$('valor-input').value.trim();if(v)localStorage.setItem(K.valor,v);
   mostrarApp();
 }
 function trocarToken(){
   $('app-screen').style.display='none';$('config-screen').style.display='flex';
-  $('token-input').value=tok();$('wa-input').value=waNum();
+  $('token-input').value=tok();$('wa-input').value=waNum();$('valor-input').value=valorMentoria()||'';
 }
 function mostrarApp(){
   $('config-screen').style.display='none';$('app-screen').style.display='block';
   markedId=localStorage.getItem(K.marker)||null;
-  loadMetas();loadLeads();
+  loadMetas();
+  if(localStorage.getItem(K.dark)==='1')document.body.classList.add('dark');
+  const f=localStorage.getItem(K.font);if(f)document.body.classList.add('font-'+f);
+  loadLeads();
 }
-window.addEventListener('DOMContentLoaded',()=>{if(tok()){$('token-input').value=tok();$('wa-input').value=waNum();mostrarApp();}});
+window.addEventListener('DOMContentLoaded',()=>{if(tok()){$('token-input').value=tok();$('wa-input').value=waNum();$('valor-input').value=valorMentoria()||'';mostrarApp();}});
 
+// DARK / FONT
+function toggleDark(){
+  document.body.classList.toggle('dark');
+  localStorage.setItem(K.dark,document.body.classList.contains('dark')?'1':'0');
+  $('dark-btn').textContent=document.body.classList.contains('dark')?'☀️':'🌙';
+}
+
+// TAB
 function setTab(tab,btn){
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
   $('tab-leads').style.display=tab==='leads'?'block':'none';
   $('tab-dashboard').style.display=tab==='dashboard'?'block':'none';
   if(tab==='dashboard')renderDashboard();
 }
+
+// VIEW
+function setView(v){currentView=v;renderLeads();}
 
 // LOAD
 async function loadLeads(){
@@ -474,31 +653,22 @@ async function loadLeads(){
       const res=await fetch('/api/notion',{method:'POST',headers:{'Content-Type':'application/json'},
         body:JSON.stringify({token:tok(),action:'query',dbId:DB_ID,body})});
       if(res.status===401){mostrarErro('Token inválido. <button onclick="trocarToken()" style="color:#991b1b;background:none;border:none;cursor:pointer;text-decoration:underline">Reconfigurar</button>');return;}
-      if(res.status===403){mostrarErro('Permissão negada. Conecte a integração ao banco no Notion (⋯ → Connections).');return;}
+      if(res.status===403){mostrarErro('Permissão negada. Conecte a integração ao banco no Notion.');return;}
       const data=await res.json();
-      if(!data.results){mostrarErro('Erro: '+(data.message||JSON.stringify(data)));return;}
+      if(!data.results){mostrarErro('Erro: '+(data.message||''));return;}
       results=results.concat(data.results);
       cursor=data.has_more?data.next_cursor:null;pages++;
     }while(cursor&&pages<15);
 
     allLeads=results.map(p=>{
       const pr=p.properties;
-      return{
-        id:p.id,
-        nome:pr['Nome / Marca']?.title?.[0]?.plain_text||'(sem nome)',
-        instagram:(pr['@Instagram']?.rich_text?.[0]?.plain_text||'').trim(),
-        whatsapp:(pr['WhatsApp']?.rich_text?.[0]?.plain_text||'').trim(),
-        bio:pr['Bio']?.rich_text?.[0]?.plain_text||'',
-        tier:pr['Tier']?.select?.name||'',
-        status:pr['Status']?.select?.name||'',
-        seguidores:pr['Seguidores']?.number||0,
-        obs:pr['Observações']?.rich_text?.[0]?.plain_text||'',
-        data:pr['Data de Prospecção']?.date?.start||''
-      };
+      return{id:p.id,nome:pr['Nome / Marca']?.title?.[0]?.plain_text||'(sem nome)',instagram:(pr['@Instagram']?.rich_text?.[0]?.plain_text||'').trim(),whatsapp:(pr['WhatsApp']?.rich_text?.[0]?.plain_text||'').trim(),bio:pr['Bio']?.rich_text?.[0]?.plain_text||'',tier:pr['Tier']?.select?.name||'',status:pr['Status']?.select?.name||'',seguidores:pr['Seguidores']?.number||0,obs:pr['Observações']?.rich_text?.[0]?.plain_text||'',data:pr['Data de Prospecção']?.date?.start||''};
     });
-    atualizarStats();renderHeatmap();renderAlertBanners();renderLeads();
+    atualizarStats();renderHeatmap();renderAlertBanners();renderLeads();renderReceita();
     $('count-info').textContent=allLeads.length+' leads carregados';
     if(markedId)setTimeout(()=>$('fila-inicio')?.scrollIntoView({behavior:'smooth',block:'start'}),400);
+    // notificação metas
+    agendarNotificacaoMeta();
   }catch(e){mostrarErro('Erro: '+e.message);}
 }
 function mostrarErro(msg){$('list-area').innerHTML=`<div class="error-box"><strong>Ops, algo deu errado</strong>${msg}</div>`;}
@@ -511,16 +681,24 @@ function atualizarStats(){
   $('s-andamento').textContent=allLeads.filter(l=>l.status.includes('Em Andamento')).length;
   $('s-prospectado').textContent=allLeads.filter(l=>l.status.includes('Prospectado')).length;
   $('s-nao-resp').textContent=allLeads.filter(l=>l.status.includes('Não Respondeu')).length;
-
   const hj=allLeads.filter(l=>hist[l.id]?.some(e=>e.date===hoje&&!e.status.includes('A Contatar'))).length;
   $('day-count').textContent=hj;
   $('day-fill').style.width=Math.min(100,Math.round(hj/m.dia*100))+'%';
-
   const sem=allLeads.filter(l=>hist[l.id]?.some(e=>e.date>=ws&&!e.status.includes('A Contatar'))).length;
   const ps=allLeads.filter(l=>hist[l.id]?.some(e=>e.date>=ws&&e.status.includes('Prospectado'))).length;
   $('week-count').textContent=sem;
   $('week-conv').textContent=(sem>0?Math.round(ps/sem*100):0)+'%';
   $('week-fill').style.width=Math.min(100,Math.round(sem/m.sem*100))+'%';
+}
+
+function renderReceita(){
+  const vm=valorMentoria();
+  const fila=allLeads.filter(l=>!arquivo[l.id]&&(l.status.includes('A Contatar')||l.status==='PAREI AQUI'||l.status.includes('Em Andamento'))).length;
+  const prosp=allLeads.filter(l=>l.status.includes('Prospectado')).length;
+  const abord=allLeads.filter(l=>!l.status.includes('A Contatar')&&l.status!=='PAREI AQUI').length;
+  $('r-potencial').textContent=fmtMoney(vm*fila);
+  $('r-gerada').textContent=fmtMoney(vm*prosp);
+  $('r-conv').textContent=(abord>0?Math.round(prosp/abord*100):0)+'%';
 }
 
 // HEATMAP
@@ -530,45 +708,49 @@ function renderHeatmap(){
   const counts=dias.map(d=>allLeads.filter(l=>hist[l.id]?.some(e=>e.date===d&&!e.status.includes('A Contatar'))).length);
   const max=Math.max(...counts,1);
   $('heatmap-row').innerHTML=dias.map((d,i)=>{
-    const pct=Math.round(counts[i]/max*100);
-    const h=Math.max(8,Math.round(pct*0.44));
-    const c=counts[i]===0?'#f0f0ee':counts[i]<3?'#bbf7d0':counts[i]<7?'#4ade80':'#16a34a';
-    return`<div class="heatmap-bar-wrap">
-      <span class="heatmap-val">${counts[i]||''}</span>
-      <div class="heatmap-bar" style="height:${h}px;background:${c}"></div>
-      <span class="heatmap-label">${dayLabel(d)}</span>
-    </div>`;
+    const h=Math.max(8,Math.round(counts[i]/max*44));
+    const c=counts[i]===0?'var(--surface2)':counts[i]<3?'#bbf7d0':counts[i]<7?'#4ade80':'#16a34a';
+    return`<div class="heatmap-bar-wrap"><span class="heatmap-val">${counts[i]||''}</span><div class="heatmap-bar" style="height:${h}px;background:${c}"></div><span class="heatmap-label">${dayLabel(d)}</span></div>`;
   }).join('');
 }
 
 // ALERTAS
-function getFuDias(){return +$('meta-fu').value||3;}
+function getFuDias(){return +$('meta-fu')?.value||3;}
 function isFollowup(l){
   if(!l.status.includes('Em Andamento'))return false;
   const h=hist[l.id];if(!h?.length)return false;
   return daysBetween(h[h.length-1].date,today())>=getFuDias();
 }
 function isReagHoje(id){const d=reagendar[id];return d&&d<=today();}
+function ultimoContato(l){const h=hist[l.id];return h?.length?h[h.length-1].date:l.data||'';}
 
 function renderAlertBanners(){
   const hoje=today();
   const fus=allLeads.filter(l=>isFollowup(l)).slice(0,5);
   const fuB=$('fu-banner'),fuL=$('fu-list');
-  if(fus.length){
-    fuB.classList.add('visible');
-    fuL.innerHTML=fus.map(l=>{
-      const h=hist[l.id];const dias=daysBetween(h[h.length-1].date,hoje);
-      const ig=l.instagram.replace(/^@/,'').replace(/\s/g,'');
-      return`<div class="alert-item"><span><strong>${l.nome}</strong> — ${dias} dias sem retorno</span>${ig?`<a href="https://instagram.com/${ig}" target="_blank">Ver IG</a>`:''}</div>`;
-    }).join('');
-  } else fuB.classList.remove('visible');
-
+  if(fus.length){fuB.classList.add('visible');fuL.innerHTML=fus.map(l=>{const h=hist[l.id];const dias=daysBetween(h[h.length-1].date,hoje);const ig=l.instagram.replace(/^@/,'').replace(/\s/g,'');return`<div class="alert-item"><span><strong>${l.nome}</strong> — ${dias} dias</span>${ig?`<a href="https://instagram.com/${ig}" target="_blank">Ver IG</a>`:''}</div>`;}).join('');}
+  else fuB.classList.remove('visible');
   const reags=allLeads.filter(l=>isReagHoje(l.id));
   const rB=$('reag-banner'),rL=$('reag-list');
-  if(reags.length){
-    rB.classList.add('visible');
-    rL.innerHTML=reags.map(l=>`<div class="alert-item"><span><strong>${l.nome}</strong></span><span style="font-size:11px;color:#7c3aed">📅 hoje</span></div>`).join('');
-  } else rB.classList.remove('visible');
+  if(reags.length){rB.classList.add('visible');rL.innerHTML=reags.map(l=>`<div class="alert-item"><span><strong>${l.nome}</strong></span><span style="font-size:11px;color:var(--purple)">📅 hoje</span></div>`).join('');}
+  else rB.classList.remove('visible');
+}
+
+// NOTIFICAÇÃO META
+function agendarNotificacaoMeta(){
+  if(!('Notification' in window))return;
+  Notification.requestPermission().then(p=>{
+    if(p!=='granted')return;
+    const agora=new Date();
+    const alvo=new Date();alvo.setHours(18,0,0,0);
+    if(agora>=alvo)return;
+    const ms=alvo-agora;
+    setTimeout(()=>{
+      const m=getMetas();
+      const hj=allLeads.filter(l=>hist[l.id]?.some(e=>e.date===today()&&!e.status.includes('A Contatar'))).length;
+      if(hj<m.dia)new Notification('🎯 CRM Prospecção',{body:`Você fez ${hj} de ${m.dia} abordagens hoje. Ainda dá tempo!`,icon:''});
+    },ms);
+  });
 }
 
 // FILTERS
@@ -576,18 +758,36 @@ function clearSearch(){$('search-input').value='';renderLeads();}
 function setFilter(f,btn){currentFilter=f;document.querySelectorAll('.f-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderLeads();}
 function setSort(v){currentSort=v;renderLeads();}
 function clearDates(){$('date-from').value='';$('date-to').value='';renderLeads();}
+function sliderFuChange(v){sliderFuMin=+v;$('slider-fu-val').textContent=v>0?`${v} dias`:'qualquer período';renderLeads();}
 function setMarker(id){markedId=markedId===id?null:id;markedId?localStorage.setItem(K.marker,id):localStorage.removeItem(K.marker);renderLeads();}
-function toggleAnteriores(){
-  anterioresOpen=!anterioresOpen;
-  $('anteriores-section')?.classList.toggle('open',anterioresOpen);
-  $('anteriores-toggle')?.classList.toggle('open',anterioresOpen);
-}
+function toggleAnteriores(){anterioresOpen=!anterioresOpen;$('anteriores-section')?.classList.toggle('open',anterioresOpen);$('anteriores-toggle')?.classList.toggle('open',anterioresOpen);}
 
 // REAGENDAR
-function setReagendar(id,dias){
-  if(!dias){delete reagendar[id];}else{reagendar[id]=addDays(today(),+dias);}
-  save();renderAlertBanners();renderLeads();
+function setReagendar(id,dias){if(!dias){delete reagendar[id];}else{reagendar[id]=addDays(today(),+dias);}saveAll();renderAlertBanners();renderLeads();}
+
+// PRIORIDADE
+function setPrioridade(id,p){prioridade[id]=prioridade[id]===p?null:p;saveAll();renderLeads();}
+
+// ETIQUETA
+function toggleEtiqueta(id,tag){
+  if(!tags[id])tags[id]=[];
+  const idx=tags[id].indexOf(tag);
+  if(idx>=0)tags[id].splice(idx,1);else tags[id].push(tag);
+  saveAll();renderLeads();
 }
+function getEtiquetas(){return etiquetas.list||['🔥 Quente','⭐ Indicação','💡 Potencial']}
+
+// AUDIO
+function setAudio(id,v){audio[id]=audio[id]===v?null:v;saveAll();renderLeads();}
+
+// ORIGEM
+function setOrigem(id,v){origem[id]=v;saveAll();}
+
+// PROXIMO
+function setProximo(id,v){proximo[id]=v;saveAll();}
+
+// ARQUIVO
+function arquivarLead(id){arquivo[id]=!arquivo[id];saveAll();renderLeads();}
 
 // TIMER
 function toggleTimer(id){activeTimers[id]?stopTimer(id):startTimer(id);}
@@ -596,19 +796,79 @@ function startTimer(id){
   const t0=Date.now()-(timers[id]||0)*1000;
   activeTimers[id]=setInterval(()=>{
     const el=$('timer-'+id);if(!el){clearInterval(activeTimers[id]);delete activeTimers[id];return;}
-    timers[id]=Math.floor((Date.now()-t0)/1000);
-    el.textContent=fmtSecs(timers[id]);
+    timers[id]=Math.floor((Date.now()-t0)/1000);el.textContent=fmtSecs(timers[id]);
   },1000);
   const btn=$('tbtn-'+id);if(btn){btn.textContent='⏹ Parar';btn.classList.add('running');}
 }
 function stopTimer(id){
-  if(activeTimers[id]){clearInterval(activeTimers[id]);delete activeTimers[id];save();}
+  if(activeTimers[id]){clearInterval(activeTimers[id]);delete activeTimers[id];saveAll();}
   const btn=$('tbtn-'+id);if(btn){btn.textContent='▶ Iniciar';btn.classList.remove('running');}
 }
 function avgTimer(){const v=Object.values(timers).filter(x=>x>0);return v.length?Math.round(v.reduce((a,b)=>a+b,0)/v.length/60):null;}
 
+// MODO FOCO
+function abrirFoco(){
+  focoLeads=filtrarLeads();
+  if(!focoLeads.length){alert('Nenhum lead neste filtro.');return;}
+  focoIdx=0;renderFocoCard();
+  $('foco-screen').classList.add('active');
+}
+function fecharFoco(){$('foco-screen').classList.remove('active');}
+function focoProximo(){if(focoIdx<focoLeads.length-1){focoIdx++;renderFocoCard();}}
+function focoAnterior(){if(focoIdx>0){focoIdx--;renderFocoCard();}}
+function renderFocoCard(){
+  const l=focoLeads[focoIdx];if(!l)return;
+  const waNum=fmtWa(l.whatsapp);
+  const ig=l.instagram.replace(/^@/,'').replace(/\s/g,'');
+  $('foco-card').innerHTML=`
+    <div style="font-size:10px;color:var(--text4);margin-bottom:12px">${focoIdx+1} de ${focoLeads.length} leads</div>
+    <div class="foco-nome">${l.nome}</div>
+    ${ig?`<div class="foco-ig">@${ig}</div>`:''}
+    ${l.bio?`<div class="foco-bio">${l.bio}</div>`:''}
+    <div class="foco-meta">
+      ${l.tier?`<span>${l.tier.replace(/🟢|🟡|🔵/g,'').trim()}</span>`:''}
+      ${l.seguidores?`<span>👥 ${fmtSeg(l.seguidores)}</span>`:''}
+    </div>
+    <div class="foco-actions">
+      ${waNum?`<a class="btn-wa" href="https://wa.me/${waNum}" target="_blank" onclick="stopTimer('${l.id}')">📱 WhatsApp ${l.whatsapp?`<span class="num-hint">${l.whatsapp}</span>`:''}</a>`:`<span class="no-wa">📵 Sem número</span>`}
+      ${ig?`<a class="btn-ig" href="https://instagram.com/${ig}" target="_blank">📷 Instagram</a>`:''}
+    </div>
+    <div class="foco-status">
+      <button class="foco-status-btn" onclick="focoSetStatus('${l.id}','🔄 Em Andamento')">🔄 Em Andamento</button>
+      <button class="foco-status-btn" onclick="focoSetStatus('${l.id}','✅ Prospectado')">✅ Prospectado</button>
+      <button class="foco-status-btn" onclick="focoSetStatus('${l.id}','❌ Não Respondeu')">❌ Não Respondeu</button>
+      <button class="foco-status-btn" onclick="focoSetStatus('${l.id}','🚫 Sem Interesse')">🚫 Sem Interesse</button>
+    </div>
+    <div class="foco-nav">
+      <button class="btn-sm" onclick="focoAnterior()" ${focoIdx===0?'disabled':''}>← Anterior</button>
+      <span class="foco-progress">${focoIdx+1}/${focoLeads.length}</span>
+      <button class="btn-sm" onclick="focoProximo()" ${focoIdx===focoLeads.length-1?'disabled':''}>Próximo →</button>
+    </div>`;
+}
+async function focoSetStatus(id,status){
+  await updateStatusDireto(id,status);
+  const lead=allLeads.find(l=>l.id===id);if(lead)focoLeads[focoIdx]=lead;
+  if(focoIdx<focoLeads.length-1)focoProximo();else{fecharFoco();renderLeads();}
+}
+
+// ATALHOS TECLADO
+document.addEventListener('keydown',e=>{
+  if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA'||e.target.tagName==='SELECT')return;
+  if($('foco-screen').classList.contains('active')){
+    if(e.key==='ArrowRight'||e.key==='n')focoProximo();
+    if(e.key==='ArrowLeft'||e.key==='p')focoAnterior();
+    if(e.key==='Escape')fecharFoco();
+    if(e.key==='w'||e.key==='W'){const l=focoLeads[focoIdx];if(l){const wn=fmtWa(l.whatsapp);if(wn)window.open('https://wa.me/'+wn,'_blank');}}
+    if(e.key==='i'||e.key==='I'){const l=focoLeads[focoIdx];if(l){const ig=l.instagram.replace(/^@/,'').replace(/\s/g,'');if(ig)window.open('https://instagram.com/'+ig,'_blank');}}
+    return;
+  }
+  if(e.key==='/'){{e.preventDefault();$('search-input').focus();}}
+  if(e.key==='Escape')clearSearch();
+  if(e.key==='f'||e.key==='F')abrirFoco();
+});
+
 // BUILD CARD
-function buildCard(l){
+function buildCard(l,compacto=false){
   const hoje=today();
   const waLink=fmtWa(l.whatsapp)?`https://wa.me/${fmtWa(l.whatsapp)}`:'';
   const igHandle=l.instagram.replace(/^@/,'').replace(/\s/g,'');
@@ -624,36 +884,62 @@ function buildCard(l){
   const running=!!activeTimers[l.id];
   const lhist=(hist[l.id]||[]).slice(-3);
   const reagVal=reagendar[l.id]||'';
+  const prior=prioridade[l.id]||null;
+  const cardTags=tags[l.id]||[];
+  const proxVal=proximo[l.id]||'';
+  const origVal=origem[l.id]||'';
+  const audioVal=audio[l.id]||null;
+  const isArq=arquivo[l.id]||false;
 
   let cc='lead-card';
   if(done)cc+=' done';
   if(isHoje)cc+=' card-hoje';
-  if(isFu)cc+=' card-followup';
-  if(isReag)cc+=' card-reagendado';
+  if(isFu)cc+=' card-fu';
+  if(isReag)cc+=' card-reag';
+  if(prior==='alta')cc+=' card-alta';
+  if(prior==='media')cc+=' card-media';
+  if(prior==='baixa')cc+=' card-baixa';
+  if(compacto)cc+=' lead-card card-compacto';
+
+  if(compacto){
+    return`<div class="${cc}" id="card-${l.id}">
+      <div class="lead-top" style="margin-bottom:0">
+        <div style="flex:1;min-width:0">
+          <div class="lead-name" style="font-size:12px">${l.nome} ${igHandle?`<span style="font-size:10px;color:var(--accent)">@${igHandle}</span>`:''}
+            ${isHoje?` <span class="badge-mini bm-hoje">hoje</span>`:''}
+            ${isFu?` <span class="badge-mini bm-fu">⏰</span>`:''}
+          </div>
+        </div>
+        <div style="display:flex;gap:4px;align-items:center;flex-shrink:0">
+          ${l.tier?`<span class="tier-badge ${tierClass(l.tier)}">${tierLbl}</span>`:''}
+          ${waLink?`<a class="btn-wa" href="${waLink}" target="_blank" style="padding:3px 8px;font-size:10px">WA</a>`:''}
+          ${igLink?`<a class="btn-ig" href="${igLink}" target="_blank" style="padding:3px 8px;font-size:10px">IG</a>`:''}
+          <select class="status-select" onchange="updateStatus('${l.id}',this)" style="font-size:9px;padding:2px 4px">
+            <option value="">Status…</option>
+            <option value="📋 A Contatar"${l.status==='📋 A Contatar'?' selected':''}>📋 A Contatar</option>
+            <option value="🔄 Em Andamento"${l.status==='🔄 Em Andamento'?' selected':''}>🔄 Em Andamento</option>
+            <option value="✅ Prospectado"${l.status==='✅ Prospectado'?' selected':''}>✅ Prospectado</option>
+            <option value="❌ Não Respondeu"${l.status==='❌ Não Respondeu'?' selected':''}>❌ Não Respondeu</option>
+            <option value="🚫 Sem Interesse"${l.status==='🚫 Sem Interesse'?' selected':''}>🚫 Sem Interesse</option>
+          </select>
+        </div>
+      </div>
+    </div>`;
+  }
 
   const histHtml=lhist.length?`<div class="status-history">${lhist.map(e=>`<span>📌 ${statusLbl(e.status)} em ${fmtDate(e.date)}</span>`).join('')}</div>`:'';
-
-  const reagOpts=[
-    {v:'',l:'Sem reagendamento'},
-    {v:'1',l:'Amanhã'},{v:'2',l:'Em 2 dias'},{v:'3',l:'Em 3 dias'},
-    {v:'5',l:'Em 5 dias'},{v:'7',l:'Em 1 semana'},{v:'14',l:'Em 2 semanas'}
-  ];
-  const reagHtml=`<div class="reagendar-row">
-    <span class="reagendar-label">📅 Reagendar:</span>
-    <select class="reagendar-select" onchange="setReagendar('${l.id}',this.value)">
-      ${reagOpts.map(o=>`<option value="${o.v}"${reagVal===addDays(hoje,+o.v)&&o.v?' selected':''}>${o.l}</option>`).join('')}
-    </select>
-    ${reagVal?`<span class="reagendar-data">→ ${fmtDate(reagVal)}</span><button class="btn-reag-clear" onclick="setReagendar('${l.id}','')">✕</button>`:''}
-    ${isReag?`<span class="badge-mini bm-reag">📅 hoje!</span>`:''}
-  </div>`;
+  const reagOpts=[{v:'',l:'Sem reagendamento'},{v:'1',l:'Amanhã'},{v:'2',l:'Em 2 dias'},{v:'3',l:'Em 3 dias'},{v:'5',l:'Em 5 dias'},{v:'7',l:'Em 1 sem.'},{v:'14',l:'Em 2 sem.'}];
+  const etiquetasList=getEtiquetas();
 
   return`<div class="${cc}" id="card-${l.id}">
   <div class="lead-top">
     <div style="flex:1;min-width:0">
       <div class="lead-name">${l.nome}
         ${isHoje?` <span class="badge-mini bm-hoje">hoje</span>`:''}
-        ${isFu?` <span class="badge-mini bm-followup">⏰ follow-up</span>`:''}
+        ${isFu?` <span class="badge-mini bm-fu">⏰ FU</span>`:''}
         ${isReag?` <span class="badge-mini bm-reag">📅 hoje</span>`:''}
+        ${audioVal==='sim'?` <span class="badge-mini bm-audio-sim">🎧 ouviu</span>`:audioVal==='nao'?` <span class="badge-mini bm-audio-nao">🔇 não ouviu</span>`:''}
+        ${isArq?` <span class="badge-mini" style="background:var(--surface2);color:var(--text4)">📁 arquivado</span>`:''}
       </div>
       ${igHandle?`<div class="lead-handle">@${igHandle}</div>`:''}
     </div>
@@ -666,22 +952,58 @@ function buildCard(l){
   <div class="lead-meta">
     ${l.seguidores?`<span>👥 ${fmtSeg(l.seguidores)}</span>`:''}
     ${l.data?`<span>📅 ${fmtDate(l.data)}</span>`:''}
+    ${origVal?`<span>📌 ${origVal}</span>`:''}
+    ${tv>0?`<span>⏱ ${Math.floor(tv/60)}min</span>`:''}
+  </div>
+  <div class="prioridade-row">
+    <label>Prioridade:</label>
+    <button class="prior-btn alta${prior==='alta'?' sel':''}" onclick="setPrioridade('${l.id}','alta')">🔴 Alta</button>
+    <button class="prior-btn media${prior==='media'?' sel':''}" onclick="setPrioridade('${l.id}','media')">🟡 Média</button>
+    <button class="prior-btn baixa${prior==='baixa'?' sel':''}" onclick="setPrioridade('${l.id}','baixa')">🟢 Baixa</button>
+  </div>
+  <div class="tags-row">
+    ${etiquetasList.map(t=>`<span class="tag-chip${cardTags.includes(t)?' sel':''}\" onclick="toggleEtiqueta('${l.id}','${t}')" style="${cardTags.includes(t)?'background:#e0f2fe;color:#0369a1;border-color:#7dd3fc':'background:var(--surface2);color:var(--text4);border-color:var(--border2)'}">${t}</span>`).join('')}
+  </div>
+  <div class="proximo-row">
+    <input class="proximo-input" type="text" placeholder="📌 Próximo passo…" value="${proxVal.replace(/"/g,'&quot;')}" onchange="setProximo('${l.id}',this.value)" onblur="setProximo('${l.id}',this.value)">
+  </div>
+  <div class="origem-row">
+    <label>Origem:</label>
+    <select class="origem-select" onchange="setOrigem('${l.id}',this.value)">
+      <option value="">—</option>
+      <option value="Seguidores"${origVal==='Seguidores'?' selected':''}>Seguidores</option>
+      <option value="Comentários"${origVal==='Comentários'?' selected':''}>Comentários</option>
+      <option value="Indicação"${origVal==='Indicação'?' selected':''}>Indicação</option>
+      <option value="Pesquisa"${origVal==='Pesquisa'?' selected':''}>Pesquisa</option>
+      <option value="Stories"${origVal==='Stories'?' selected':''}>Stories</option>
+    </select>
+  </div>
+  <div class="audio-row">
+    <span>🎧 Ouviu o áudio?</span>
+    <button class="audio-btn${audioVal==='sim'?' sim':''}" onclick="setAudio('${l.id}','sim')">Sim</button>
+    <button class="audio-btn${audioVal==='nao'?' nao':''}" onclick="setAudio('${l.id}','nao')">Não</button>
   </div>
   ${histHtml}
   <div class="timer-row">
     <span class="timer-display" id="timer-${l.id}">${fmtSecs(tv)}</span>
     <button class="btn-timer${running?' running':''}" id="tbtn-${l.id}" onclick="toggleTimer('${l.id}')">${running?'⏹ Parar':'▶ Iniciar'}</button>
-    ${tv>0?`<span class="timer-info">${Math.floor(tv/60)}min gasto</span>`:''}
+    ${tv>0?`<span style="font-size:10px;color:var(--text4)">${Math.floor(tv/60)}min gasto</span>`:''}
   </div>
-  ${reagHtml}
+  <div class="reagendar-row">
+    <span class="reagendar-label">📅 Reagendar:</span>
+    <select class="reagendar-select" onchange="setReagendar('${l.id}',this.value)">
+      ${reagOpts.map(o=>`<option value="${o.v}"${reagVal&&o.v&&reagVal===addDays(today(),+o.v)?' selected':''}>${o.l}</option>`).join('')}
+    </select>
+    ${reagVal?`<span class="reag-data">→ ${fmtDate(reagVal)}</span><button class="btn-reag-clear" onclick="setReagendar('${l.id}','')">✕</button>`:''}
+  </div>
   <div class="lead-actions">
     ${waLink?`<a class="btn-wa" href="${waLink}" target="_blank" rel="noopener">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/></svg>
-      WhatsApp ${l.whatsapp?`<span class="num-hint">${l.whatsapp}</span>`:''}
+      WA ${l.whatsapp?`<span class="num-hint">${l.whatsapp}</span>`:''}
     </a>`:`<span class="no-wa">📵 Sem número</span>`}
     ${igLink?`<a class="btn-ig" href="${igLink}" target="_blank" rel="noopener">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
-      Instagram
+      IG
     </a>`:''}
     <select class="status-select" onchange="updateStatus('${l.id}',this)">
       <option value="">Status…</option>
@@ -690,46 +1012,73 @@ function buildCard(l){
       <option value="✅ Prospectado"${l.status==='✅ Prospectado'?' selected':''}>✅ Prospectado</option>
       <option value="❌ Não Respondeu"${l.status==='❌ Não Respondeu'?' selected':''}>❌ Não Respondeu</option>
       <option value="🚫 Sem Interesse"${l.status==='🚫 Sem Interesse'?' selected':''}>🚫 Sem Interesse</option>
-      <option value="SEM WHATS"${l.status==='SEM WHATS'?' selected':''}>Sem WhatsApp</option>
+      <option value="SEM WHATS"${l.status==='SEM WHATS'?' selected':''}>Sem WA</option>
     </select>
     <button class="btn-marker${isMarked?' is-marked':''}" onclick="setMarker('${l.id}')">📍 ${isMarked?'Marcado':'Parei aqui'}</button>
+    <button class="btn-arquivo" onclick="arquivarLead('${l.id}')" title="${isArq?'Restaurar':'Arquivar'}">${isArq?'↩':'📁'}</button>
+    <button class="btn-foco-lead" onclick="abrirFocoLead('${l.id}')">🎯</button>
   </div>
   <div class="obs-section">
-    <div class="obs-label">📝 Observações</div>
-    <textarea class="obs-textarea" id="obs-${l.id}" rows="2" placeholder="Anotação rápida…" oninput="obsChanged('${l.id}',this)">${obsVal}</textarea>
-    <div class="obs-actions"><button class="btn-obs-save" id="obs-save-${l.id}" onclick="saveObs('${l.id}')">Salvar nota</button></div>
-    <div class="obs-saved" id="obs-saved-${l.id}">✓ Salvo no Notion</div>
+    <div class="obs-label">📝 Observações (Notion)</div>
+    <textarea class="obs-textarea" id="obs-${l.id}" rows="2" placeholder="Anotação que salva no Notion…" oninput="obsChanged('${l.id}',this)">${obsVal}</textarea>
+    <div class="obs-label" style="margin-top:6px">🔒 Nota privada (só aqui)</div>
+    <textarea class="obs-textarea obs-priv" id="priv-${l.id}" rows="1" placeholder="Nota interna…" onchange="obsPriv['${l.id}']=this.value;saveAll()">${obsPriv[l.id]||''}</textarea>
+    <div class="obs-actions"><button class="btn-obs-save" id="obs-save-${l.id}" onclick="saveObs('${l.id}')">Salvar no Notion</button></div>
+    <div class="obs-saved" id="obs-saved-${l.id}">✓ Salvo</div>
   </div>
 </div>`;
 }
 
-// RENDER LEADS
-function renderLeads(){
+function abrirFocoLead(id){
+  const idx=allLeads.findIndex(l=>l.id===id);
+  focoLeads=filtrarLeads();
+  const fi=focoLeads.findIndex(l=>l.id===id);
+  focoIdx=fi>=0?fi:0;
+  renderFocoCard();$('foco-screen').classList.add('active');
+}
+
+// FILTRAR
+function filtrarLeads(){
   const hoje=today();
-  const df=$('date-from').value,dt=$('date-to').value;
-  const search=$('search-input').value.trim().toLowerCase();
+  const df=$('date-from')?.value||'';const dt=$('date-to')?.value||'';
+  const search=$('search-input')?.value?.trim()?.toLowerCase()||'';
   let leads=[...allLeads];
 
   if(search)leads=leads.filter(l=>l.nome.toLowerCase().includes(search)||l.instagram.toLowerCase().includes(search));
+  if(currentFilter==='arquivo')leads=leads.filter(l=>arquivo[l.id]);
+  else leads=leads.filter(l=>!arquivo[l.id]);
+
   if(currentFilter==='tier:T1')leads=leads.filter(l=>l.tier.includes('T1'));
   else if(currentFilter==='tier:T2')leads=leads.filter(l=>l.tier.includes('T2'));
   else if(currentFilter==='tier:T3')leads=leads.filter(l=>l.tier.includes('T3'));
   else if(currentFilter==='hoje')leads=leads.filter(l=>l.data===hoje);
   else if(currentFilter==='followup')leads=leads.filter(l=>isFollowup(l));
   else if(currentFilter==='reagendado')leads=leads.filter(l=>isReagHoje(l.id));
-  else if(currentFilter!=='todos')leads=leads.filter(l=>l.status===currentFilter);
+  else if(currentFilter!=='todos'&&currentFilter!=='arquivo')leads=leads.filter(l=>l.status===currentFilter);
+
   if(df)leads=leads.filter(l=>l.data>=df);
   if(dt)leads=leads.filter(l=>l.data<=dt);
+  if(sliderFuMin>0)leads=leads.filter(l=>{const uc=ultimoContato(l);return uc&&daysBetween(uc,hoje)>=sliderFuMin;});
 
   leads.sort((a,b)=>{
     if(currentSort==='tier')return tierOrder(a.tier)-tierOrder(b.tier);
     if(currentSort==='seg')return b.seguidores-a.seguidores;
     if(currentSort==='nome')return a.nome.localeCompare(b.nome,'pt');
     if(currentSort==='timer')return (timers[b.id]||0)-(timers[a.id]||0);
+    if(currentSort==='prior')return priorOrder(prioridade[a.id])-priorOrder(prioridade[b.id]);
+    if(currentSort==='contato')return ultimoContato(b).localeCompare(ultimoContato(a));
     return (a.data||'').localeCompare(b.data||'');
   });
+  return leads;
+}
 
+// RENDER LEADS
+function renderLeads(){
+  const leads=filtrarLeads();
   if(!leads.length){$('list-area').innerHTML='<div class="empty-state">Nenhum lead neste filtro.</div>';return;}
+
+  if(currentView==='kanban'){renderKanban(leads);return;}
+  const compacto=currentView==='compacto';
 
   const midx=markedId?leads.findIndex(l=>l.id===markedId):-1;
   let html='';
@@ -740,17 +1089,45 @@ function renderLeads(){
       <span>📁 Leads já trabalhados</span><span class="ant-count">${ant.length}</span><span class="chevron">▾</span>
     </div>
     <div class="anteriores-section${anterioresOpen?' open':''}" id="anteriores-section">
-      <div class="lead-list">${ant.map(l=>buildCard(l)).join('')}</div>
+      <div class="lead-list">${ant.map(l=>buildCard(l,compacto)).join('')}</div>
     </div>
-    <div class="marker-divider" id="fila-inicio"><div class="marker-label">📍 Parei aqui — ${fila.length} leads na fila</div></div>
-    <div class="lead-list">${fila.map(l=>buildCard(l)).join('')}</div>`;
+    <div class="marker-divider" id="fila-inicio"><div class="marker-label">📍 Parei aqui — ${fila.length} na fila</div></div>
+    <div class="lead-list">${fila.map(l=>buildCard(l,compacto)).join('')}</div>`;
   } else if(midx===0){
-    html+=`<div class="marker-divider" id="fila-inicio"><div class="marker-label">📍 Início — ${leads.length} leads na fila</div></div>
-    <div class="lead-list">${leads.map(l=>buildCard(l)).join('')}</div>`;
+    html+=`<div class="marker-divider" id="fila-inicio"><div class="marker-label">📍 Início — ${leads.length} na fila</div></div>
+    <div class="lead-list">${leads.map(l=>buildCard(l,compacto)).join('')}</div>`;
   } else {
-    html+=`<div class="lead-list">${leads.map(l=>buildCard(l)).join('')}</div>`;
+    html+=`<div class="lead-list">${leads.map(l=>buildCard(l,compacto)).join('')}</div>`;
   }
   $('list-area').innerHTML=html;
+  $('count-info').textContent=leads.length+' leads';
+}
+
+// KANBAN
+function renderKanban(leads){
+  const cols=[
+    {k:'📋 A Contatar',l:'A Contatar',c:'#aaa'},
+    {k:'🔄 Em Andamento',l:'Em Andamento',c:'#f59e0b'},
+    {k:'✅ Prospectado',l:'Prospectado',c:'#25D366'},
+    {k:'❌ Não Respondeu',l:'Não Respondeu',c:'#ef4444'},
+    {k:'🚫 Sem Interesse',l:'Sem Interesse',c:'#6b7280'}
+  ];
+  const html=`<div class="kanban-board">${cols.map(col=>{
+    const cards=leads.filter(l=>l.status===col.k||((col.k==='📋 A Contatar')&&(l.status==='PAREI AQUI'||l.status==='SEM WHATS'||l.status==='NÃO FAZ O PERFIL DA EMPRESSA')));
+    return`<div class="kanban-col">
+      <h4 style="border-left:3px solid ${col.c};padding-left:6px">${col.l} <span class="ant-count">${cards.length}</span></h4>
+      <div class="kanban-cards">${cards.map(l=>{
+        const ig=l.instagram.replace(/^@/,'').replace(/\s/g,'');
+        return`<div class="kanban-card" onclick="abrirFocoLead('${l.id}')">
+          <div class="kc-name">${l.nome}</div>
+          ${ig?`<div class="kc-ig">@${ig}</div>`:''}
+          ${l.tier?`<span class="kc-tier ${tierClass(l.tier)}">${l.tier.replace(/🟢|🟡|🔵/g,'').trim()}</span>`:''}
+        </div>`;
+      }).join('')}</div>
+    </div>`;
+  }).join('')}</div>`;
+  $('list-area').innerHTML=html;
+  $('count-info').textContent=leads.length+' leads';
 }
 
 // DASHBOARD
@@ -759,35 +1136,53 @@ function renderDashboard(){
   const abord=allLeads.filter(l=>!l.status.includes('A Contatar')&&l.status!=='PAREI AQUI').length;
   const prosp=allLeads.filter(l=>l.status.includes('Prospectado')).length;
   const conv=abord>0?Math.round(prosp/abord*100):0;
-  $('d-conv').textContent=conv+'%';
-  $('d-conv-sub').textContent=`${prosp} prospectados de ${abord} abordados`;
-  const avg=avgTimer();
-  $('d-avg').textContent=avg!=null?avg+'min':'—';
+  $('d-conv').textContent=conv+'%';$('d-conv-sub').textContent=`${prosp} prospectados de ${abord} abordados`;
+  const avg=avgTimer();$('d-avg').textContent=avg!=null?avg+'min':'—';
 
-  const tiers=['T1','T2','T3'],tc={'T1':'#25D366','T2':'#f59e0b','T3':'#3b82f6'};
-  $('d-tier').innerHTML=tiers.map(t=>{
-    const tot=allLeads.filter(l=>l.tier.includes(t)).length;
-    const pros=allLeads.filter(l=>l.tier.includes(t)&&l.status.includes('Prospectado')).length;
-    const pct=tot>0?Math.round(pros/tot*100):0;
-    return`<div class="bar-row"><span class="bar-label">${t} (${tot})</span><div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${tc[t]}"></div></div><span class="bar-val">${pct}%</span></div>`;
-  }).join('');
+  // audio
+  const audSim=Object.values(audio).filter(v=>v==='sim').length;
+  const audNao=Object.values(audio).filter(v=>v==='nao').length;
+  const audTotal=audSim+audNao;
+  $('d-audio').textContent=audTotal>0?Math.round(audSim/audTotal*100)+'%':'—';
+  $('d-audio-sub').textContent=audTotal>0?`${audSim} ouviram de ${audTotal} marcados`:'Nenhum marcado ainda';
 
-  const statuses=[
-    {k:'📋 A Contatar',l:'A Contatar',c:'#aaa'},{k:'🔄 Em Andamento',l:'Em Andamento',c:'#f59e0b'},
-    {k:'✅ Prospectado',l:'Prospectado',c:'#25D366'},{k:'❌ Não Respondeu',l:'Não Respondeu',c:'#ef4444'},
-    {k:'🚫 Sem Interesse',l:'Sem Interesse',c:'#f97316'}
+  // melhor dia
+  const hoje=new Date();
+  const diasHist={};
+  Object.values(hist).flat().forEach(e=>{
+    if(!e.status.includes('A Contatar')){const dLabel=dayLabel(e.date);diasHist[dLabel]=(diasHist[dLabel]||0)+1;}
+  });
+  const melhor=Object.entries(diasHist).sort((a,b)=>b[1]-a[1])[0];
+  $('d-melhor-dia').textContent=melhor?melhor[0]:'—';
+  $('d-melhor-sub').textContent=melhor?`${melhor[1]} abordagens em média`:'Dados insuficientes';
+
+  // funil
+  const funnelSteps=[
+    {l:'Total',n:total,c:'#6b7280'},
+    {l:'Abordados',n:abord,c:'#3b82f6'},
+    {l:'Em Andamento',n:allLeads.filter(l=>l.status.includes('Em Andamento')).length,c:'#f59e0b'},
+    {l:'Prospectados',n:prosp,c:'#25D366'}
   ];
-  $('d-status').innerHTML=statuses.map(s=>{
-    const n=allLeads.filter(l=>l.status===s.k).length;
-    const pct=total>0?Math.round(n/total*100):0;
-    return`<div class="bar-row"><span class="bar-label">${s.l}</span><div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${s.c}"></div></div><span class="bar-val">${n}</span></div>`;
-  }).join('');
+  $('d-funnel').innerHTML=funnelSteps.map(s=>{const pct=total>0?Math.round(s.n/total*100):0;return`<div class="funnel-step"><span style="width:90px;font-size:10px;color:var(--text3)">${s.l}</span><div class="funnel-bar" style="width:${Math.max(40,pct)}%;background:${s.c}">${s.n}</div><span style="font-size:10px;color:var(--text4);margin-left:4px">${pct}%</span></div>`;}).join('');
 
+  // tier
+  const tiers=['T1','T2','T3'],tc={'T1':'#25D366','T2':'#f59e0b','T3':'#3b82f6'};
+  $('d-tier').innerHTML=tiers.map(t=>{const tot=allLeads.filter(l=>l.tier.includes(t)).length;const pros=allLeads.filter(l=>l.tier.includes(t)&&l.status.includes('Prospectado')).length;const pct=tot>0?Math.round(pros/tot*100):0;return`<div class="bar-row"><span class="bar-label">${t} (${tot})</span><div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${tc[t]}"></div></div><span class="bar-val">${pct}%</span></div>`;}).join('');
+
+  // origem
+  const origens=['Seguidores','Comentários','Indicação','Pesquisa','Stories'];
+  const origColors=['#3b82f6','#f59e0b','#25D366','#a855f7','#ef4444'];
+  $('d-origem').innerHTML=origens.map((o,i)=>{const tot=Object.entries(origem).filter(([,v])=>v===o).length;const pros=allLeads.filter(l=>origem[l.id]===o&&l.status.includes('Prospectado')).length;const pct=tot>0?Math.round(pros/tot*100):0;return tot?`<div class="bar-row"><span class="bar-label">${o} (${tot})</span><div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${origColors[i]}"></div></div><span class="bar-val">${pct}%</span></div>`:''}).join('')||'<span style="font-size:12px;color:var(--text4)">Marque a origem nos cards para ver aqui</span>';
+
+  // status
+  const statuses=[{k:'📋 A Contatar',l:'A Contatar',c:'#aaa'},{k:'🔄 Em Andamento',l:'Em Andamento',c:'#f59e0b'},{k:'✅ Prospectado',l:'Prospectado',c:'#25D366'},{k:'❌ Não Respondeu',l:'Não Respondeu',c:'#ef4444'},{k:'🚫 Sem Interesse',l:'Sem Interesse',c:'#f97316'}];
+  $('d-status').innerHTML=statuses.map(s=>{const n=allLeads.filter(l=>l.status===s.k).length;const pct=total>0?Math.round(n/total*100):0;return`<div class="bar-row"><span class="bar-label">${s.l}</span><div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${s.c}"></div></div><span class="bar-val">${n}</span></div>`;}).join('');
+
+  // regiões
   const ufs=['AC','AL','AP','AM','BA','CE','DF','ES','GO','MA','MT','MS','MG','PA','PB','PR','PE','PI','RJ','RN','RS','RO','RR','SC','SP','SE','TO'];
-  const rc={};
-  allLeads.forEach(l=>{ufs.forEach(uf=>{if((l.bio+' '+l.instagram).toUpperCase().includes(uf))rc[uf]=(rc[uf]||0)+1;});});
+  const rc={};allLeads.forEach(l=>{ufs.forEach(uf=>{if((l.bio+' '+l.instagram).toUpperCase().includes(uf))rc[uf]=(rc[uf]||0)+1;});});
   const sorted=Object.entries(rc).sort((a,b)=>b[1]-a[1]).slice(0,15);
-  $('d-region').innerHTML=sorted.length?sorted.map(([uf,n])=>`<span class="region-tag">${uf} <strong>${n}</strong></span>`).join(''):'<span style="font-size:12px;color:#aaa">Sem dados de região detectados nas bios</span>';
+  $('d-region').innerHTML=sorted.length?sorted.map(([uf,n])=>`<span class="region-tag">${uf} <strong>${n}</strong></span>`).join(''):'<span style="font-size:12px;color:var(--text4)">Sem dados</span>';
 }
 
 // RELATÓRIO WA
@@ -795,27 +1190,38 @@ function enviarRelatorio(){
   const hoje=today(),m=getMetas();
   const abord=allLeads.filter(l=>hist[l.id]?.some(e=>e.date===hoje&&!e.status.includes('A Contatar'))).length;
   const prosp=allLeads.filter(l=>hist[l.id]?.some(e=>e.date===hoje&&e.status.includes('Prospectado'))).length;
-  const naoResp=allLeads.filter(l=>hist[l.id]?.some(e=>e.date===hoje&&e.status.includes('Não Respondeu'))).length;
-  const fila=allLeads.filter(l=>l.status.includes('A Contatar')||l.status==='PAREI AQUI').length;
+  const naoR=allLeads.filter(l=>hist[l.id]?.some(e=>e.date===hoje&&e.status.includes('Não Respondeu'))).length;
+  const fila=allLeads.filter(l=>!arquivo[l.id]&&(l.status.includes('A Contatar')||l.status==='PAREI AQUI')).length;
   const fus=allLeads.filter(l=>isFollowup(l)).length;
-  const avg=avgTimer();
-  const msg=`📊 *Relatório do Dia — ${fmtDate(hoje)}*\n\n✅ Abordagens: ${abord}/${m.dia}\n🎯 Prospectados: ${prosp}\n❌ Não responderam: ${naoResp}\n📋 Na fila: ${fila}\n⏰ Follow-ups: ${fus}\n⏱ Tempo médio: ${avg!=null?avg+'min':'—'}\n\n_CRM Prospecção — Crespos & Cachos_`;
+  const vm=valorMentoria();
+  const msg=`📊 *Relatório do Dia — ${fmtDate(hoje)}*\n\n✅ Abordagens: ${abord}/${m.dia}\n🎯 Prospectados hoje: ${prosp}\n❌ Não responderam: ${naoR}\n📋 Na fila: ${fila}\n⏰ Follow-ups: ${fus}\n⏱ Tempo médio: ${avgTimer()!=null?avgTimer()+'min':'—'}${vm?`\n💰 Receita potencial: ${fmtMoney(vm*fila)}`:''}\n\n_CRM Prospecção V.8_`;
   const num=waNum();
-  window.open(`https://wa.me/${num?num:''}?text=${encodeURIComponent(msg)}`,'_blank');
+  window.open(`https://wa.me/${num}?text=${encodeURIComponent(msg)}`,'_blank');
 }
 
 // EXPORT CSV
 function exportCSV(){
   if(!allLeads.length){alert('Carregue os leads primeiro.');return;}
-  const cols=['Nome','Instagram','WhatsApp','Bio','Tier','Status','Seguidores','Observações','Data','Reagendado'];
+  const cols=['Nome','Instagram','WhatsApp','Bio','Tier','Status','Seguidores','Observações','Nota Privada','Data','Reagendado','Prioridade','Origem','Áudio','Próximo Passo','Arquivado'];
   const rows=allLeads.map(l=>[
     `"${l.nome.replace(/"/g,'""')}"`,`"${l.instagram}"`,`"${l.whatsapp}"`,
     `"${l.bio.replace(/"/g,'""')}"`,`"${l.tier}"`,`"${l.status}"`,
-    l.seguidores,`"${l.obs.replace(/"/g,'""')}"`,`"${l.data}"`,`"${reagendar[l.id]||''}"`
+    l.seguidores,`"${l.obs.replace(/"/g,'""')}"`,`"${(obsPriv[l.id]||'').replace(/"/g,'""')}"`,
+    `"${l.data}"`,`"${reagendar[l.id]||''}"`,`"${prioridade[l.id]||''}"`,
+    `"${origem[l.id]||''}"`,`"${audio[l.id]||''}"`,`"${(proximo[l.id]||'').replace(/"/g,'""')}"`,
+    arquivo[l.id]?'Sim':'Não'
   ].join(','));
   const a=document.createElement('a');
   a.href='data:text/csv;charset=utf-8,\uFEFF'+encodeURIComponent([cols.join(','),...rows].join('\n'));
-  a.download=`leads-${today()}.csv`;a.click();
+  a.download=`leads-v8-${today()}.csv`;a.click();
+}
+
+// BACKUP
+function backupLocal(){
+  const data={allLeads,hist,timers,reagendar,prioridade,tags,proximo,origem,audio,arquivo,obsPriv,exportDate:today()};
+  const a=document.createElement('a');
+  a.href='data:application/json;charset=utf-8,'+encodeURIComponent(JSON.stringify(data,null,2));
+  a.download=`backup-crm-${today()}.json`;a.click();
 }
 
 // OBS
@@ -827,25 +1233,27 @@ function obsChanged(id,el){
 async function saveObs(id){
   const btn=$('obs-save-'+id),savedEl=$('obs-saved-'+id),ta=$('obs-'+id);
   if(!ta)return;
-  const newObs=ta.value;
   if(btn){btn.textContent='Salvando…';btn.disabled=true;}
   try{
     const res=await fetch('/api/notion',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({token:tok(),action:'updateObs',pageId:id,obs:newObs})});
+      body:JSON.stringify({token:tok(),action:'updateObs',pageId:id,obs:ta.value})});
     if(res.ok){
-      const l=allLeads.find(x=>x.id===id);if(l)l.obs=newObs;
+      const l=allLeads.find(x=>x.id===id);if(l)l.obs=ta.value;
       delete pendingObs[id];
-      if(btn){btn.classList.remove('visible');btn.textContent='Salvar nota';btn.disabled=false;}
+      if(btn){btn.classList.remove('visible');btn.textContent='Salvar no Notion';btn.disabled=false;}
       if(savedEl){savedEl.style.display='block';setTimeout(()=>savedEl.style.display='none',2500);}
-    }else{if(btn){btn.textContent='Salvar nota';btn.disabled=false;}alert('Erro ao salvar.');}
-  }catch(e){if(btn){btn.textContent='Salvar nota';btn.disabled=false;}alert('Erro: '+e.message);}
+    }else{if(btn){btn.textContent='Salvar no Notion';btn.disabled=false;}alert('Erro ao salvar.');}
+  }catch(e){if(btn){btn.textContent='Salvar no Notion';btn.disabled=false;}alert('Erro: '+e.message);}
 }
 
 // UPDATE STATUS
 async function updateStatus(pageId,sel){
   const newStatus=sel.value;if(!newStatus)return;
-  const card=$('card-'+pageId);
-  if(card)card.classList.add('saving');sel.disabled=true;
+  await updateStatusDireto(pageId,newStatus);
+  renderLeads();
+}
+async function updateStatusDireto(pageId,newStatus){
+  const card=$('card-'+pageId);if(card)card.classList.add('saving');
   try{
     const res=await fetch('/api/notion',{method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({token:tok(),action:'update',pageId,status:newStatus})});
@@ -855,13 +1263,10 @@ async function updateStatus(pageId,sel){
         l.status=newStatus;
         if(!hist[pageId])hist[pageId]=[];
         hist[pageId].push({status:newStatus,date:today()});
-        save();atualizarStats();renderHeatmap();renderAlertBanners();renderLeads();
+        saveAll();atualizarStats();renderHeatmap();renderAlertBanners();renderReceita();
       }
-    }else{
-      const err=await res.json();alert('Erro: '+(err.message||res.status));
-      if(card)card.classList.remove('saving');sel.disabled=false;
-    }
-  }catch(e){alert('Erro: '+e.message);if(card)card.classList.remove('saving');sel.disabled=false;}
+    }else{alert('Erro ao salvar status.');if(card)card.classList.remove('saving');}
+  }catch(e){alert('Erro: '+e.message);if(card)card.classList.remove('saving');}
 }
 </script>
 </body>
