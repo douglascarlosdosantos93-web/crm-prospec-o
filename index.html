@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRM Prospecção — Crespos & Cachos</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f3;color:#1a1a1a;min-height:100vh}
+  #config-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:2rem}
+  .config-card{background:#fff;border-radius:16px;border:0.5px solid #e0e0da;padding:2.5rem;max-width:480px;width:100%;box-shadow:0 4px 24px rgba(0,0,0,0.06)}
+  .config-card h1{font-size:20px;font-weight:600;margin-bottom:0.25rem}
+  .config-card p{font-size:14px;color:#666;margin-bottom:1.5rem;line-height:1.5}
+  .config-card label{font-size:13px;font-weight:500;color:#444;display:block;margin-bottom:6px}
+  .config-card input{width:100%;padding:10px 12px;border:0.5px solid #d0d0cc;border-radius:8px;font-size:14px;font-family:monospace;background:#fafaf8;color:#1a1a1a;outline:none;transition:border-color 0.15s}
+  .config-card input:focus{border-color:#0066cc}
+  .help-text{font-size:12px;color:#888;margin-top:6px;margin-bottom:1.5rem;line-height:1.5}
+  .help-text a{color:#0066cc;text-decoration:none}
+  .btn-primary{width:100%;padding:11px;background:#1a1a1a;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;transition:background 0.15s;margin-top:0.5rem}
+  .btn-primary:hover{background:#333}
+  .step{display:flex;gap:10px;margin-bottom:1rem;align-items:flex-start}
+  .step-num{background:#f0f0ee;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;margin-top:1px;color:#555}
+  .step p{font-size:13px;color:#555;line-height:1.5}
+  .step code{background:#f0f0ee;padding:1px 5px;border-radius:4px;font-family:monospace;font-size:12px}
+  .divider{border:none;border-top:0.5px solid #e8e8e4;margin:1.5rem 0}
+  #app-screen{display:none;max-width:900px;margin:0 auto;padding:1.5rem 1rem}
+  .app-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:8px}
+  .app-title{font-size:17px;font-weight:600;display:flex;align-items:center;gap:8px}
+  .app-title .dot{width:8px;height:8px;border-radius:50%;background:#25D366}
+  .header-actions{display:flex;gap:8px}
+  .btn-sm{font-size:12px;padding:6px 12px;border-radius:8px;border:0.5px solid #d0d0cc;background:#fff;color:#555;cursor:pointer;display:flex;align-items:center;gap:5px;transition:all 0.15s;text-decoration:none}
+  .btn-sm:hover{background:#f5f5f3;border-color:#aaa}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:1rem}
+  .stat{background:#fff;border:0.5px solid #e8e8e4;border-radius:10px;padding:0.75rem 1rem}
+  .stat .num{font-size:22px;font-weight:600;line-height:1}
+  .stat .lbl{font-size:11px;color:#888;margin-top:3px}
+  .stat.s-ok .num{color:#2d7a2d}
+  .stat.s-warn .num{color:#b86a00}
+  .stat.s-muted .num{color:#555}
+  .filters{display:flex;gap:6px;margin-bottom:1rem;flex-wrap:wrap}
+  .f-btn{font-size:12px;padding:5px 12px;border-radius:20px;border:0.5px solid #d0d0cc;background:#fff;color:#666;cursor:pointer;transition:all 0.15s}
+  .f-btn:hover{border-color:#aaa}
+  .f-btn.active{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
+  .f-btn.f-t2.active{background:#f59e0b;color:#fff;border-color:#f59e0b}
+  .lead-list{display:flex;flex-direction:column;gap:10px}
+  .lead-card{background:#fff;border:0.5px solid #e8e8e4;border-radius:12px;padding:1rem 1.25rem;transition:border-color 0.15s;position:relative}
+  .lead-card:hover{border-color:#bbb}
+  .lead-card.done{opacity:0.45}
+  .lead-card.saving::after{content:'Salvando...';position:absolute;top:10px;right:10px;font-size:11px;color:#888;background:#f5f5f3;padding:2px 8px;border-radius:4px}
+  .lead-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+  .lead-name{font-size:15px;font-weight:600;line-height:1.2}
+  .lead-handle{font-size:12px;color:#0066cc;margin-top:3px}
+  .badges{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0}
+  .tier-badge{font-size:10px;padding:2px 8px;border-radius:20px;font-weight:600;white-space:nowrap}
+  .t1{background:#dcfce7;color:#166534}
+  .t2{background:#fef3c7;color:#92400e}
+  .t3{background:#dbeafe;color:#1e40af}
+  .status-pill{font-size:10px;padding:2px 8px;border-radius:20px;white-space:nowrap;font-weight:500}
+  .sp-contatar{background:#f0f0ee;color:#555}
+  .sp-andamento{background:#fef3c7;color:#92400e}
+  .sp-prospectado{background:#dcfce7;color:#166534}
+  .sp-nao-resp{background:#fee2e2;color:#991b1b}
+  .sp-sem-int{background:#fee2e2;color:#991b1b}
+  .sp-sem-whats{background:#f0f0ee;color:#888}
+  .lead-bio{font-size:12px;color:#666;margin:8px 0 6px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .lead-meta{display:flex;align-items:center;gap:10px;font-size:11px;color:#999;margin-bottom:10px}
+  .lead-actions{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+  .btn-wa{display:flex;align-items:center;gap:5px;font-size:12px;padding:6px 14px;border-radius:8px;background:#25D366;color:#fff;border:none;cursor:pointer;font-weight:500;text-decoration:none;transition:opacity 0.15s}
+  .btn-wa:hover{opacity:0.85}
+  .btn-wa .num-hint{opacity:0.8;font-size:10px}
+  .btn-ig{display:flex;align-items:center;gap:5px;font-size:12px;padding:6px 14px;border-radius:8px;color:#fff;border:none;cursor:pointer;font-weight:500;text-decoration:none;transition:opacity 0.15s;background:linear-gradient(135deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%)}
+  .btn-ig:hover{opacity:0.85}
+  .no-wa{font-size:11px;color:#aaa;padding:5px 10px;border:0.5px dashed #d0d0cc;border-radius:8px}
+  .status-select{font-size:11px;padding:5px 8px;border-radius:8px;border:0.5px solid #d0d0cc;background:#fafaf8;color:#555;cursor:pointer;margin-left:auto;outline:none}
+  .obs-row{font-size:11px;color:#999;margin-top:8px;padding-top:8px;border-top:0.5px solid #f0f0ee;line-height:1.4}
+  .load-box{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4rem 1rem;gap:14px;color:#888;font-size:14px;background:#fff;border-radius:12px;border:0.5px solid #e8e8e4}
+  .spinner{width:30px;height:30px;border:2px solid #e0e0da;border-top-color:#0066cc;border-radius:50%;animation:spin 0.8s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .error-box{background:#fff1f1;border:0.5px solid #fca5a5;border-radius:10px;padding:1rem 1.25rem;font-size:13px;color:#991b1b;line-height:1.5}
+  .error-box strong{display:block;margin-bottom:4px}
+  .count-info{font-size:11px;color:#aaa;text-align:right;margin-top:0.75rem}
+  .empty-state{text-align:center;padding:3rem 1rem;color:#aaa;font-size:14px;background:#fff;border-radius:12px;border:0.5px solid #e8e8e4}
+  @media(max-width:600px){.stats{grid-template-columns:repeat(2,1fr)}.lead-top{flex-direction:column}.badges{flex-direction:row;align-items:center}}
+</style>
+</head>
+<body>
+
+<div id="config-screen">
+  <div class="config-card">
+    <h1>🎯 CRM Prospecção</h1>
+    <p>Cole o token da integração Notion para carregar os leads de <strong>Crespos & Cachos</strong>.</p>
+    <hr class="divider">
+    <p style="font-size:13px;font-weight:600;margin-bottom:1rem">Como gerar o token (só 1x):</p>
+    <div class="step"><div class="step-num">1</div><p>Acesse <a href="https://www.notion.so/my-integrations" target="_blank">notion.so/my-integrations</a> → <strong>"New integration"</strong> → salve</p></div>
+    <div class="step"><div class="step-num">2</div><p>Copie o <strong>Internal Integration Token</strong> (começa com <code>ntn_</code>)</p></div>
+    <div class="step"><div class="step-num">3</div><p>No Notion, abra <strong>📋 Lista de Prospecção</strong> → <strong>⋯ → Connections</strong> → conecte a integração</p></div>
+    <hr class="divider">
+    <label for="token-input">Token da integração</label>
+    <input type="password" id="token-input" placeholder="ntn_xxxxxxxxxxxxxxxxxxxx" autocomplete="off">
+    <p class="help-text">Fica salvo só no seu navegador. Nunca enviado a terceiros.</p>
+    <button class="btn-primary" onclick="salvarEEntrar()">Conectar e carregar leads</button>
+  </div>
+</div>
+
+<div id="app-screen">
+  <div class="app-header">
+    <div class="app-title"><span class="dot"></span>Prospecção — Crespos & Cachos</div>
+    <div class="header-actions">
+      <button class="btn-sm" onclick="loadLeads()">↻ Atualizar</button>
+      <button class="btn-sm" onclick="trocarToken()">⚙ Config</button>
+    </div>
+  </div>
+  <div class="stats">
+    <div class="stat s-muted"><div class="num" id="s-total">—</div><div class="lbl">total</div></div>
+    <div class="stat"><div class="num" id="s-contatar">—</div><div class="lbl">a contatar</div></div>
+    <div class="stat s-warn"><div class="num" id="s-andamento">—</div><div class="lbl">em andamento</div></div>
+    <div class="stat s-ok"><div class="num" id="s-prospectado">—</div><div class="lbl">prospectados</div></div>
+  </div>
+  <div class="filters">
+    <button class="f-btn active" onclick="setFilter('todos',this)">Todos</button>
+    <button class="f-btn" onclick="setFilter('📋 A Contatar',this)">A Contatar</button>
+    <button class="f-btn" onclick="setFilter('🔄 Em Andamento',this)">Em Andamento</button>
+    <button class="f-btn" onclick="setFilter('✅ Prospectado',this)">Prospectados</button>
+    <button class="f-btn" onclick="setFilter('❌ Não Respondeu',this)">Não Respondeu</button>
+    <button class="f-btn f-t2" onclick="setFilter('tier:T2',this)">Só T2 (WhatsApp)</button>
+  </div>
+  <div id="list-area"></div>
+  <p class="count-info" id="count-info"></p>
+</div>
+
+<script>
+const DB_ID='79e8c63e-9411-41a5-bf66-36b0066b4ae7';
+const TOKEN_KEY='notion_crm_token';
+let allLeads=[],currentFilter='todos';
+
+function getToken(){return localStorage.getItem(TOKEN_KEY)||'';}
+
+function salvarEEntrar(){
+  const t=document.getElementById('token-input').value.trim();
+  if(!t){alert('Cole o token antes de continuar.');return;}
+  localStorage.setItem(TOKEN_KEY,t);
+  mostrarApp();
+}
+
+function trocarToken(){
+  document.getElementById('app-screen').style.display='none';
+  document.getElementById('config-screen').style.display='flex';
+  document.getElementById('token-input').value=getToken();
+}
+
+function mostrarApp(){
+  document.getElementById('config-screen').style.display='none';
+  document.getElementById('app-screen').style.display='block';
+  loadLeads();
+}
+
+window.addEventListener('DOMContentLoaded',()=>{
+  const t=getToken();
+  if(t){document.getElementById('token-input').value=t;mostrarApp();}
+});
+
+async function loadLeads(){
+  const token=getToken();
+  if(!token){trocarToken();return;}
+  document.getElementById('list-area').innerHTML='<div class="load-box"><div class="spinner"></div><span>Carregando leads do Notion…</span></div>';
+  document.getElementById('count-info').textContent='';
+  try{
+    let results=[],cursor=undefined,pages=0;
+    do{
+      const body={page_size:100,sorts:[{property:'Data de Prospecção',direction:'ascending'}]};
+      if(cursor)body.start_cursor=cursor;
+      const res=await fetch('/api/notion',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({token,action:'query',dbId:DB_ID,body})
+      });
+      if(res.status===401){mostrarErro('Token inválido. <button onclick="trocarToken()" style="color:#991b1b;background:none;border:none;cursor:pointer;text-decoration:underline">Reconfigurar</button>');return;}
+      if(res.status===403){mostrarErro('Permissão negada. Conecte a integração ao banco no Notion: ⋯ → Connections.');return;}
+      const data=await res.json();
+      if(!data.results){mostrarErro('Erro do Notion: '+(data.message||JSON.stringify(data)));return;}
+      results=results.concat(data.results);
+      cursor=data.has_more?data.next_cursor:undefined;
+      pages++;
+    }while(cursor&&pages<15);
+
+    allLeads=results.map(p=>{
+      const pr=p.properties;
+      return{
+        id:p.id,
+        nome:pr['Nome / Marca']?.title?.[0]?.plain_text||'(sem nome)',
+        instagram:(pr['@Instagram']?.rich_text?.[0]?.plain_text||'').trim(),
+        whatsapp:(pr['WhatsApp']?.rich_text?.[0]?.plain_text||'').trim(),
+        bio:pr['Bio']?.rich_text?.[0]?.plain_text||'',
+        tier:pr['Tier']?.select?.name||'',
+        status:pr['Status']?.select?.name||'',
+        seguidores:pr['Seguidores']?.number||0,
+        obs:pr['Observações']?.rich_text?.[0]?.plain_text||'',
+        data:pr['Data de Prospecção']?.date?.start||''
+      };
+    });
+    atualizarStats();
+    renderLeads();
+    document.getElementById('count-info').textContent=allLeads.length+' leads carregados';
+  }catch(e){mostrarErro('Erro: '+e.message);}
+}
+
+function mostrarErro(msg){
+  document.getElementById('list-area').innerHTML=`<div class="error-box"><strong>Ops, algo deu errado</strong>${msg}</div>`;
+}
+
+function atualizarStats(){
+  document.getElementById('s-total').textContent=allLeads.length;
+  document.getElementById('s-contatar').textContent=allLeads.filter(l=>l.status.includes('A Contatar')||l.status==='PAREI AQUI').length;
+  document.getElementById('s-andamento').textContent=allLeads.filter(l=>l.status.includes('Em Andamento')).length;
+  document.getElementById('s-prospectado').textContent=allLeads.filter(l=>l.status.includes('Prospectado')).length;
+}
+
+function setFilter(f,btn){
+  currentFilter=f;
+  document.querySelectorAll('.f-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderLeads();
+}
+
+function tierClass(t){if(t.includes('T1'))return 't1';if(t.includes('T2'))return 't2';if(t.includes('T3'))return 't3';return '';}
+function statusPillClass(s){
+  if(s.includes('A Contatar')||s==='PAREI AQUI')return 'sp-contatar';
+  if(s.includes('Em Andamento'))return 'sp-andamento';
+  if(s.includes('Prospectado'))return 'sp-prospectado';
+  if(s.includes('Não Respondeu'))return 'sp-nao-resp';
+  if(s.includes('Sem Interesse')||s.includes('NÃO FAZ'))return 'sp-sem-int';
+  if(s==='SEM WHATS')return 'sp-sem-whats';
+  return 'sp-contatar';
+}
+function formatWa(num){let n=num.replace(/\D/g,'');if(!n)return '';if(!n.startsWith('55'))n='55'+n;return n;}
+function formatSeg(n){if(n>=1000)return(n/1000).toFixed(1).replace('.',',')+'k';return n;}
+function formatData(d){if(!d)return '';return d.slice(5).split('-').reverse().join('/');}
+function statusLabel(s){return s.replace(/📋|🔄|✅|❌|🚫/g,'').trim();}
+
+function renderLeads(){
+  let leads=[...allLeads];
+  if(currentFilter==='tier:T2')leads=leads.filter(l=>l.tier.includes('T2'));
+  else if(currentFilter!=='todos')leads=leads.filter(l=>l.status===currentFilter);
+
+  if(!leads.length){
+    document.getElementById('list-area').innerHTML='<div class="empty-state">Nenhum lead neste filtro.</div>';
+    return;
+  }
+
+  const html=leads.map(l=>{
+    const waNum=formatWa(l.whatsapp);
+    const waLink=waNum?`https://wa.me/${waNum}`:'';
+    const igHandle=l.instagram.replace(/^@/,'').replace(/\s/g,'');
+    const igLink=igHandle?`https://instagram.com/${igHandle}`:'';
+    const done=l.status.includes('Prospectado')||l.status.includes('Sem Interesse')||l.status==='NÃO FAZ O PERFIL DA EMPRESSA';
+    const tierLbl=l.tier.replace(/🟢|🟡|🔵/g,'').trim();
+
+    return`<div class="lead-card${done?' done':''}" id="card-${l.id}">
+  <div class="lead-top">
+    <div style="flex:1;min-width:0">
+      <div class="lead-name">${l.nome}</div>
+      ${igHandle?`<div class="lead-handle">@${igHandle}</div>`:''}
+    </div>
+    <div class="badges">
+      ${l.tier?`<span class="tier-badge ${tierClass(l.tier)}">${tierLbl}</span>`:''}
+      <span class="status-pill ${statusPillClass(l.status)}">${statusLabel(l.status)}</span>
+    </div>
+  </div>
+  ${l.bio?`<div class="lead-bio">${l.bio}</div>`:''}
+  <div class="lead-meta">
+    ${l.seguidores?`<span>👥 ${formatSeg(l.seguidores)}</span>`:''}
+    ${l.data?`<span>📅 ${formatData(l.data)}</span>`:''}
+  </div>
+  <div class="lead-actions">
+    ${waLink?`<a class="btn-wa" href="${waLink}" target="_blank" rel="noopener">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/></svg>
+      WhatsApp ${l.whatsapp?`<span class="num-hint">${l.whatsapp}</span>`:''}
+    </a>`:`<span class="no-wa">📵 Sem WhatsApp</span>`}
+    ${igLink?`<a class="btn-ig" href="${igLink}" target="_blank" rel="noopener">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+      Instagram
+    </a>`:''}
+    <select class="status-select" onchange="updateStatus('${l.id}',this)" aria-label="Alterar status">
+      <option value="">Alterar status…</option>
+      <option value="📋 A Contatar"${l.status==='📋 A Contatar'?' selected':''}>📋 A Contatar</option>
+      <option value="🔄 Em Andamento"${l.status==='🔄 Em Andamento'?' selected':''}>🔄 Em Andamento</option>
+      <option value="✅ Prospectado"${l.status==='✅ Prospectado'?' selected':''}>✅ Prospectado</option>
+      <option value="❌ Não Respondeu"${l.status==='❌ Não Respondeu'?' selected':''}>❌ Não Respondeu</option>
+      <option value="🚫 Sem Interesse"${l.status==='🚫 Sem Interesse'?' selected':''}>🚫 Sem Interesse</option>
+      <option value="SEM WHATS"${l.status==='SEM WHATS'?' selected':''}>Sem WhatsApp</option>
+    </select>
+  </div>
+  ${l.obs?`<div class="obs-row">📝 ${l.obs}</div>`:''}
+</div>`;
+  }).join('');
+
+  document.getElementById('list-area').innerHTML=`<div class="lead-list">${html}</div>`;
+}
+
+async function updateStatus(pageId,sel){
+  const newStatus=sel.value;
+  if(!newStatus)return;
+  const token=getToken();
+  const card=document.getElementById('card-'+pageId);
+  if(card)card.classList.add('saving');
+  sel.disabled=true;
+  try{
+    const res=await fetch('/api/notion',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({token,action:'update',pageId,status:newStatus})
+    });
+    if(res.ok){
+      const lead=allLeads.find(l=>l.id===pageId);
+      if(lead){lead.status=newStatus;atualizarStats();renderLeads();}
+    }else{
+      const err=await res.json();
+      alert('Erro ao salvar: '+(err.message||res.status));
+      if(card)card.classList.remove('saving');
+      sel.disabled=false;
+    }
+  }catch(e){
+    alert('Erro: '+e.message);
+    if(card)card.classList.remove('saving');
+    sel.disabled=false;
+  }
+}
+</script>
+</body>
+</html>
