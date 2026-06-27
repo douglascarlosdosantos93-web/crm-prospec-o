@@ -5,95 +5,208 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CRM Prospecção — Crespos & Cachos</title>
 <style>
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f3;color:#1a1a1a;min-height:100vh}
-  #config-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:2rem}
-  .config-card{background:#fff;border-radius:16px;border:0.5px solid #e0e0da;padding:2.5rem;max-width:480px;width:100%;box-shadow:0 4px 24px rgba(0,0,0,0.06)}
-  .config-card h1{font-size:20px;font-weight:600;margin-bottom:0.25rem}
-  .config-card p{font-size:14px;color:#666;margin-bottom:1.5rem;line-height:1.5}
-  .config-card label{font-size:13px;font-weight:500;color:#444;display:block;margin-bottom:6px}
-  .config-card input{width:100%;padding:10px 12px;border:0.5px solid #d0d0cc;border-radius:8px;font-size:14px;font-family:monospace;background:#fafaf8;color:#1a1a1a;outline:none;transition:border-color 0.15s}
-  .config-card input:focus{border-color:#0066cc}
-  .help-text{font-size:12px;color:#888;margin-top:6px;margin-bottom:1.5rem;line-height:1.5}
-  .help-text a{color:#0066cc;text-decoration:none}
-  .btn-primary{width:100%;padding:11px;background:#1a1a1a;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;transition:background 0.15s;margin-top:0.5rem}
-  .btn-primary:hover{background:#333}
-  .step{display:flex;gap:10px;margin-bottom:1rem;align-items:flex-start}
-  .step-num{background:#f0f0ee;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;margin-top:1px;color:#555}
-  .step p{font-size:13px;color:#555;line-height:1.5}
-  .step code{background:#f0f0ee;padding:1px 5px;border-radius:4px;font-family:monospace;font-size:12px}
-  .divider{border:none;border-top:0.5px solid #e8e8e4;margin:1.5rem 0}
-  #app-screen{display:none;max-width:900px;margin:0 auto;padding:1.5rem 1rem}
-  .app-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:8px}
-  .app-title{font-size:17px;font-weight:600;display:flex;align-items:center;gap:8px}
-  .app-title .dot{width:8px;height:8px;border-radius:50%;background:#25D366}
-  .header-actions{display:flex;gap:8px}
-  .btn-sm{font-size:12px;padding:6px 12px;border-radius:8px;border:0.5px solid #d0d0cc;background:#fff;color:#555;cursor:pointer;display:flex;align-items:center;gap:5px;transition:all 0.15s;text-decoration:none}
-  .btn-sm:hover{background:#f5f5f3;border-color:#aaa}
-  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:1rem}
-  .stat{background:#fff;border:0.5px solid #e8e8e4;border-radius:10px;padding:0.75rem 1rem}
-  .stat .num{font-size:22px;font-weight:600;line-height:1}
-  .stat .lbl{font-size:11px;color:#888;margin-top:3px}
-  .stat.s-ok .num{color:#2d7a2d}
-  .stat.s-warn .num{color:#b86a00}
-  .stat.s-muted .num{color:#555}
-  .filters{display:flex;gap:6px;margin-bottom:1rem;flex-wrap:wrap}
-  .f-btn{font-size:12px;padding:5px 12px;border-radius:20px;border:0.5px solid #d0d0cc;background:#fff;color:#666;cursor:pointer;transition:all 0.15s}
-  .f-btn:hover{border-color:#aaa}
-  .f-btn.active{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
-  .f-btn.f-t2.active{background:#f59e0b;color:#fff;border-color:#f59e0b}
-  .lead-list{display:flex;flex-direction:column;gap:10px}
-  .lead-card{background:#fff;border:0.5px solid #e8e8e4;border-radius:12px;padding:1rem 1.25rem;transition:border-color 0.15s;position:relative}
-  .lead-card:hover{border-color:#bbb}
-  .lead-card.done{opacity:0.45}
-  .lead-card.saving::after{content:'Salvando...';position:absolute;top:10px;right:10px;font-size:11px;color:#888;background:#f5f5f3;padding:2px 8px;border-radius:4px}
-  .lead-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
-  .lead-name{font-size:15px;font-weight:600;line-height:1.2}
-  .lead-handle{font-size:12px;color:#0066cc;margin-top:3px}
-  .badges{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0}
-  .tier-badge{font-size:10px;padding:2px 8px;border-radius:20px;font-weight:600;white-space:nowrap}
-  .t1{background:#dcfce7;color:#166534}
-  .t2{background:#fef3c7;color:#92400e}
-  .t3{background:#dbeafe;color:#1e40af}
-  .status-pill{font-size:10px;padding:2px 8px;border-radius:20px;white-space:nowrap;font-weight:500}
-  .sp-contatar{background:#f0f0ee;color:#555}
-  .sp-andamento{background:#fef3c7;color:#92400e}
-  .sp-prospectado{background:#dcfce7;color:#166534}
-  .sp-nao-resp{background:#fee2e2;color:#991b1b}
-  .sp-sem-int{background:#fee2e2;color:#991b1b}
-  .sp-sem-whats{background:#f0f0ee;color:#888}
-  .lead-bio{font-size:12px;color:#666;margin:8px 0 6px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-  .lead-meta{display:flex;align-items:center;gap:10px;font-size:11px;color:#999;margin-bottom:10px}
-  .lead-actions{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
-  .btn-wa{display:flex;align-items:center;gap:5px;font-size:12px;padding:6px 14px;border-radius:8px;background:#25D366;color:#fff;border:none;cursor:pointer;font-weight:500;text-decoration:none;transition:opacity 0.15s}
-  .btn-wa:hover{opacity:0.85}
-  .btn-wa .num-hint{opacity:0.8;font-size:10px}
-  .btn-ig{display:flex;align-items:center;gap:5px;font-size:12px;padding:6px 14px;border-radius:8px;color:#fff;border:none;cursor:pointer;font-weight:500;text-decoration:none;transition:opacity 0.15s;background:linear-gradient(135deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%)}
-  .btn-ig:hover{opacity:0.85}
-  .no-wa{font-size:11px;color:#aaa;padding:5px 10px;border:0.5px dashed #d0d0cc;border-radius:8px}
-  .status-select{font-size:11px;padding:5px 8px;border-radius:8px;border:0.5px solid #d0d0cc;background:#fafaf8;color:#555;cursor:pointer;margin-left:auto;outline:none}
-  .obs-row{font-size:11px;color:#999;margin-top:8px;padding-top:8px;border-top:0.5px solid #f0f0ee;line-height:1.4}
-  .load-box{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4rem 1rem;gap:14px;color:#888;font-size:14px;background:#fff;border-radius:12px;border:0.5px solid #e8e8e4}
-  .spinner{width:30px;height:30px;border:2px solid #e0e0da;border-top-color:#0066cc;border-radius:50%;animation:spin 0.8s linear infinite}
-  @keyframes spin{to{transform:rotate(360deg)}}
-  .error-box{background:#fff1f1;border:0.5px solid #fca5a5;border-radius:10px;padding:1rem 1.25rem;font-size:13px;color:#991b1b;line-height:1.5}
-  .error-box strong{display:block;margin-bottom:4px}
-  .count-info{font-size:11px;color:#aaa;text-align:right;margin-top:0.75rem}
-  .empty-state{text-align:center;padding:3rem 1rem;color:#aaa;font-size:14px;background:#fff;border-radius:12px;border:0.5px solid #e8e8e4}
-  @media(max-width:600px){.stats{grid-template-columns:repeat(2,1fr)}.lead-top{flex-direction:column}.badges{flex-direction:row;align-items:center}}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f3;color:#1a1a1a;min-height:100vh}
+
+/* CONFIG */
+#config-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:1.5rem}
+.config-card{background:#fff;border-radius:16px;border:0.5px solid #e0e0da;padding:2rem;max-width:460px;width:100%;box-shadow:0 4px 24px rgba(0,0,0,0.06)}
+.config-card h1{font-size:19px;font-weight:600;margin-bottom:.25rem}
+.config-card p{font-size:13px;color:#666;margin-bottom:1.25rem;line-height:1.5}
+.config-card label{font-size:12px;font-weight:500;color:#444;display:block;margin-bottom:5px}
+.config-card input{width:100%;padding:9px 11px;border:0.5px solid #d0d0cc;border-radius:8px;font-size:13px;font-family:monospace;background:#fafaf8;color:#1a1a1a;outline:none}
+.config-card input:focus{border-color:#0066cc}
+.help-text{font-size:11px;color:#888;margin-top:5px;margin-bottom:1.25rem;line-height:1.5}
+.help-text a{color:#0066cc;text-decoration:none}
+.btn-primary{width:100%;padding:10px;background:#1a1a1a;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer}
+.btn-primary:hover{background:#333}
+.step{display:flex;gap:8px;margin-bottom:.75rem;align-items:flex-start}
+.step-num{background:#f0f0ee;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;flex-shrink:0;margin-top:1px;color:#555}
+.step p{font-size:12px;color:#555;line-height:1.5}
+.step code{background:#f0f0ee;padding:1px 4px;border-radius:3px;font-size:11px}
+.divider{border:none;border-top:0.5px solid #e8e8e4;margin:1.25rem 0}
+
+/* APP */
+#app-screen{display:none;max-width:960px;margin:0 auto;padding:1rem}
+
+.app-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:8px}
+.app-title{font-size:16px;font-weight:600;display:flex;align-items:center;gap:7px}
+.app-title .dot{width:7px;height:7px;border-radius:50%;background:#25D366;flex-shrink:0}
+.header-actions{display:flex;gap:6px;flex-wrap:wrap}
+.btn-sm{font-size:11px;padding:5px 10px;border-radius:7px;border:0.5px solid #d0d0cc;background:#fff;color:#555;cursor:pointer;display:flex;align-items:center;gap:4px;transition:all .15s;white-space:nowrap}
+.btn-sm:hover{background:#f5f5f3;border-color:#aaa}
+
+/* STATS */
+.stats-row{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-bottom:.9rem}
+.stat{background:#fff;border:0.5px solid #e8e8e4;border-radius:9px;padding:.6rem .75rem}
+.stat .num{font-size:20px;font-weight:600;line-height:1}
+.stat .lbl{font-size:10px;color:#888;margin-top:2px}
+.stat.s-green .num{color:#2d7a2d}
+.stat.s-orange .num{color:#b86a00}
+.stat.s-blue .num{color:#0055aa}
+.stat.s-red .num{color:#991b1b}
+
+/* CONTADOR DIA */
+.day-banner{background:#fff;border:0.5px solid #e8e8e4;border-radius:9px;padding:.65rem 1rem;margin-bottom:.85rem;display:flex;align-items:center;justify-content:space-between;font-size:12px;color:#555;flex-wrap:wrap;gap:8px}
+.day-banner strong{color:#1a1a1a;font-size:14px}
+.day-progress{display:flex;align-items:center;gap:8px}
+.progress-bar{width:120px;height:5px;background:#f0f0ee;border-radius:3px;overflow:hidden}
+.progress-fill{height:100%;background:#25D366;border-radius:3px;transition:width .3s}
+
+/* TOOLBAR */
+.toolbar{display:flex;gap:6px;margin-bottom:.75rem;flex-wrap:wrap;align-items:center}
+.f-btn{font-size:11px;padding:4px 11px;border-radius:20px;border:0.5px solid #d0d0cc;background:#fff;color:#666;cursor:pointer;transition:all .15s;white-space:nowrap}
+.f-btn:hover{border-color:#aaa}
+.f-btn.active{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
+.f-btn.f-t1.active{background:#166534;border-color:#166534}
+.f-btn.f-t2.active{background:#92400e;border-color:#92400e}
+.f-btn.f-t3.active{background:#1e40af;border-color:#1e40af}
+.f-btn.f-hoje.active{background:#0066cc;border-color:#0066cc}
+.sort-select{font-size:11px;padding:4px 8px;border-radius:7px;border:0.5px solid #d0d0cc;background:#fff;color:#555;cursor:pointer;outline:none;margin-left:auto}
+
+/* FILTRO DATA */
+.date-filter{display:flex;align-items:center;gap:6px;font-size:11px;color:#666;flex-wrap:wrap}
+.date-filter input[type=date]{font-size:11px;padding:3px 7px;border-radius:7px;border:0.5px solid #d0d0cc;background:#fff;color:#555;outline:none}
+.btn-clear-date{font-size:10px;padding:2px 7px;border-radius:5px;border:0.5px solid #d0d0cc;background:#fff;color:#888;cursor:pointer}
+
+/* ── MARCADOR DE PARADA ── */
+.marker-divider{
+  display:flex;align-items:center;gap:10px;
+  margin:1.25rem 0;
+  position:relative;
+}
+.marker-divider::before{
+  content:'';flex:1;height:2px;
+  background:linear-gradient(90deg,#f59e0b,#fbbf24);
+  border-radius:2px;
+}
+.marker-divider::after{
+  content:'';flex:1;height:2px;
+  background:linear-gradient(90deg,#fbbf24,#f59e0b);
+  border-radius:2px;
+}
+.marker-label{
+  display:flex;align-items:center;gap:6px;
+  background:#fffbeb;border:1px solid #f59e0b;
+  border-radius:20px;padding:4px 12px;
+  font-size:11px;font-weight:600;color:#92400e;
+  white-space:nowrap;flex-shrink:0;
+}
+.marker-label svg{width:13px;height:13px;flex-shrink:0}
+
+/* SEÇÃO ANTERIORES */
+.anteriores-toggle{
+  display:flex;align-items:center;gap:8px;
+  background:#fff;border:0.5px solid #e8e8e4;border-radius:9px;
+  padding:.7rem 1rem;margin-bottom:.75rem;
+  cursor:pointer;font-size:12px;color:#666;
+  transition:border-color .15s;user-select:none;
+}
+.anteriores-toggle:hover{border-color:#bbb}
+.anteriores-toggle .ant-count{
+  background:#f0f0ee;color:#888;
+  font-size:10px;padding:1px 7px;border-radius:10px;font-weight:500;
+}
+.anteriores-toggle .chevron{margin-left:auto;font-size:14px;transition:transform .2s;color:#aaa}
+.anteriores-toggle.open .chevron{transform:rotate(180deg)}
+.anteriores-section{display:none;margin-bottom:.75rem}
+.anteriores-section.open{display:block}
+.anteriores-section .lead-list{opacity:.55}
+
+/* LEAD CARDS */
+.lead-list{display:flex;flex-direction:column;gap:9px}
+.lead-card{background:#fff;border:0.5px solid #e8e8e4;border-radius:11px;padding:.9rem 1.1rem;transition:border-color .15s;position:relative}
+.lead-card:hover{border-color:#bbb}
+.lead-card.done{opacity:.45}
+.lead-card.saving::after{content:'Salvando…';position:absolute;top:8px;right:10px;font-size:10px;color:#888;background:#f5f5f3;padding:2px 7px;border-radius:4px}
+.lead-card.card-hoje{border-color:#bbdefb}
+
+.lead-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:5px}
+.lead-name{font-size:14px;font-weight:600;line-height:1.2}
+.lead-handle{font-size:11px;color:#0066cc;margin-top:2px}
+.badges{display:flex;flex-direction:column;align-items:flex-end;gap:3px;flex-shrink:0}
+
+.tier-badge{font-size:9px;padding:2px 7px;border-radius:20px;font-weight:600;white-space:nowrap}
+.t1{background:#dcfce7;color:#166534}
+.t2{background:#fef3c7;color:#92400e}
+.t3{background:#dbeafe;color:#1e40af}
+
+.status-pill{font-size:9px;padding:2px 7px;border-radius:20px;white-space:nowrap;font-weight:500}
+.sp-contatar{background:#f0f0ee;color:#555}
+.sp-andamento{background:#fef3c7;color:#92400e}
+.sp-prospectado{background:#dcfce7;color:#166534}
+.sp-nao-resp{background:#fee2e2;color:#991b1b}
+.sp-sem-int{background:#fee2e2;color:#991b1b}
+.sp-sem-whats{background:#f0f0ee;color:#aaa}
+
+.lead-bio{font-size:11px;color:#666;margin:5px 0;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.lead-meta{display:flex;align-items:center;gap:8px;font-size:10px;color:#aaa;margin-bottom:8px;flex-wrap:wrap}
+
+.lead-actions{display:flex;gap:5px;align-items:center;flex-wrap:wrap}
+.btn-wa{display:flex;align-items:center;gap:4px;font-size:11px;padding:5px 12px;border-radius:7px;background:#25D366;color:#fff;border:none;cursor:pointer;font-weight:500;text-decoration:none;transition:opacity .15s;white-space:nowrap}
+.btn-wa:hover{opacity:.85}
+.btn-wa .num-hint{opacity:.75;font-size:9px}
+.btn-ig{display:flex;align-items:center;gap:4px;font-size:11px;padding:5px 12px;border-radius:7px;color:#fff;border:none;cursor:pointer;font-weight:500;text-decoration:none;transition:opacity .15s;background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);white-space:nowrap}
+.btn-ig:hover{opacity:.85}
+.no-wa{font-size:10px;color:#bbb;padding:4px 9px;border:0.5px dashed #d0d0cc;border-radius:7px}
+.status-select{font-size:10px;padding:4px 7px;border-radius:7px;border:0.5px solid #d0d0cc;background:#fafaf8;color:#555;cursor:pointer;outline:none}
+
+/* BOTÃO MARCADOR no card */
+.btn-marker{
+  display:flex;align-items:center;gap:4px;
+  font-size:10px;padding:4px 9px;border-radius:7px;
+  border:0.5px solid #f59e0b;background:#fffbeb;
+  color:#92400e;cursor:pointer;white-space:nowrap;
+  transition:all .15s;margin-left:auto;flex-shrink:0;
+}
+.btn-marker:hover{background:#fef3c7}
+.btn-marker.is-marked{background:#f59e0b;color:#fff;border-color:#f59e0b}
+
+/* OBSERVAÇÕES */
+.obs-section{margin-top:8px;padding-top:8px;border-top:0.5px solid #f0f0ee}
+.obs-label{font-size:10px;color:#aaa;margin-bottom:4px}
+.obs-textarea{width:100%;font-size:11px;color:#555;background:#fafaf8;border:0.5px solid #e8e8e4;border-radius:6px;padding:6px 8px;resize:none;outline:none;font-family:inherit;line-height:1.45;min-height:40px;transition:border-color .15s}
+.obs-textarea:focus{border-color:#0066cc;background:#fff}
+.obs-actions{display:flex;justify-content:flex-end;margin-top:4px}
+.btn-obs-save{font-size:10px;padding:3px 9px;border-radius:5px;background:#1a1a1a;color:#fff;border:none;cursor:pointer;display:none}
+.btn-obs-save.visible{display:block}
+.obs-saved{font-size:10px;color:#2d7a2d;margin-top:3px;display:none;text-align:right}
+
+/* MISC */
+.load-box{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3.5rem 1rem;gap:12px;color:#888;font-size:13px;background:#fff;border-radius:11px;border:0.5px solid #e8e8e4}
+.spinner{width:26px;height:26px;border:2px solid #e0e0da;border-top-color:#0066cc;border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.error-box{background:#fff1f1;border:0.5px solid #fca5a5;border-radius:9px;padding:.9rem 1.1rem;font-size:12px;color:#991b1b;line-height:1.5}
+.error-box strong{display:block;margin-bottom:3px}
+.count-info{font-size:10px;color:#bbb;text-align:right;margin-top:.6rem}
+.empty-state{text-align:center;padding:2.5rem 1rem;color:#bbb;font-size:13px;background:#fff;border-radius:11px;border:0.5px solid #e8e8e4}
+
+@media(max-width:600px){
+  #app-screen{padding:.75rem}
+  .stats-row{grid-template-columns:repeat(3,1fr)}
+  .stats-row .stat:nth-child(4),.stats-row .stat:nth-child(5){display:none}
+  .lead-top{flex-direction:column;gap:6px}
+  .badges{flex-direction:row;align-items:center}
+  .sort-select{margin-left:0;width:100%}
+  .progress-bar{width:80px}
+}
+@media(max-width:400px){
+  .stats-row{grid-template-columns:repeat(2,1fr)}
+}
 </style>
 </head>
 <body>
 
+<!-- CONFIG -->
 <div id="config-screen">
   <div class="config-card">
     <h1>🎯 CRM Prospecção</h1>
     <p>Cole o token da integração Notion para carregar os leads de <strong>Crespos & Cachos</strong>.</p>
     <hr class="divider">
-    <p style="font-size:13px;font-weight:600;margin-bottom:1rem">Como gerar o token (só 1x):</p>
+    <p style="font-size:12px;font-weight:600;margin-bottom:.75rem">Como gerar o token (só 1x):</p>
     <div class="step"><div class="step-num">1</div><p>Acesse <a href="https://www.notion.so/my-integrations" target="_blank">notion.so/my-integrations</a> → <strong>"New integration"</strong> → salve</p></div>
     <div class="step"><div class="step-num">2</div><p>Copie o <strong>Internal Integration Token</strong> (começa com <code>ntn_</code>)</p></div>
-    <div class="step"><div class="step-num">3</div><p>No Notion, abra <strong>📋 Lista de Prospecção</strong> → <strong>⋯ → Connections</strong> → conecte a integração</p></div>
+    <div class="step"><div class="step-num">3</div><p>No Notion, abra <strong>📋 Lista de Prospecção</strong> → <strong>⋯ → Connections</strong> → conecte</p></div>
     <hr class="divider">
     <label for="token-input">Token da integração</label>
     <input type="password" id="token-input" placeholder="ntn_xxxxxxxxxxxxxxxxxxxx" autocomplete="off">
@@ -102,6 +215,7 @@
   </div>
 </div>
 
+<!-- APP -->
 <div id="app-screen">
   <div class="app-header">
     <div class="app-title"><span class="dot"></span>Prospecção — Crespos & Cachos</div>
@@ -110,20 +224,51 @@
       <button class="btn-sm" onclick="trocarToken()">⚙ Config</button>
     </div>
   </div>
-  <div class="stats">
-    <div class="stat s-muted"><div class="num" id="s-total">—</div><div class="lbl">total</div></div>
+
+  <div class="stats-row">
+    <div class="stat"><div class="num" id="s-total">—</div><div class="lbl">total</div></div>
     <div class="stat"><div class="num" id="s-contatar">—</div><div class="lbl">a contatar</div></div>
-    <div class="stat s-warn"><div class="num" id="s-andamento">—</div><div class="lbl">em andamento</div></div>
-    <div class="stat s-ok"><div class="num" id="s-prospectado">—</div><div class="lbl">prospectados</div></div>
+    <div class="stat s-orange"><div class="num" id="s-andamento">—</div><div class="lbl">andamento</div></div>
+    <div class="stat s-green"><div class="num" id="s-prospectado">—</div><div class="lbl">prospectados</div></div>
+    <div class="stat s-red"><div class="num" id="s-nao-resp">—</div><div class="lbl">não respondeu</div></div>
   </div>
-  <div class="filters">
+
+  <div class="day-banner">
+    <div>Abordagens hoje: <strong id="day-count">0</strong> <span style="font-weight:400;color:#aaa">/ meta: 10</span></div>
+    <div class="day-progress">
+      <div class="progress-bar"><div class="progress-fill" id="day-progress-fill" style="width:0%"></div></div>
+      <span id="day-pct" style="font-size:11px;color:#aaa">0%</span>
+    </div>
+  </div>
+
+  <div class="toolbar">
     <button class="f-btn active" onclick="setFilter('todos',this)">Todos</button>
     <button class="f-btn" onclick="setFilter('📋 A Contatar',this)">A Contatar</button>
-    <button class="f-btn" onclick="setFilter('🔄 Em Andamento',this)">Em Andamento</button>
+    <button class="f-btn" onclick="setFilter('🔄 Em Andamento',this)">Andamento</button>
     <button class="f-btn" onclick="setFilter('✅ Prospectado',this)">Prospectados</button>
     <button class="f-btn" onclick="setFilter('❌ Não Respondeu',this)">Não Respondeu</button>
-    <button class="f-btn f-t2" onclick="setFilter('tier:T2',this)">Só T2 (WhatsApp)</button>
+    <button class="f-btn f-t1" onclick="setFilter('tier:T1',this)">T1</button>
+    <button class="f-btn f-t2" onclick="setFilter('tier:T2',this)">T2</button>
+    <button class="f-btn f-t3" onclick="setFilter('tier:T3',this)">T3</button>
+    <button class="f-btn f-hoje" onclick="setFilter('hoje',this)">📅 Hoje</button>
+    <select class="sort-select" onchange="setSort(this.value)" aria-label="Ordenar">
+      <option value="data">↑ Data</option>
+      <option value="tier">Tier (T1 primeiro)</option>
+      <option value="seg">Seguidores</option>
+      <option value="nome">Nome A–Z</option>
+    </select>
   </div>
+
+  <div class="toolbar" style="margin-top:-.3rem;margin-bottom:.85rem">
+    <div class="date-filter">
+      <span>De</span>
+      <input type="date" id="date-from" onchange="renderLeads()">
+      <span>até</span>
+      <input type="date" id="date-to" onchange="renderLeads()">
+      <button class="btn-clear-date" onclick="clearDates()">✕ limpar</button>
+    </div>
+  </div>
+
   <div id="list-area"></div>
   <p class="count-info" id="count-info"></p>
 </div>
@@ -131,33 +276,37 @@
 <script>
 const DB_ID='f0ba744e-e86f-4402-9ed8-0e6afc18b11d';
 const TOKEN_KEY='notion_crm_token';
-let allLeads=[],currentFilter='todos';
+const MARKER_KEY='crm_marker_id';
+const META_DIA=10;
+
+let allLeads=[],currentFilter='todos',currentSort='data';
+let markedId=localStorage.getItem(MARKER_KEY)||null;
+let pendingObs={};
+let anterioresOpen=false;
 
 function getToken(){return localStorage.getItem(TOKEN_KEY)||'';}
 
 function salvarEEntrar(){
   const t=document.getElementById('token-input').value.trim();
   if(!t){alert('Cole o token antes de continuar.');return;}
-  localStorage.setItem(TOKEN_KEY,t);
-  mostrarApp();
+  localStorage.setItem(TOKEN_KEY,t);mostrarApp();
 }
-
 function trocarToken(){
   document.getElementById('app-screen').style.display='none';
   document.getElementById('config-screen').style.display='flex';
   document.getElementById('token-input').value=getToken();
 }
-
 function mostrarApp(){
   document.getElementById('config-screen').style.display='none';
   document.getElementById('app-screen').style.display='block';
   loadLeads();
 }
-
 window.addEventListener('DOMContentLoaded',()=>{
   const t=getToken();
   if(t){document.getElementById('token-input').value=t;mostrarApp();}
 });
+
+function todayStr(){return new Date().toISOString().slice(0,10);}
 
 async function loadLeads(){
   const token=getToken();
@@ -169,18 +318,14 @@ async function loadLeads(){
     do{
       const body={page_size:100,sorts:[{property:'Data de Prospecção',direction:'ascending'}]};
       if(cursor)body.start_cursor=cursor;
-      const res=await fetch('/api/notion',{
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({token,action:'query',dbId:DB_ID,body})
-      });
+      const res=await fetch('/api/notion',{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({token,action:'query',dbId:DB_ID,body})});
       if(res.status===401){mostrarErro('Token inválido. <button onclick="trocarToken()" style="color:#991b1b;background:none;border:none;cursor:pointer;text-decoration:underline">Reconfigurar</button>');return;}
-      if(res.status===403){mostrarErro('Permissão negada. Conecte a integração ao banco no Notion: ⋯ → Connections.');return;}
+      if(res.status===403){mostrarErro('Permissão negada. Conecte a integração ao banco no Notion (⋯ → Connections).');return;}
       const data=await res.json();
       if(!data.results){mostrarErro('Erro do Notion: '+(data.message||JSON.stringify(data)));return;}
       results=results.concat(data.results);
-      cursor=data.has_more?data.next_cursor:undefined;
-      pages++;
+      cursor=data.has_more?data.next_cursor:undefined;pages++;
     }while(cursor&&pages<15);
 
     allLeads=results.map(p=>{
@@ -198,9 +343,16 @@ async function loadLeads(){
         data:pr['Data de Prospecção']?.date?.start||''
       };
     });
-    atualizarStats();
-    renderLeads();
+    atualizarStats();renderLeads();
     document.getElementById('count-info').textContent=allLeads.length+' leads carregados';
+
+    // scroll até o marcador automaticamente
+    if(markedId){
+      setTimeout(()=>{
+        const el=document.getElementById('fila-inicio');
+        if(el)el.scrollIntoView({behavior:'smooth',block:'start'});
+      },300);
+    }
   }catch(e){mostrarErro('Erro: '+e.message);}
 }
 
@@ -209,10 +361,17 @@ function mostrarErro(msg){
 }
 
 function atualizarStats(){
+  const hoje=todayStr();
   document.getElementById('s-total').textContent=allLeads.length;
   document.getElementById('s-contatar').textContent=allLeads.filter(l=>l.status.includes('A Contatar')||l.status==='PAREI AQUI').length;
   document.getElementById('s-andamento').textContent=allLeads.filter(l=>l.status.includes('Em Andamento')).length;
   document.getElementById('s-prospectado').textContent=allLeads.filter(l=>l.status.includes('Prospectado')).length;
+  document.getElementById('s-nao-resp').textContent=allLeads.filter(l=>l.status.includes('Não Respondeu')).length;
+  const abordados=allLeads.filter(l=>l.data===hoje&&!l.status.includes('A Contatar')&&l.status!=='PAREI AQUI').length;
+  document.getElementById('day-count').textContent=abordados;
+  const pct=Math.min(100,Math.round(abordados/META_DIA*100));
+  document.getElementById('day-progress-fill').style.width=pct+'%';
+  document.getElementById('day-pct').textContent=pct+'%';
 }
 
 function setFilter(f,btn){
@@ -221,7 +380,34 @@ function setFilter(f,btn){
   btn.classList.add('active');
   renderLeads();
 }
+function setSort(v){currentSort=v;renderLeads();}
+function clearDates(){
+  document.getElementById('date-from').value='';
+  document.getElementById('date-to').value='';
+  renderLeads();
+}
 
+function setMarker(id){
+  if(markedId===id){
+    // remove marcador
+    markedId=null;
+    localStorage.removeItem(MARKER_KEY);
+  } else {
+    markedId=id;
+    localStorage.setItem(MARKER_KEY,id);
+  }
+  renderLeads();
+}
+
+function toggleAnteriores(){
+  anterioresOpen=!anterioresOpen;
+  const sec=document.getElementById('anteriores-section');
+  const tog=document.getElementById('anteriores-toggle');
+  if(sec)sec.classList.toggle('open',anterioresOpen);
+  if(tog)tog.classList.toggle('open',anterioresOpen);
+}
+
+function tierOrder(t){if(t.includes('T1'))return 0;if(t.includes('T2'))return 1;if(t.includes('T3'))return 2;return 3;}
 function tierClass(t){if(t.includes('T1'))return 't1';if(t.includes('T2'))return 't2';if(t.includes('T3'))return 't3';return '';}
 function statusPillClass(s){
   if(s.includes('A Contatar')||s==='PAREI AQUI')return 'sp-contatar';
@@ -237,28 +423,22 @@ function formatSeg(n){if(n>=1000)return(n/1000).toFixed(1).replace('.',',')+'k';
 function formatData(d){if(!d)return '';return d.slice(5).split('-').reverse().join('/');}
 function statusLabel(s){return s.replace(/📋|🔄|✅|❌|🚫/g,'').trim();}
 
-function renderLeads(){
-  let leads=[...allLeads];
-  if(currentFilter==='tier:T2')leads=leads.filter(l=>l.tier.includes('T2'));
-  else if(currentFilter!=='todos')leads=leads.filter(l=>l.status===currentFilter);
+function buildCard(l,showMarkerBtn){
+  const hoje=todayStr();
+  const waNum=formatWa(l.whatsapp);
+  const waLink=waNum?`https://wa.me/${waNum}`:'';
+  const igHandle=l.instagram.replace(/^@/,'').replace(/\s/g,'');
+  const igLink=igHandle?`https://instagram.com/${igHandle}`:'';
+  const done=l.status.includes('Prospectado')||l.status.includes('Sem Interesse')||l.status==='NÃO FAZ O PERFIL DA EMPRESSA';
+  const tierLbl=l.tier.replace(/🟢|🟡|🔵/g,'').trim();
+  const isHoje=l.data===hoje;
+  const isMarked=markedId===l.id;
+  const obsVal=(pendingObs[l.id]!==undefined)?pendingObs[l.id]:l.obs;
 
-  if(!leads.length){
-    document.getElementById('list-area').innerHTML='<div class="empty-state">Nenhum lead neste filtro.</div>';
-    return;
-  }
-
-  const html=leads.map(l=>{
-    const waNum=formatWa(l.whatsapp);
-    const waLink=waNum?`https://wa.me/${waNum}`:'';
-    const igHandle=l.instagram.replace(/^@/,'').replace(/\s/g,'');
-    const igLink=igHandle?`https://instagram.com/${igHandle}`:'';
-    const done=l.status.includes('Prospectado')||l.status.includes('Sem Interesse')||l.status==='NÃO FAZ O PERFIL DA EMPRESSA';
-    const tierLbl=l.tier.replace(/🟢|🟡|🔵/g,'').trim();
-
-    return`<div class="lead-card${done?' done':''}" id="card-${l.id}">
+  return`<div class="lead-card${done?' done':''}${isHoje?' card-hoje':''}" id="card-${l.id}">
   <div class="lead-top">
     <div style="flex:1;min-width:0">
-      <div class="lead-name">${l.nome}</div>
+      <div class="lead-name">${l.nome}${isHoje?` <span style="font-size:9px;background:#e3f2fd;color:#1565c0;padding:1px 6px;border-radius:10px;font-weight:500;vertical-align:middle">hoje</span>`:''}</div>
       ${igHandle?`<div class="lead-handle">@${igHandle}</div>`:''}
     </div>
     <div class="badges">
@@ -273,15 +453,15 @@ function renderLeads(){
   </div>
   <div class="lead-actions">
     ${waLink?`<a class="btn-wa" href="${waLink}" target="_blank" rel="noopener">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/></svg>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/></svg>
       WhatsApp ${l.whatsapp?`<span class="num-hint">${l.whatsapp}</span>`:''}
-    </a>`:`<span class="no-wa">📵 Sem WhatsApp</span>`}
+    </a>`:`<span class="no-wa">📵 Sem número</span>`}
     ${igLink?`<a class="btn-ig" href="${igLink}" target="_blank" rel="noopener">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
       Instagram
     </a>`:''}
     <select class="status-select" onchange="updateStatus('${l.id}',this)" aria-label="Alterar status">
-      <option value="">Alterar status…</option>
+      <option value="">Status…</option>
       <option value="📋 A Contatar"${l.status==='📋 A Contatar'?' selected':''}>📋 A Contatar</option>
       <option value="🔄 Em Andamento"${l.status==='🔄 Em Andamento'?' selected':''}>🔄 Em Andamento</option>
       <option value="✅ Prospectado"${l.status==='✅ Prospectado'?' selected':''}>✅ Prospectado</option>
@@ -289,12 +469,131 @@ function renderLeads(){
       <option value="🚫 Sem Interesse"${l.status==='🚫 Sem Interesse'?' selected':''}>🚫 Sem Interesse</option>
       <option value="SEM WHATS"${l.status==='SEM WHATS'?' selected':''}>Sem WhatsApp</option>
     </select>
+    ${showMarkerBtn?`<button class="btn-marker${isMarked?' is-marked':''}" onclick="setMarker('${l.id}')" title="Marcar ponto de parada">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      ${isMarked?'📍 Marcado':'Parei aqui'}
+    </button>`:''}
   </div>
-  ${l.obs?`<div class="obs-row">📝 ${l.obs}</div>`:''}
+  <div class="obs-section">
+    <div class="obs-label">📝 Observações</div>
+    <textarea class="obs-textarea" id="obs-${l.id}" rows="2" placeholder="Anotação rápida…" onInput="obsChanged('${l.id}',this)">${obsVal}</textarea>
+    <div class="obs-actions">
+      <button class="btn-obs-save" id="obs-save-${l.id}" onclick="saveObs('${l.id}')">Salvar nota</button>
+    </div>
+    <div class="obs-saved" id="obs-saved-${l.id}">✓ Salvo no Notion</div>
+  </div>
 </div>`;
-  }).join('');
+}
 
-  document.getElementById('list-area').innerHTML=`<div class="lead-list">${html}</div>`;
+function renderLeads(){
+  const hoje=todayStr();
+  const dateFrom=document.getElementById('date-from').value;
+  const dateTo=document.getElementById('date-to').value;
+
+  let leads=[...allLeads];
+
+  // filtros
+  if(currentFilter==='tier:T1')leads=leads.filter(l=>l.tier.includes('T1'));
+  else if(currentFilter==='tier:T2')leads=leads.filter(l=>l.tier.includes('T2'));
+  else if(currentFilter==='tier:T3')leads=leads.filter(l=>l.tier.includes('T3'));
+  else if(currentFilter==='hoje')leads=leads.filter(l=>l.data===hoje);
+  else if(currentFilter!=='todos')leads=leads.filter(l=>l.status===currentFilter);
+
+  if(dateFrom)leads=leads.filter(l=>l.data>=dateFrom);
+  if(dateTo)leads=leads.filter(l=>l.data<=dateTo);
+
+  // ordenação
+  leads.sort((a,b)=>{
+    if(currentSort==='tier')return tierOrder(a.tier)-tierOrder(b.tier);
+    if(currentSort==='seg')return b.seguidores-a.seguidores;
+    if(currentSort==='nome')return a.nome.localeCompare(b.nome,'pt');
+    return (a.data||'').localeCompare(b.data||'');
+  });
+
+  if(!leads.length){
+    document.getElementById('list-area').innerHTML='<div class="empty-state">Nenhum lead neste filtro.</div>';
+    return;
+  }
+
+  // Dividir em anteriores / fila com base no marcador
+  const markerIdx=markedId?leads.findIndex(l=>l.id===markedId):-1;
+
+  let html='';
+
+  if(markerIdx>0){
+    // leads ANTES do marcador → seção recolhida
+    const anteriores=leads.slice(0,markerIdx);
+    const fila=leads.slice(markerIdx);
+
+    html+=`<div class="anteriores-toggle${anterioresOpen?' open':''}" id="anteriores-toggle" onclick="toggleAnteriores()">
+      <span>📁 Leads já trabalhados</span>
+      <span class="ant-count">${anteriores.length}</span>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="anteriores-section${anterioresOpen?' open':''}" id="anteriores-section">
+      <div class="lead-list">${anteriores.map(l=>buildCard(l,true)).join('')}</div>
+    </div>`;
+
+    html+=`<div class="marker-divider" id="fila-inicio">
+      <div class="marker-label">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        📍 Parei aqui — ${fila.length} leads na fila
+      </div>
+    </div>`;
+
+    html+=`<div class="lead-list">${fila.map(l=>buildCard(l,true)).join('')}</div>`;
+
+  } else if(markerIdx===0){
+    // marcador no primeiro → tudo é fila
+    html+=`<div class="marker-divider" id="fila-inicio">
+      <div class="marker-label">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        📍 Início — ${leads.length} leads na fila
+      </div>
+    </div>`;
+    html+=`<div class="lead-list">${leads.map(l=>buildCard(l,true)).join('')}</div>`;
+
+  } else {
+    // sem marcador → lista normal com botão em cada card
+    html+=`<div class="lead-list">${leads.map(l=>buildCard(l,true)).join('')}</div>`;
+  }
+
+  document.getElementById('list-area').innerHTML=html;
+}
+
+function obsChanged(id,el){
+  pendingObs[id]=el.value;
+  const btn=document.getElementById('obs-save-'+id);
+  if(btn)btn.classList.add('visible');
+  const saved=document.getElementById('obs-saved-'+id);
+  if(saved)saved.style.display='none';
+}
+
+async function saveObs(id){
+  const token=getToken();
+  const textarea=document.getElementById('obs-'+id);
+  const btn=document.getElementById('obs-save-'+id);
+  const savedEl=document.getElementById('obs-saved-'+id);
+  if(!textarea)return;
+  const newObs=textarea.value;
+  if(btn){btn.textContent='Salvando…';btn.disabled=true;}
+  try{
+    const res=await fetch('/api/notion',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({token,action:'updateObs',pageId:id,obs:newObs})});
+    if(res.ok){
+      const lead=allLeads.find(l=>l.id===id);
+      if(lead)lead.obs=newObs;
+      delete pendingObs[id];
+      if(btn){btn.classList.remove('visible');btn.textContent='Salvar nota';btn.disabled=false;}
+      if(savedEl){savedEl.style.display='block';setTimeout(()=>savedEl.style.display='none',2500);}
+    }else{
+      if(btn){btn.textContent='Salvar nota';btn.disabled=false;}
+      alert('Erro ao salvar observação.');
+    }
+  }catch(e){
+    if(btn){btn.textContent='Salvar nota';btn.disabled=false;}
+    alert('Erro: '+e.message);
+  }
 }
 
 async function updateStatus(pageId,sel){
@@ -305,11 +604,8 @@ async function updateStatus(pageId,sel){
   if(card)card.classList.add('saving');
   sel.disabled=true;
   try{
-    const res=await fetch('/api/notion',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({token,action:'update',pageId,status:newStatus})
-    });
+    const res=await fetch('/api/notion',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({token,action:'update',pageId,status:newStatus})});
     if(res.ok){
       const lead=allLeads.find(l=>l.id===pageId);
       if(lead){lead.status=newStatus;atualizarStats();renderLeads();}
